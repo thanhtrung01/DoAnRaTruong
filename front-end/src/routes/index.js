@@ -1,8 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import HomePage from "../pages/Home";
-import NotePage from "../pages/Note";
-import ErrorPage from "../pages/NotFound";
+import HomePage from "../pages/HomePage/Home";
+import ErrorPage from "../pages/NotFound/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -13,10 +12,6 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
-      },
-      {
-        path: "/note",
-        element: <NotePage />,
       },
     ],
   },
