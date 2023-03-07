@@ -1,0 +1,35 @@
+GET http://localhost:5000/api/v1/categories
+###
+POST http://localhost:5000/api/v1/auth/login
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTRiN2QwOGY4YWZmMzNmMDFjMTM3ZSIsImlhdCI6MTY0OTcxOTI0OCwiZXhwIjoxNjQ5NzE5MjU4fQ.Drl6qqxNSeCPBHt7kcNhGpJWm2-gJ8L-P3KGHVrgTzQ
+
+{
+    "email" : "nhut001@gmail.com",
+    "password" : "thanhnhut01"
+}
+###
+POST http://localhost:5000/api/v1/auth/register
+
+{
+    "username" : "Thanh Tu",
+    "email" : "trung005@gmail.com",
+    "password" : "thanhtrung01",
+    "status" : "true",
+}
+
+###
+GET http://localhost:5000/api/v1/products/
+###
+POST http://localhost:5000/api/v1/products/create-product
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTRiN2QwOGY4YWZmMzNmMDFjMTM3ZSIsImlhdCI6MTY0OTcxOTI0OCwiZXhwIjoxNjQ5NzE5MjU4fQ.Drl6qqxNSeCPBHt7kcNhGpJWm2-gJ8L-P3KGHVrgTzQ
+# Content-Type: application/json; charset=utf-8
+
+{
+    "code" : "MT006",
+    "title" : "Samsung note7",
+    "description" : "Hello world",
+    "price" : "5000000",
+    "image" : "https://cdn.tgdd.vn/Products/Images/42/269831/Xiaomi-redmi-note-11-black-600x600.jpeg",
+    "idCategory" : "6253ac8ccfc03d56503a312c",
+    "status" : "true",
+}
