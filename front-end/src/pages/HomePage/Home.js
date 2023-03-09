@@ -1,7 +1,12 @@
 import React from "react";
+import BoardContent from "../../components/Board";
 
 const Home = () => {
-  return <div>Home Page</div>;
+  return (
+    <div>
+      <BoardContent />
+    </div>
+  );
 };
 
 export default Home;
