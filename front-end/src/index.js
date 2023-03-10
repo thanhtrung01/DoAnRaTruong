@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./assets/scss/reset.scss";
+import "./assets/scss/_variables.scss";
+
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes";
