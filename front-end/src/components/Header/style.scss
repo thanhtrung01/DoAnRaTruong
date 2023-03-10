@@ -17,5 +17,7 @@ $height-navbar: 45px;
   position: relative;
   width: 100%;
   height: calc($height-header - $height-navbar);
+  background-color: black;
+  color: white;
   background-color: aqua;
 }

@@ -1,6 +1,12 @@
 @import "../../assets/scss/variables";
 
 .sidebar {
+  position: sticky;
+  // top: $height-header;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  background-color: antiquewhite;
   position: fixed;
   top: $height-header;
   height: 100%;
