@@ -7,9 +7,6 @@ const Home = () => {
       <BoardContent />
     </div>
   );
-
-const Home = () => {
-  return <div>Home Page</div>;
 };
 
 export default Home;
