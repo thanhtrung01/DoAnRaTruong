@@ -1,0 +1,22 @@
+@import "../../assets/scss/variables";
+$height-navbar: 45px;
+
+.header {
+  text-align: center;
+  max-width: 100%;
+  height: $height-header;
+  background-color: aliceblue;
+}
+.navbar {
+  width: 100%;
+  height: $height-navbar;
+  background-color: aquamarine;
+}
+
+.board-header {
+  position: relative;
+  width: 100%;
+  height: calc($height-header - $height-navbar);
+  background-color: black;
+  color: white;
+}

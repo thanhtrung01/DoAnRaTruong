@@ -16,3 +16,18 @@ $md: 768px; //  ≥768px
 $lg: 992px; //  ≥992px
 $xl: 1200px; //  ≥1200px
 $xxl: 1400px; //  ≥1400px
+
+// Header
+$height-header: 135px;
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+
+$gap: 10px;
+
+$board-content-height: 89vh;
+
+$column-border-radius: 4px;
+
+$common-element-bg: rgba(255, 255, 255, 0.24);
+$board-bg-color: #0079bf;
+$column-bg-color: #ebecf8;
