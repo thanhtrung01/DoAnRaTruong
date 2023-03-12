@@ -1,5 +1,12 @@
 @import "../../assets/scss/variables";
 
+.wrapper {
+  display: flex;
+}
+.board-container {
+  width: 100%;
+}
+
 .board-content {
   display: flex;
   margin-left: auto;
