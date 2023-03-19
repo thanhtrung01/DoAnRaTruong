@@ -1,4 +1,6 @@
 const Product = require('../models/Product');
+const bcrypt = require('bcrypt');
+const fs = require('fs');
 
 const CTRL = {};
 
@@ -60,7 +62,8 @@ CTRL.getProduct = (req, res) => {
 //Tạo mới sản phẩm
 CTRL.createProduct = (req, res, next) => {
 	// console.log('request', req.body);
-	const newProduct = new Product({
+	const images_url = req.files.map(image => image.path);
+	let newProduct = new Product({
 		code: req.body.code,
 		title: req.body.title,
 		description: req.body.description,
@@ -70,10 +73,11 @@ CTRL.createProduct = (req, res, next) => {
 		status: req.body.status,
 		idCategory: req.body.idCategory,
 		quantity: req.body.quantity,
+		imageProduct: images_url
 	});
-	if (req.file) {
-		newProduct.imageProduct = req.file.path;
-	}
+	// if (req.file) {
+	// 	newProduct.imageProduct = req.file.path;
+	// }
 	newProduct.save((err, product) => {
 		if (err) {
 			return res.status(500).json({

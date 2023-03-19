@@ -34,8 +34,9 @@ const ProductSchema = new Schema(
 			required: true,
 		},
 		imageProduct: {
-			type: String,
-			maxlength: 512,
+			type: Array,
+			required: true,
+			default: []
 		},
 		status: {
 			type: Boolean,

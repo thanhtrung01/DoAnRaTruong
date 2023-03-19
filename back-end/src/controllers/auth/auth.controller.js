@@ -34,7 +34,8 @@ CTRL.login = (req, res) => {
             }
 
             let token = jwt.sign({ data: user }, config.ACCESS_TOKEN_SECRET, {
-                expiresIn: '2h',
+                expiresIn: '25s',
+                // httpOnly: true,
             });
 
             return res.status(201).json({
@@ -85,11 +86,12 @@ CTRL.resetPassword = async(req, res) => {
 
 CTRL.logout = async(req, res) => {
     try {
-        res.clearCookie('refreshtoken', {
-            path: '/api/auth/refresh_token',
-            httpOnly: true,
-        });
-
+        // res.clearCookie('refreshtoken', {
+        //     path: '/api/auth/refresh_token',
+        //     httpOnly: true,
+        // });
+        res.clearCookie("refresh_token");
+        res.redirect("/");
         return res.status(200).json({
             msg: 'Logged out!',
         });
