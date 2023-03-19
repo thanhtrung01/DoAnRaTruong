@@ -2,16 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./assets/scss/reset.scss";
 import "./assets/scss/_variables.scss";
-
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={router}></RouterProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
