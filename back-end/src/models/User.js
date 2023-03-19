@@ -40,6 +40,7 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       trim: true,
+      unique: true,
       minlength: 8,
       validate(value) {
         if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
@@ -60,10 +61,6 @@ const UserSchema = new Schema(
     avatar: {
       type: String,
       maxlength: 600,
-    },
-    isAdmin: {
-      type: Number,
-      default: 0,
     },
     role: {
       type: Boolean,

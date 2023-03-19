@@ -1,17 +1,16 @@
 @import "../../assets/scss/variables";
 
-
 //   position: fixed;
 //   top: $height-header;
 //   height: 100%;
 //   width: 260px;
- 
+
 // }
 
 :root {
   --header-height: 3rem;
   --nav-width: 24px;
-  --first-color: hsla(202,10%,15.7%,0.9);
+  --first-color: hsla(202, 10%, 15.7%, 0.9);
   --first-color-alt: #fff;
   --white-color: #ffddee;
 }
@@ -24,10 +23,10 @@
   height: 100%;
   background: #f1f1f1;
 
-  border-right: 1px solid rgba(0, 0, 0 , 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
-.sidebar nav.hide{
+.sidebar nav.hide {
   width: 0;
 }
 .sidebar nav ul {
@@ -35,7 +34,7 @@
   list-style: none;
   overflow: hidden;
 }
-.sidebar nav ul li a{
+.sidebar nav ul li a {
   width: 100%;
   color: #1e90ff;
   font-size: 1.2rem;
@@ -51,14 +50,14 @@
   font-size: 1.2rem;
   transition: linear 0.2s;
 }
-.sidebar nav ul li a:hover{
+.sidebar nav ul li a:hover {
   background: #1e90ff;
   color: white;
 }
 .sidebar nav ul li a:hover i {
   color: white;
 }
-.content{
+.content {
   position: absolute;
   top: 0;
   left: 250px;
@@ -70,16 +69,16 @@
   padding: 20px;
   transition: ease-in-out 0.5s;
 }
-.content.expand{
+.content.expand {
   width: 100%;
   left: 0;
 }
-.content h2{
+.content h2 {
   font-size: 4.5em;
   color: #1e90ff;
   text-transform: uppercase;
 }
-.sidebar nav .header-toggle{
+.sidebar nav .header-toggle {
   position: absolute;
   top: 20px;
   right: -46px;
@@ -99,7 +98,7 @@
   font-size: 1.5em;
   transition: linear 0.2s;
 }
-.sidebar nav .header-toggle:hover{
+.sidebar nav .header-toggle:hover {
   background: #1e90ff;
   padding: 2pc 2pc;
   background: red;
@@ -111,9 +110,6 @@
 //   padding:0  5px;
 //     background: rebeccapurple;
 // }
-
-
-
 
 a {
   text-decoration: none;
@@ -128,18 +124,17 @@ main {
   margin: var(--header-height) 0 0 0;
   padding: 0 1rem;
   font-size: 1rem;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   transition: 0.5s;
 }
 
-
 .header-toggle {
   font-size: 1.25rem;
-    cursor: pointer;
-    color: #fff;
-    margin-left: 2px;
-    float: right;
-    margin-right: 5px;
+  cursor: pointer;
+  color: #fff;
+  margin-left: 2px;
+  float: right;
+  margin-right: 5px;
 }
 
 .sidebaras {
@@ -164,9 +159,9 @@ main {
 .nav-logo,
 .nav-link {
   display: grid;
-    grid-template-columns: max-content max-content;
-    column-gap: 6px;
-    padding: 1pc 95px 0pc 11px;
+  grid-template-columns: max-content max-content;
+  column-gap: 6px;
+  padding: 1pc 95px 0pc 11px;
 }
 
 .nav-logo {
@@ -194,11 +189,10 @@ main {
 }
 
 .nav-link:hover {
-  color:#fff;
+  color: #fff;
   background-color: rgba(0, 0, 0, 0.2);
   padding-bottom: 5px;
   padding-top: -50px;
-
 }
 
 // .hover .hovera:hover{
@@ -217,8 +211,6 @@ main {
 }
 
 @media screen and (min-width: 768px) {
-
-
   .sidebaras {
     left: 0;
     padding: 1rem 0 0 0;
@@ -234,11 +226,12 @@ main {
   }
 }
 
-
-
-.icon a{
+.icon a {
   padding: 3px 10px;
-  background: linear-gradient(var(--ds-background-accent-purple-bolder, #403294), var(--ds-background-accent-blue-bolder, #0747a6));
+  background: linear-gradient(
+    var(--ds-background-accent-purple-bolder, #403294),
+    var(--ds-background-accent-blue-bolder, #0747a6)
+  );
   color: #fff;
   font-size: 29px;
   border-radius: 5px;

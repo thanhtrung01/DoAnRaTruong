@@ -308,7 +308,8 @@ $height-navbar: 45px;
 .board-header {
 	position: relative;
 	width: 100%;
-	height: calc($height-header - $height-navbar);
-	background-color: black;
+	text-align: center;
+	height: $height-board-header;
+	background-color: green;
 	color: white;
 }

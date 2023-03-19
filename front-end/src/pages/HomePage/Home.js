@@ -1,5 +1,5 @@
 import React from "react";
-import BoardContent from "../../components/Board";
+import BoardContent from "../../components/Board/Board";
 
 const Home = () => {
   return (

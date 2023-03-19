@@ -29,13 +29,13 @@ const Header = () => {
 								fill="currentColor"
 							></path>
 						</svg>
-						<div className="dots-absolute">
+						{/* <div className="dots-absolute">
 							<div className="dots-title">
 								<p>Bắt đầu sử dụng sản phẩm Atlassiasdasd</p>
 								<NoteIcon />
 							</div>
 							<DotsContent />
-						</div>
+						</div> */}
 					</div>
 					<div className="navbar-logo g-hover-header">
 						<img src={LogoTrello} alt="" />
@@ -74,7 +74,6 @@ const Header = () => {
 					<div className="navbar-avatar">NT</div>
 				</div>
 			</nav>
-			<div className="board-header">Board header</div>
 		</header>
 	);
 };

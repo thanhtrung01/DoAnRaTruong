@@ -19,9 +19,6 @@ $lg: 992px; //  ≥992px
 $xl: 1200px; //  ≥1200px
 $xxl: 1400px; //  ≥1400px
 
-// Header
-$height-header: 135px;
-
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
 
 body {
@@ -29,7 +26,8 @@ body {
 }
 
 $gap: 10px;
-
+$height-header: 44px;
+$height-board-header: 48px;
 $board-content-height: 89vh;
 
 $column-border-radius: 4px;
