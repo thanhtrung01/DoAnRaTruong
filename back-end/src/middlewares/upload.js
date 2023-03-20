@@ -12,7 +12,7 @@ var storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "to-do-app",
-    allowed_formats: ["jpg", "png", "jpeg", "gif"] // supports promises as well
+    allowed_formats: ["jpg", "png", "jpeg", "gif", "jpeg"] // supports promises as well
   }
 });
 

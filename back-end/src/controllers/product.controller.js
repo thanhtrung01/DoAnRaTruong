@@ -21,10 +21,27 @@ CTRL.getProducts = (req, res) => {
 			});
 		});
 };
-
-// Tìm kiếm sản phẩm theo Tên
+// Tìm kiếm sản phẩm theo Tên ở params
+CTRL.searchProductParams = (req, res) => {
+	var searchName = req.params.title;
+	Product.find({ title: { $regex: searchName("keyword"), $options: '$i' } })
+		.sort('-created_at')
+		.exec((err, products) => {
+			if (err) {
+				return res.status(500).json({
+					ok: false,
+					err,
+				});
+			}
+			res.json({
+				ok: true,
+				products,
+			});
+		});
+};
+// Tìm kiếm sản phẩm theo Tên ở body
 CTRL.searchProduct = (req, res) => {
-	Product.find({ title: { $regex: req.body.title, $options: '$i' } })
+	Product.find({ title: { $regex: req.params.title, $options: '$i' } })
 		.sort('-created_at')
 		.exec((err, products) => {
 			if (err) {
