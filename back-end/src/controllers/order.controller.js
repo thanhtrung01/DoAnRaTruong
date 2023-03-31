@@ -1,5 +1,5 @@
-const Order = require('../models/Order');
-const Product = require('../models/Product');
+const Order = require('../models/Order.models');
+const Product = require('../models/Product.models');
 
 const CTRL = {};
 //Lấy dữ liệu đơn hàng từ người dùng

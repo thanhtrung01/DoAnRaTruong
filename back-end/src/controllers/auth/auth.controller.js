@@ -1,5 +1,5 @@
 const config = require('../../config/config');
-const User = require('../../models/User');
+const User = require('../../models/User.models');
 
 const CTRL = {};
 
@@ -34,7 +34,7 @@ CTRL.login = (req, res) => {
             }
 
             let token = jwt.sign({ data: user }, config.ACCESS_TOKEN_SECRET, {
-                expiresIn: '25s',
+                expiresIn: '30m',
                 // httpOnly: true,
             });
 
@@ -56,8 +56,16 @@ CTRL.register = async(req, res) => {
 	}
     const refresh_token = createAccessToken({ id: newUser._id });
     try {
-        const savedUser = await newUser.save();
-        res.status(200).json({ refresh_token });
+        const user = await newUser.save();
+        res.status(200).json({ 
+            oke: true,
+            user: {
+                username: req.body.username, 
+                phone: req.body.phone, 
+                address: req.body.address
+            },
+            refresh_token });
+        return user;
     } catch (err) {
         console.log(err);
         res.status(500).json(err, {
@@ -67,7 +75,7 @@ CTRL.register = async(req, res) => {
     }
 };
 
-//Quên mật khẩu
+//cài lại mật khẩu
 CTRL.resetPassword = async(req, res) => {
     try {
         const { password } = req.body;

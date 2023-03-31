@@ -1,15 +1,16 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const path = require('path');
-
+const swaggerUi = require('swagger-ui-express');
 // Middleware setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const { Cors } = require('./middlewares/cors');
-
+const swaggerDocument = require('./api/swagger.json')
+app.use("/test-api", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(Cors);
 
 app.use(express.json());

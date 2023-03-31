@@ -1,0 +1,407 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"_postman_id": "d7d7668d-da9a-4c56-b0fc-40ae4dcf3aa0",
+		"name": "Project_todoapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "16665233",
+		"title": "Test API",
+		"description": "Xin vui lòng test API trong này",
+		"version": "1.0.0"
+	},
+	"servers": {
+		"url": "http: //localhost:5000",
+		"description": "SwaggerHub API Auto Mocking"
+	},
+	"security": {
+		"accessCode": ["read", "write"]
+	},
+
+	"item": [{
+			"name": "product",
+			"item": [{
+					"name": "findID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/api/v1/products/6256e91d14b8c5237cd17a86"
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"event": [{
+						"listen": "test",
+						"script": {
+							"exec": [
+								""
+							],
+							"type": "text/javascript"
+						}
+					}],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/api/v1/products"
+					},
+					"response": []
+				},
+				{
+					"name": "search-body",
+					"event": [{
+						"listen": "test",
+						"script": {
+							"exec": [
+								"pm.test(\"Status code is 201\", function () {\r",
+								"  pm.response.to.have.status(200);\r",
+								"});"
+							],
+							"type": "text/javascript"
+						}
+					}],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:5000/api/v1/products/search"
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"event": [{
+						"listen": "test",
+						"script": {
+							"exec": [
+								"pm.test(\"Status code is 201\", function () {\r",
+								"  pm.response.to.have.status(200);\r",
+								"});"
+							],
+							"type": "text/javascript"
+						}
+					}],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [{
+									"key": "code",
+									"value": "AO080",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Quần Nam Đen",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "áo nữ chuẩn mới nhất chất lượng nhất",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "30000000",
+									"type": "text"
+								},
+								{
+									"key": "sale",
+									"value": "60",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "quan-nam-den",
+									"type": "text"
+								},
+								{
+									"key": "imageProduct",
+									"type": "file",
+									"src": [
+										"dien-tu/1649862714956.jpg",
+										"dien-tu/1649862941863.jpg"
+									]
+								},
+								{
+									"key": "status",
+									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "idCategory",
+									"value": "ao-vet-nam",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "quantity",
+									"value": "200",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:5000/api/v1/products/create-product"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://localhost:5000/api/v1/products/6256e83a14b8c5237cd17a84"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [{
+								"key": "code",
+								"value": "DT000",
+								"type": "text"
+							}]
+						},
+						"url": "http://localhost:5000/api/v1/products/6256e83a14b8c5237cd17a84"
+					},
+					"response": []
+				},
+				{
+					"name": "search-params",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [{
+					"name": "find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/api/v1/categories"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:5000/api/v1/categories"
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [{
+									"key": "nameCategory",
+									"value": "KHÁC",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "slugCategory",
+									"value": "khac",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:5000/api/v1/categories/create"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [{
+					"name": "login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [{
+							"key": "Authorization",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTQwNGY5ZjRiYmQxZDE4ODMxYjkzMyIsImlhdCI6MTY3OTAzMzU5MywiZXhwIjoxNjc5MDQwNzkzfQ.1uuw2rmj88-y8tWOKa0lj0693WdX1BcHnrNKd7-9L9A",
+							"type": "text",
+							"disabled": true
+						}],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [{
+									"key": "email",
+									"value": "nguyen002@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "nguyen002",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:5000/api/v1/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [{
+									"key": "email",
+									"value": "nguyen003@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Khánh Hoà",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0223311122",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "nguyen003",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "nguyen003",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:5000/api/v1/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [{
+							"key": "refresh_token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MTM2Njk2M2JjYWE3NmY0ODYyMDYyMiIsImlhdCI6MTY3ODk5MzA0NiwiZXhwIjoxNjc5MDAwMjQ2fQ.MlhfSMzUzE-uBhX7ZDmTH1CAwkqvzI_MqcjQ7pe_BMs",
+							"type": "text"
+						}],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [{
+									"key": "email",
+									"value": "nguyen001",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "nguyen001",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:5000/api/v1/auth/logout"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order",
+			"item": [{
+					"name": "create-order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\" : \"6253f2b831adde25f0bd8f9a\",\r\n    \"serial\" : \"53\",\r\n    \"total\" : \"75\",\r\n    \"orderItems\": [\r\n        {\r\n            \"product\" : \"6256e91d14b8c5237cd17a86\",\r\n            \"qty\" : \"2\"\r\n        },\r\n        {\r\n            \"product\" : \"6256e83a14b8c5237cd17a84\",\r\n            \"qty\" : \"5\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/api/v1/orders/create-order"
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/api/v1/orders/"
+					},
+					"response": []
+				},
+				{
+					"name": "findID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5000/api/v1/orders/6296dbdc3532ab1c346ffbe3"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "http://localhost:5000/api/v1/orders/6296db1e3532ab1c346ffbdc"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

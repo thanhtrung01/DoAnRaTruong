@@ -2,19 +2,26 @@ GET http://localhost:5000/api/v1/categories
 ###
 POST http://localhost:5000/api/v1/auth/login
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNTRiN2QwOGY4YWZmMzNmMDFjMTM3ZSIsImlhdCI6MTY0OTcxOTI0OCwiZXhwIjoxNjQ5NzE5MjU4fQ.Drl6qqxNSeCPBHt7kcNhGpJWm2-gJ8L-P3KGHVrgTzQ
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+Content-Type: application/json; charset=utf-8
+Content-Length: 50
+ETag: W/"32-2TzsZmEbKAGKC4eZP2FFQu3zkUY"
+Date: Thu, 30 Mar 2023 17:43:09 GMT
+Connection: close
 
 {
-    "email" : "nhut001@gmail.com",
-    "password" : "thanhnhut01"
+    "email" : "nguyen002@gmail.com",
+    "password" : "nguyen002"
 }
 ###
 POST http://localhost:5000/api/v1/auth/register
 
 {
-    "username" : "Thanh Tu",
-    "email" : "trung005@gmail.com",
+    "username" : "trung005",
+    "email" : "trung006@gmail.com",
     "password" : "thanhtrung01",
-    "status" : "true",
 }
 
 ###

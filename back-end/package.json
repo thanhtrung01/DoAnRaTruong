@@ -28,8 +28,11 @@
     "multer": "^1.4.4",
     "multer-storage-cloudinary": "^4.0.0",
     "nodemon": "^2.0.15",
+    "openapi": "^1.0.1",
+    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2",
     "validator": "^13.7.0",
+    "yamljs": "^0.3.0",
     "yarn": "^1.22.18"
   },
   "devDependencies": {

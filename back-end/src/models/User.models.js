@@ -62,10 +62,12 @@ const UserSchema = new Schema(
       type: String,
       maxlength: 600,
     },
-    role: {
-      type: Boolean,
-      default: false,
-    },
+    roles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Role"
+      }
+    ],
     created_at: {
       type: Date,
       default: Date.now,
