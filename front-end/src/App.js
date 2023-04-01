@@ -7,7 +7,7 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import Boards from "./Components/Pages/BoardsPage/Boards";
 import ProtectedRoute from "./Utils/ProtectedRoute";
 import { loadUser } from "./Services/userService";
-import Store from "./Redux/Store";
+import Store from "./redux/store";
 import FreeRoute from "./Utils/FreeRoute";
 import Board from "./Components/Pages/BoardPage/Board";
 const App = () => {
