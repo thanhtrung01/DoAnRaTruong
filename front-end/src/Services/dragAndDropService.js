@@ -2,7 +2,8 @@ import axios from 'axios';
 import { updateCardDragDrop, updateListDragDrop } from '../Redux/Slices/listSlice';
 import { openAlert } from '../Redux/Slices/alertSlice';
 
-const baseUrl = 'http://localhost:3001/list';
+const apiURL = process.env.REACT_APP_SERVER_API;
+const baseUrl = apiURL + `list`;
 
 //  Create promise to queue requests
 let submitCall = Promise.resolve();

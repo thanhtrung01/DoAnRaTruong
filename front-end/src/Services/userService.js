@@ -13,7 +13,9 @@ import {
 } from "../Redux/Slices/userSlice";
 import { openAlert } from "../Redux/Slices/alertSlice";
 import setBearer from "../Utils/setBearer";
-const baseUrl = "http://localhost:3001/user/";
+
+const apiURL = process.env.REACT_APP_SERVER_API;
+const baseUrl = apiURL + `user/`;
 
 export const register = async (
   { name, surname, email, password, repassword },

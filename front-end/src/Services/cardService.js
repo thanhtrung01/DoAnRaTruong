@@ -52,8 +52,8 @@ import {
 	updateMemberOfCard,
 	updateStartDueDatesOfCard,
 } from '../Redux/Slices/listSlice';
-
-const baseUrl = 'http://localhost:3001/card';
+const apiURL = process.env.REACT_APP_SERVER_API;
+const baseUrl = apiURL + `card`;
 let submitCall = Promise.resolve();
 
 export const getCard = async (cardId, listId, boardId, dispatch) => {

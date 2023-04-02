@@ -17,11 +17,11 @@ const Board = (props) => {
 	const { backgroundImageLink, isImage, loading, title } = useSelector((state) => state.board);
 	const { allLists, loadingListService } = useSelector((state) => state.list);
 	const [searchString, setSearchString] = useState('');
-	const boardId = props.match.params.id;
+	const boardId = props.match.params.title;
 	useEffect(() => {
-		getBoard(props.match.params.id, dispatch);
+		getBoard(props.match.params.title, dispatch);
 		getLists(boardId, dispatch);
-	}, [props.match.params.id, dispatch, boardId]);
+	}, [props.match.params.title, dispatch, boardId]);
 
 	useEffect(() => {
 		document.title = title + ' | Trello Clone';

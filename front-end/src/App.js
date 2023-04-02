@@ -19,7 +19,7 @@ const App = () => {
       <Alert />
       <Switch>
         <ProtectedRoute exact path="/boards" component={Boards} />
-        <ProtectedRoute exact path="/board/:id" component={Board} />
+        <ProtectedRoute exact path="/board/:title" component={Board} />
         <FreeRoute exact path="/login" component={Login} />
         <FreeRoute exact path="/register" component={Register} />
         <FreeRoute exact path="/" component={Index} />
