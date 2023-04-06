@@ -10,6 +10,7 @@ import {
 } from "../Redux/Slices/boardsSlice";
 import { addNewBoard } from "../Redux/Slices/userSlice";
 import {setLoading, successFetchingBoard, updateTitle} from "../Redux/Slices/boardSlice";
+
 const apiURL = process.env.REACT_APP_SERVER_API;
 const baseUrl = apiURL + `board`;
 

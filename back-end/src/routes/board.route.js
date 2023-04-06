@@ -1,5 +1,5 @@
 const express = require('express');
-const boardController = require('./controllers/board.controller');
+const boardController = require('../controllers/board.controller');
 const route = express.Router();
 
 route.post('/:boardId/add-member', boardController.addMember);

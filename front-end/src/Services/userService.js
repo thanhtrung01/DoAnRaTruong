@@ -15,10 +15,11 @@ import { openAlert } from "../Redux/Slices/alertSlice";
 import setBearer from "../Utils/setBearer";
 
 const apiURL = process.env.REACT_APP_SERVER_API;
+const authUrl = apiURL + `auth/`;
 const baseUrl = apiURL + `user/`;
 
 export const register = async (
-  { name, surname, email, password, repassword },
+  { name, username, email, password, repassword },
   dispatch
 ) => {
   dispatch(registrationStart());
@@ -31,9 +32,9 @@ export const register = async (
     );
   } else {
     try {
-      const res = await axios.post(`${baseUrl}register`, {
+      const res = await axios.post(`${authUrl}register`, {
         name,
-        surname,
+        username,
         email,
         password,
       });
@@ -62,7 +63,7 @@ export const register = async (
 export const login = async ({ email, password }, dispatch) => {
   dispatch(loginStart());
   try {
-    const res = await axios.post(baseUrl + "login", { email, password });
+    const res = await axios.post(authUrl + "login", { email, password });
     const { user, message } = res.data;
     localStorage.setItem("token", user.token);
     setBearer(user.token);

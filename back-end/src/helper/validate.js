@@ -1,6 +1,6 @@
-const cardModel = require('../models/card.model');
-const listModel = require('../models/list.model');
-const boardModel = require('../models/board.model');
+const Card = require('../models/card.model');
+const List = require('../models/list.model');
+const Board = require('../models/board.model');
 
 const validateCardOwners = async (card = null, list, board, user, isCreate = false) => {
 	const validate = isCreate ? true : list.cards.filter((item) => item.toString() === card._id.toString());

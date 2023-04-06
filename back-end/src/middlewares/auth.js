@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken");
-const userModel = require("../models/user.model");
+const User = require("../models/user.model");
+const config = require("../config/config");
+// const { config } = require("dotenv");
 const generateToken = (id, email) => {
-  const token = jwt.sign({ id, email }, process.env.JWT_SECRET, {
-    expiresIn: process.env.TOKEN_EXPIRE_TIME,
+  const token = jwt.sign({ id, email }, config.ACCESS_TOKEN_SECRET, {
+    expiresIn: config.TOKEN_EXPIRE_TIME,
   });
   return token.toString();
 };
@@ -17,12 +19,12 @@ const verifyToken = async(req, res, next) => {
     const header = req.headers["authorization"];
     const token = header.split(" ")[1];
 
-    await jwt.verify(token, process.env.JWT_SECRET, async(err, verifiedToken) => {
+    await jwt.verify(token, config.ACCESS_TOKEN_SECRET, async(err, verifiedToken) => {
       if (err)
         return res
           .status(401)
           .send({ errMessage: "Authorization token invalid", details: err });
-      const user = await userModel.findById(verifiedToken.id);
+      const user = await User.findById(verifiedToken.id);
       req.user = user;
       next();
     });

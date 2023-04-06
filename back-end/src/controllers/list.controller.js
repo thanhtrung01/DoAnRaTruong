@@ -1,4 +1,4 @@
-const listService = require('../services/listService');
+const List = require('../services/list.service');
 
 const create = async (req, res) => {
 	// Deconstruct the body
@@ -14,7 +14,7 @@ const create = async (req, res) => {
 			.send({ errMessage: 'You can not add a list to the board, you are not a member or owner!' });
 
 	// Call the service to add new list
-	await listService.create({ title: title, owner: boardId }, req.user, (err, result) => {
+	await List.create({ title: title, owner: boardId }, req.user, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(201).send(result);
 	});
@@ -31,7 +31,7 @@ const getAll = async (req, res) => {
 		return res.status(400).send({ errMessage: 'You cannot get lists, because you are not owner of this lists!' });
 
 	// Call the service to get all lists whose owner id matches the boardId
-	await listService.getAll(boardId, (err, result) => {
+	await List.getAll(boardId, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -45,7 +45,7 @@ const deleteById = async (req, res) => {
 	// Validate the listId and boardId
 	if (!(listId && boardId)) return res.status(400).send({ errMessage: 'List or board undefined' });
 
-	await listService.deleteById(listId, boardId, user, (err, result) => {
+	await List.deleteById(listId, boardId, user, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -65,7 +65,7 @@ const updateCardOrder = async (req, res) => {
 	if (!validate) return res.status(403).send({ errMessage: 'You cannot edit the board that you hasnt' });
 
 	// Call the service
-	await listService.updateCardOrder(boardId, sourceId, destinationId, destinationIndex, cardId, user, (err, result) => {
+	await List.updateCardOrder(boardId, sourceId, destinationId, destinationIndex, cardId, user, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -85,7 +85,7 @@ const updateListOrder = async (req, res) => {
 	if (!validate) return res.status(403).send({ errMessage: 'You cannot edit the board that you hasnt' });
 
 	// Call the service
-	await listService.updateListOrder(boardId, sourceIndex, destinationIndex, listId, (err, result) => {
+	await List.updateListOrder(boardId, sourceIndex, destinationIndex, listId, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -100,7 +100,7 @@ const updateListTitle = async (req, res) => {
 	// Validate the listId and boardId
 	if (!(listId && boardId)) return res.status(400).send({ errMessage: 'List or board undefined' });
 
-	await listService.updateListTitle(listId, boardId, user,title, (err, result) => {
+	await List.updateListTitle(listId, boardId, user,title, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});

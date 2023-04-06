@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const boardSchema = mongoose.Schema(
+const BoardSchema = mongoose.Schema(
 	{
 		title: {
 			type: String,
@@ -85,4 +85,4 @@ const boardSchema = mongoose.Schema(
 	{ timestamps: true }
 );
 
-module.exports = mongoose.model('board', boardSchema);
+module.exports = mongoose.model('board', BoardSchema);

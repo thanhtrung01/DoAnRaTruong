@@ -49,6 +49,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.userInfo = null;
       state.token = null;
+      // sessionStorage.removeItem
       localStorage.removeItem("token");
     },
     fetchingStart: (state)=>{

@@ -1,8 +1,8 @@
-const cardModel = require('../Models/cardModel');
-const listModel = require('../Models/listModel');
-const boardModel = require('../Models/boardModel');
-const userModel = require('../Models/userModel');
-const helperMethods = require('./helperMethods');
+const cardModel = require('../models/card.model');
+const listModel = require('../models/list.model');
+const boardModel = require('../models/board.model');
+const userModel = require('../models/user.model');
+const helperMethods = require('../helper/validate');
 
 const create = async (title, listId, boardId, user, callback) => {
 	try {

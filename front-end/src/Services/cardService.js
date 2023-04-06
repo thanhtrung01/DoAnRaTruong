@@ -52,6 +52,7 @@ import {
 	updateMemberOfCard,
 	updateStartDueDatesOfCard,
 } from '../Redux/Slices/listSlice';
+
 const apiURL = process.env.REACT_APP_SERVER_API;
 const baseUrl = apiURL + `card`;
 let submitCall = Promise.resolve();

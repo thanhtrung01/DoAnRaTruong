@@ -1,4 +1,4 @@
-const cardService = require('../services/card.service');
+const Card = require('../services/card.service');
 
 const create = async (req, res) => {
 	// Deconstruct the params
@@ -12,7 +12,7 @@ const create = async (req, res) => {
 			.send({ errMessage: 'The create operation could not be completed because there is missing information' });
 
 	//Call the card service
-	await cardService.create(title, listId, boardId, user, (err, result) => {
+	await Card.create(title, listId, boardId, user, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(201).send(result);
 	});
@@ -24,7 +24,7 @@ const deleteById = async (req, res) => {
 	const { boardId, listId, cardId } = req.params;
 
 	// Call the card service
-	await cardService.deleteById(cardId, listId, boardId, user, (err, result) => {
+	await Card.deleteById(cardId, listId, boardId, user, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -36,7 +36,7 @@ const getCard = async (req, res) => {
 	const { boardId, listId, cardId } = req.params;
 
 	// Call the card service
-	await cardService.getCard(cardId, listId, boardId, user, (err, result) => {
+	await Card.getCard(cardId, listId, boardId, user, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -48,7 +48,7 @@ const update = async (req, res) => {
 	const { boardId, listId, cardId } = req.params;
 
 	// Call the card service
-	await cardService.update(cardId, listId, boardId, user, req.body, (err, result) => {
+	await Card.update(cardId, listId, boardId, user, req.body, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -60,7 +60,7 @@ const addComment = async (req, res) => {
 	const { boardId, listId, cardId } = req.params;
 
 	// Call the card service
-	await cardService.addComment(cardId, listId, boardId, user, req.body, (err, result) => {
+	await Card.addComment(cardId, listId, boardId, user, req.body, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -72,7 +72,7 @@ const updateComment = async (req, res) => {
 	const { boardId, listId, cardId, commentId } = req.params;
 
 	// Call the card service
-	await cardService.updateComment(cardId, listId, boardId, commentId, user, req.body, (err, result) => {
+	await Card.updateComment(cardId, listId, boardId, commentId, user, req.body, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -84,7 +84,7 @@ const deleteComment = async (req, res) => {
 	const { boardId, listId, cardId, commentId } = req.params;
 
 	// Call the card service
-	await cardService.deleteComment(cardId, listId, boardId, commentId, user, (err, result) => {
+	await Card.deleteComment(cardId, listId, boardId, commentId, user, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -96,7 +96,7 @@ const addMember = async (req, res) => {
 	const { boardId, listId, cardId } = req.params;
 
 	// Call the card service
-	await cardService.addMember(cardId, listId, boardId, user, req.body.memberId, (err, result) => {
+	await Card.addMember(cardId, listId, boardId, user, req.body.memberId, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -108,7 +108,7 @@ const deleteMember = async (req, res) => {
 	const { boardId, listId, cardId, memberId } = req.params;
 
 	// Call the card service
-	await cardService.deleteMember(cardId, listId, boardId, user, memberId, (err, result) => {
+	await Card.deleteMember(cardId, listId, boardId, user, memberId, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -121,7 +121,7 @@ const createLabel = async (req, res) => {
 	const label = req.body;
 
 	// Call the card service
-	await cardService.createLabel(cardId, listId, boardId, user, label, (err, result) => {
+	await Card.createLabel(cardId, listId, boardId, user, label, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -134,7 +134,7 @@ const updateLabel = async (req, res) => {
 	const label = req.body;
 
 	// Call the card service
-	await cardService.updateLabel(cardId, listId, boardId, labelId, user, label, (err, result) => {
+	await Card.updateLabel(cardId, listId, boardId, labelId, user, label, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -146,7 +146,7 @@ const deleteLabel = async (req, res) => {
 	const { boardId, listId, cardId, labelId } = req.params;
 
 	// Call the card service
-	await cardService.deleteLabel(cardId, listId, boardId, labelId, user, (err, result) => {
+	await Card.deleteLabel(cardId, listId, boardId, labelId, user, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -159,7 +159,7 @@ const updateLabelSelection = async (req, res) => {
 	const { selected } = req.body;
 
 	// Call the card service
-	await cardService.updateLabelSelection(cardId, listId, boardId, labelId, user, selected, (err, result) => {
+	await Card.updateLabelSelection(cardId, listId, boardId, labelId, user, selected, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -172,7 +172,7 @@ const createChecklist = async (req, res) => {
 	const title = req.body.title;
 
 	// Call the card service
-	await cardService.createChecklist(cardId, listId, boardId, user, title, (err, result) => {
+	await Card.createChecklist(cardId, listId, boardId, user, title, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -184,7 +184,7 @@ const deleteChecklist = async (req, res) => {
 	const { boardId, listId, cardId, checklistId } = req.params;
 
 	// Call the card service
-	await cardService.deleteChecklist(cardId, listId, boardId, checklistId, user, (err, result) => {
+	await Card.deleteChecklist(cardId, listId, boardId, checklistId, user, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -197,7 +197,7 @@ const addChecklistItem = async (req, res) => {
 	const text = req.body.text;
 
 	// Call the card service
-	await cardService.addChecklistItem(cardId, listId, boardId, user, checklistId, text, (err, result) => {
+	await Card.addChecklistItem(cardId, listId, boardId, user, checklistId, text, (err, result) => {
 		if (err) return res.status(500).send(err);
 		return res.status(200).send(result);
 	});
@@ -210,7 +210,7 @@ const setChecklistItemCompleted = async (req, res) => {
 	const completed = req.body.completed;
 
 	// Call the card service
-	await cardService.setChecklistItemCompleted(
+	await Card.setChecklistItemCompleted(
 		cardId,
 		listId,
 		boardId,
@@ -232,7 +232,7 @@ const setChecklistItemText = async (req, res) => {
 	const text = req.body.text;
 
 	// Call the card service
-	await cardService.setChecklistItemText(
+	await Card.setChecklistItemText(
 		cardId,
 		listId,
 		boardId,
@@ -253,7 +253,7 @@ const deleteChecklistItem = async (req, res) => {
 	const { boardId, listId, cardId, checklistId, checklistItemId } = req.params;
 
 	// Call the card service
-	await cardService.deleteChecklistItem(
+	await Card.deleteChecklistItem(
 		cardId,
 		listId,
 		boardId,
@@ -274,7 +274,7 @@ const updateStartDueDates = async (req, res) => {
 	const {startDate, dueDate, dueTime} = req.body;
 
 	// Call the card service
-	await cardService.updateStartDueDates(
+	await Card.updateStartDueDates(
 		cardId,
 		listId,
 		boardId,
@@ -296,7 +296,7 @@ const updateDateCompleted = async (req, res) => {
 	const {completed} = req.body;
 
 	// Call the card service
-	await cardService.updateDateCompleted(
+	await Card.updateDateCompleted(
 		cardId,
 		listId,
 		boardId,
@@ -316,7 +316,7 @@ const addAttachment = async (req, res) => {
 	const {link,name} = req.body;
 
 	// Call the card service
-	await cardService.addAttachment(
+	await Card.addAttachment(
 		cardId,
 		listId,
 		boardId,
@@ -337,7 +337,7 @@ const deleteAttachment = async (req, res) => {
 	
 
 	// Call the card service
-	await cardService.deleteAttachment(
+	await Card.deleteAttachment(
 		cardId,
 		listId,
 		boardId,
@@ -358,7 +358,7 @@ const updateAttachment = async (req, res) => {
 	
 
 	// Call the card service
-	await cardService.updateAttachment(
+	await Card.updateAttachment(
 		cardId,
 		listId,
 		boardId,
@@ -381,7 +381,7 @@ const updateCover = async (req, res) => {
 	
 
 	// Call the card service
-	await cardService.updateCover(
+	await Card.updateCover(
 		cardId,
 		listId,
 		boardId,

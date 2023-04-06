@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const userService = require("../services/userService");
+const User = require("../services/user.service");
 const auth = require("../middlewares/auth");
 
 const register = async (req, res) => {
@@ -13,7 +13,7 @@ const register = async (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, salt);
   req.body.password = hashedPassword;
 
-  await userService.register(req.body, (err, result) => {
+  await User.register(req.body, (err, result) => {
     if (err) return res.status(400).send(err);
     return res.status(201).send(result);
   });
@@ -26,7 +26,7 @@ const login = async (req, res) => {
       .status(400)
       .send({ errMessage: "Please fill all required areas!" });
 
-  await userService.login(email, (err, result) => {
+  await User.login(email, (err, result) => {
     if (err) return res.status(400).send(err);
 
     const hashedPassword = result.password;
@@ -47,7 +47,7 @@ const login = async (req, res) => {
 
 const getUser = async (req, res) => {
   const userId = req.user.id;
-  await userService.getUser(userId, (err, result) => {
+  await User.getUser(userId, (err, result) => {
     if (err) return res.status(404).send(err);
 
     result.password = undefined;
@@ -59,7 +59,7 @@ const getUser = async (req, res) => {
 
 const getUserWithMail = async(req,res) => {
   const {email} = req.body;
-  await userService.getUserWithMail(email,(err,result)=>{
+  await User.getUserWithMail(email,(err,result)=>{
     if(err) return res.status(404).send(err);
 
     const dataTransferObject = {
