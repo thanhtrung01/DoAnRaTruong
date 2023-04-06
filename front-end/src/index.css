@@ -3,3 +3,8 @@
   font-size: 16px;
   box-sizing: border-box;
 }
+
+.google-icon {
+  font-size: 22px !important;
+  margin-left: 6px;
+}

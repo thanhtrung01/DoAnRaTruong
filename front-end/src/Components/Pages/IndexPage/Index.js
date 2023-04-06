@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import IndexNav from "../../IndexNav";
 import { useHistory } from "react-router-dom";
+import imgHomePage from "../../../Images/Earth.png";
+
 import {
   Container,
   Content,
@@ -16,8 +18,8 @@ import {
 const Index = () => {
   let history = useHistory();
   useEffect(() => {
-    document.title = "Trello Clone"
-  }, [])
+    document.title = "Trello Clone";
+  }, []);
   return (
     <>
       <IndexNav />
@@ -37,7 +39,7 @@ const Index = () => {
             </LeftWrapper>
           </LeftSide>
           <RightSide>
-            <SvgItem src="https://images.ctfassets.net/rz1oowkt5gyp/5QIzYxue6b7raOnVFtMyQs/113acb8633ee8f0c9cb305d3a228823c/hero.png?w=1200&fm=webp" />
+            <SvgItem src={imgHomePage} />
           </RightSide>
         </Content>
       </Container>

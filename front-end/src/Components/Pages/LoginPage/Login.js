@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "../../../Services/userService";
 import Background from "../../Background";
+import GoogleIcon from "@mui/icons-material/Google";
+
 import {
   BgContainer,
   Container,
@@ -14,6 +16,8 @@ import {
   Title,
   Input,
   Button,
+  ButtonGoogle,
+  GoogleSpan,
   Icon,
   Hr,
   Link,
@@ -28,8 +32,8 @@ const Login = () => {
   });
 
   useEffect(() => {
-    document.title = "Log in to Trello Clone"
-  }, [])
+    document.title = "Log in to Trello Clone";
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     login(userInformations, dispatch);
@@ -71,6 +75,9 @@ const Login = () => {
                   })
                 }
               />
+              <ButtonGoogle>
+                SignIn with google <GoogleIcon className="google-icon" />
+              </ButtonGoogle>
               <Button>Log in</Button>
               <Hr />
               <Link
