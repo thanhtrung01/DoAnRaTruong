@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { lg, sm } from "../../../BreakPoints";
 
 export const Container = styled.div`
-  background: linear-gradient(rgb(234, 230, 255), rgb(255, 255, 255)) no-repeat;
+  background: linear-gradient(#ffecd2, #fcb69f) no-repeat;
   color: rgb(9, 30, 66);
   width: 100%;
   display: flex;
@@ -13,15 +13,14 @@ export const Container = styled.div`
 export const Content = styled.section`
   display: flex;
   min-height: 100vh;
-  padding-top: 4rem;
+  padding-top: 6rem;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   gap: 10%;
 
   ${lg({
     flexDirection: "column-reverse",
-    paddingTop: "6rem",
     alignItems: "stretch",
     gap: "5%",
   })}
@@ -69,6 +68,7 @@ export const Button = styled.button`
   font-size: 1.25rem;
   background-color: #0065ff;
   width: fit-content;
+  margin-right: auto;
   border-radius: 0.4rem;
   padding: 0.75rem 2rem;
   color: white;
@@ -94,7 +94,9 @@ export const RightSide = styled.div`
 `;
 
 export const SvgItem = styled.img`
+  margin-bottom: 100px;
   width: 400.5px;
+  object-fit: contain;
   aspect-ratio: auto 465.5 / 602.5;
   height: 540.5px;
 

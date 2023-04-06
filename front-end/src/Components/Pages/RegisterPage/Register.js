@@ -33,8 +33,8 @@ const Register = () => {
   });
 
   useEffect(() => {
-    document.title = "Create a Trello Account"
-  }, [])
+    document.title = "Create a Trello Account";
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -114,13 +114,8 @@ const Register = () => {
                   })
                 }
               />
-              <Text>
-                By signing up, you confirm that you've read and accepted our{" "}
-                <Link fontSize="0.75rem">Terms of Service</Link> and{" "}
-                <Link fontSize="0.75rem">Privacy Policy</Link>.
-              </Text>
               <Button type="submit" disabled={pending}>
-                Complete
+                Register
               </Button>
               <Hr />
               <Link fontSize="0.85rem" onClick={() => history.push("/login")}>

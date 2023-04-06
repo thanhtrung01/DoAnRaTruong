@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import LeftImage from "../Images/trello-left.svg";
-import RightImage from "../Images/trello-right.svg";
+import LeftImage from "../Images/login1.png";
+import RightImage from "../Images/login2.webp";
 
 const Container = styled.div`
-  background-color: #f9fafc;
   height: 100vh;
   width: 100%;
   position: fixed;
@@ -13,36 +12,35 @@ const Container = styled.div`
 
 const LeftSide = styled.div`
   position: absolute;
-  bottom: 0;
-  left: 0;
+  top: 15px;
+  left: 2px;
   z-index: -999;
-  width: 30vw;
-  max-width: 400px;
+  width: 40vw;
+  max-width: 500px;
 `;
 const RightSide = styled.div`
-position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: -999;
-    width: 30vw;
-    max-width: 400px;
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  z-index: -999;
+  width: 35vw;
+  max-width: 450px;
 `;
 
 const Svg = styled.img`
-
-vertical-align: middle;
-width: 100%;
-height: 100%;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
 `;
 
 const Background = () => {
   return (
     <Container>
       <LeftSide>
-        <Svg src={LeftImage}  />
+        <Svg src={LeftImage} />
       </LeftSide>
       <RightSide>
-        <Svg src={RightImage}  />
+        <Svg src={RightImage} />
       </RightSide>
     </Container>
   );
