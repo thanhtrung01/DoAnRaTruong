@@ -44,7 +44,7 @@ export const FormCard = styled.div`
   margin: 0 auto;
   position: relative;
   background-color: #ffffff;
-  border-radius: 3px;
+  border-radius: 5px;
   padding: 1.5rem 2.5rem;
   box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
 
@@ -91,23 +91,17 @@ export const Input = styled.input`
   }
 `;
 export const Button = styled.button`
-  background-color: #5aac44;
+  background-color: #11998e;
   width: 100%;
   border-radius: 0.4rem;
-  padding: 0.5rem 1rem;
+  margin-top: 12px;
+  padding: 0.6rem 1rem;
   color: white;
   border: none;
   cursor: pointer;
   font-weight: bold;
   &:hover {
-    background: ${(props) =>
-      props.disabled
-        ? "lightgrey"
-        : "linear-gradient(to bottom, #61bd4f 0%, #5aac44 100%)"};
-  }
-  &:disabled {
-    background-color: lightgray;
-    cursor: default;
+    background: linear-gradient(to left, #38ef7d -70%, #11998e 100%);
   }
 `;
 export const Hr = styled.hr`
