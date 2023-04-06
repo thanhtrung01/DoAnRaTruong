@@ -26,7 +26,7 @@ const Register = () => {
   const { pending } = useSelector((state) => state.user);
   const [userInformations, setUserInformations] = useState({
     name: "",
-    surname: "",
+    username: "",
     email: "",
     password: "",
     repassword: "",
@@ -68,13 +68,13 @@ const Register = () => {
               />
               <Input
                 type="text"
-                placeholder="Enter surname"
+                placeholder="Enter username"
                 required
-                value={userInformations.surname}
+                value={userInformations.username}
                 onChange={(e) =>
                   setUserInformations({
                     ...userInformations,
-                    surname: e.target.value,
+                    username: e.target.value,
                   })
                 }
               />

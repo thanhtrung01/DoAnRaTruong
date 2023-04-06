@@ -64,7 +64,7 @@ const getUserWithMail = async(req,res) => {
 
     const dataTransferObject = {
       name: result.name,
-      surname: result.surname,
+      username: result.username,
       color: result.color,
       email : result.email
     };
