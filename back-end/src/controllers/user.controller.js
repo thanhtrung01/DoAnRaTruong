@@ -3,8 +3,8 @@ const User = require("../services/user.service");
 const auth = require("../middlewares/auth");
 
 const register = async (req, res) => {
-  const { name, surname, email, password } = req.body;
-  if (!(name && surname && email && password))
+  const { name, username, email, password } = req.body;
+  if (!(name && username && email && password))
     return res
       .status("400")
       .send({ errMessage: "Please fill all required areas!" });
