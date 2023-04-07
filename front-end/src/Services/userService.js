@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from 'js-cookie';
 import {
   registrationStart,
   registrationEnd,
@@ -65,7 +66,9 @@ export const login = async ({ email, password }, dispatch) => {
   try {
     const res = await axios.post(authUrl + "login", { email, password });
     const { user, message } = res.data;
-    localStorage.setItem("token", user.token);
+    // localStorage.setItem("token", user.token);
+    Cookies.set('token', user.token, { expires: 1/24 });
+    // localStorage.setItem('expirationDate', generateToken(expiresIn));
     setBearer(user.token);
       dispatch(loginSuccess({ user }));
     dispatch(
@@ -91,8 +94,8 @@ export const login = async ({ email, password }, dispatch) => {
 
 export const loadUser = async (dispatch) => {
   dispatch(loadStart());
-  if (!localStorage.token) return dispatch(loadFailure());
-  setBearer(localStorage.token);
+  if (!Cookies.token) return dispatch(loadFailure());
+  setBearer(Cookies.token);
   try {
     const res = await axios.get(baseUrl + "get-user");
     dispatch(loadSuccess({ user: res.data }));

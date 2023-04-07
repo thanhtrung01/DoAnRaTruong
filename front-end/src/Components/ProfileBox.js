@@ -68,6 +68,7 @@ export default function ProfileBox() {
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
+				<MenuItem>Thanh Trung</MenuItem>
 				<MenuItem
 					onClick={() => {
 						dispatch(reset);

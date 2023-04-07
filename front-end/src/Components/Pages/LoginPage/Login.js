@@ -17,7 +17,7 @@ import {
   Input,
   Button,
   ButtonGoogle,
-  GoogleSpan,
+  // GoogleSpan,
   Icon,
   Hr,
   Link,
@@ -32,7 +32,7 @@ const Login = () => {
   });
 
   useEffect(() => {
-    document.title = "Log in to Trello Clone";
+    document.title = "Log in to Todoapp";
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,10 +75,11 @@ const Login = () => {
                   })
                 }
               />
+              <Button>Login</Button>
               <ButtonGoogle>
                 SignIn with google <GoogleIcon className="google-icon" />
               </ButtonGoogle>
-              <Button>Log in</Button>
+              
               <Hr />
               <Link
                 fontSize="0.85rem"

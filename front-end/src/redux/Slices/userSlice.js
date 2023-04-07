@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from 'js-cookie';
 
 const initialState = {
   userInfo: null,
   isAuthenticated: null,
   pending: true,
   loading: false,
-  token: localStorage.getItem("token"),
+  token: Cookies.get('token'),
 };
 
 export const userSlice = createSlice({
@@ -26,12 +27,12 @@ export const userSlice = createSlice({
       state.isAuthenticated = true;
       state.userInfo = action.payload.user;
       state.token = action.payload.user.token;
-      localStorage.setItem("token", action.payload.user.token);
+      Cookies.set("token", action.payload.user.token);
     },
     loginFailure: (state) => {
       state.pending = false;
       state.isAuthenticated = false;
-      localStorage.removeItem("token");
+      Cookies.remove('token');
     },
     loadStart: (state) => {
       state.pending = true;
@@ -39,7 +40,7 @@ export const userSlice = createSlice({
     loadSuccess: (state, action) => {
       state.isAuthenticated = true;
       state.userInfo = action.payload.user;
-      state.token = localStorage.getItem("token");
+      state.token = Cookies.get('token');
       state.pending = false;
     },
     loadFailure: (state) => {
@@ -49,8 +50,8 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.userInfo = null;
       state.token = null;
-      // sessionStorage.removeItem
-      localStorage.removeItem("token");
+      // localStorage.removeItem
+      Cookies.remove('token');
     },
     fetchingStart: (state)=>{
       state.loading = true;
