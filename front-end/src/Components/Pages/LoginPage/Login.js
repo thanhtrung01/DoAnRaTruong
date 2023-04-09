@@ -113,6 +113,7 @@ const Login = () => {
                   })
                 }
               />
+              <Button onClick={loginWithUser}>Login</Button>
               <GoogleLogin
                 className="google-btn"
                 clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
@@ -121,7 +122,6 @@ const Login = () => {
                 onFailure={handleFailure}
                 cookiePolicy={"single_host_origin"}
               ></GoogleLogin>
-              <Button onClick={loginWithUser}>Log in</Button>
               <Hr />
               <Link
                 fontSize="0.85rem"
