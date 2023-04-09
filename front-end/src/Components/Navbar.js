@@ -8,9 +8,10 @@ import { useHistory } from 'react-router-dom';
 import { BellIcon, QuestionIcon } from '../Icons/Icons';
 
 const Container = styled.div`
+	z-index: 100;
 	height: 3rem;
 	width: 100%;
-	background-color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.5);
 	backdrop-filter: blur(24px);
 	position: fixed;
 	top: 0;

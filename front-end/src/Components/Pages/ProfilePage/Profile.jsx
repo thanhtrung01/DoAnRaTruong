@@ -40,7 +40,9 @@ function Profile(props) {
 							<p>Cập nhật hình ảnh tiêu đề của bạn</p>
 						</div>
 					</div>
-					<h3 className="profile-title ">Giới thiệu về bạn</h3>
+					<h3 className="profile-title profile-description ">
+						Giới thiệu về bạn
+					</h3>
 					<div className="profile-info">
 						<div className="profile-info-padding">
 							<div className="info-item full-name">
@@ -60,11 +62,56 @@ function Profile(props) {
 							</div>
 							<div className="info-item">
 								<div className="full-name-left">
-									<span>Họ tên</span>
-									<p>Nhut Dang Thanh</p>
+									<span>Chức danh</span>
+									<p>Chức danh của bạn</p>
 								</div>
 								<div className="full-name-right">
-									<span>
+									<span style={{ visibility: 'hidden' }}>
+										Ai có thể thấy được nội dung này?
+									</span>
+									<div className="name-action">
+										<EarthImageIcon />
+										<p>Bất kỳ ai</p>
+									</div>
+								</div>
+							</div>
+							<div className="info-item">
+								<div className="full-name-left">
+									<span>Phòng ban</span>
+									<p>Phòng ban của bạn</p>
+								</div>
+								<div className="full-name-right">
+									<span style={{ visibility: 'hidden' }}>
+										Ai có thể thấy được nội dung này?
+									</span>
+									<div className="name-action">
+										<EarthImageIcon />
+										<p>Bất kỳ ai</p>
+									</div>
+								</div>
+							</div>
+							<div className="info-item">
+								<div className="full-name-left">
+									<span>Tổ chức</span>
+									<p>Tổ chức của bạn</p>
+								</div>
+								<div className="full-name-right">
+									<span style={{ visibility: 'hidden' }}>
+										Ai có thể thấy được nội dung này?
+									</span>
+									<div className="name-action">
+										<EarthImageIcon />
+										<p>Bất kỳ ai</p>
+									</div>
+								</div>
+							</div>
+							<div className="info-item">
+								<div className="full-name-left">
+									<span>Cư trú tại</span>
+									<p>Vị trí của bạn</p>
+								</div>
+								<div className="full-name-right">
+									<span style={{ visibility: 'hidden' }}>
 										Ai có thể thấy được nội dung này?
 									</span>
 									<div className="name-action">
@@ -75,6 +122,7 @@ function Profile(props) {
 							</div>
 						</div>
 					</div>
+					<button className="profile-edit">Edit</button>
 				</div>
 			</div>
 		</>

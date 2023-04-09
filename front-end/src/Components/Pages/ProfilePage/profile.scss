@@ -174,3 +174,23 @@
 		}
 	}
 }
+
+.profile-description {
+	margin: 28px 0 12px 0;
+}
+
+.profile-edit {
+	margin: 20px 0 30px 12px;
+	padding: 6px 20px;
+	outline: none;
+	border: none;
+	background-color: #6bb854;
+
+	color: white;
+	border-radius: 4px;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
