@@ -41,6 +41,7 @@ const LoadingBox = styledComponent.div`
 `;
 
 const Span = styledComponent.span`
+width: max-content;
 font-size: 0.85rem;
 display:block;
 `;
