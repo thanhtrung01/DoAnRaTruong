@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import {
   registrationStart,
   registrationEnd,
@@ -65,12 +65,15 @@ export const login = async ({ email, password }, dispatch) => {
   dispatch(loginStart());
   try {
     const res = await axios.post(authUrl + "login", { email, password });
-    const { user, message } = res.data;
-    // localStorage.setItem("token", user.token);
-    Cookies.set('token', user.token, { expires: 1/24 });
+    const { user, message, token } = res.data;
+    localStorage.setItem("token", token);
+    // Cookies.set('token', user.token, { 
+    //   expires: 7 ,
+    //   httpOnly: true,
+    // });
     // localStorage.setItem('expirationDate', generateToken(expiresIn));
-    setBearer(user.token);
-      dispatch(loginSuccess({ user }));
+    setBearer(token);
+      dispatch(loginSuccess({ user, token }));
     dispatch(
       openAlert({
         message,
@@ -94,11 +97,11 @@ export const login = async ({ email, password }, dispatch) => {
 
 export const loadUser = async (dispatch) => {
   dispatch(loadStart());
-  if (!Cookies.token) return dispatch(loadFailure());
-  setBearer(Cookies.token);
+  if (!localStorage.token) return dispatch(loadFailure());
+  setBearer(localStorage.token);
   try {
     const res = await axios.get(baseUrl + "get-user");
-    dispatch(loadSuccess({ user: res.data }));
+    dispatch(loadSuccess({ user: res.data , token: res.data}));
   } catch (error) {
     dispatch(loadFailure());
   }

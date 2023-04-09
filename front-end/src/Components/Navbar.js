@@ -80,11 +80,11 @@ const Navbar = (props) => {
             onClick={() => {
               history.push("/boards");
             }}
-            src="https://a.trellocdn.com/prgb/dist/images/header-logo-spirit-loading.87e1af770a49ce8e84e3.gif"
+            src="https://res.cloudinary.com/thanhtrung01/image/upload/v1680876059/logo/logo_todoapp_ut96zh.gif"
           />
         </LogoContainer>
         <DropdownContainer>
-          <DropdownMenu title="Your Boards" />
+          <DropdownMenu title="Phòng ban làm việc" />
         </DropdownContainer>
       </LeftSide>
       <RightSide>

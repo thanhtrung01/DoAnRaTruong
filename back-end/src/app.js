@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
-const unless = require('express-unless')
+const unless = require('express-unless');
 const bodyParser = require('body-parser');
 const path = require('path');
 const auth = require('./middlewares/auth');
@@ -14,8 +14,8 @@ app.use(bodyParser.json());
 // const { Cors } = require('./middlewares/cors');
 
 const corsOptions = {
-	origin: 'http://localhost:3000',
-  }
+  origin: 'http://localhost:3000',
+};
 // const swaggerDocument = require('./api/swagger.json')
 // app.use("/test-api", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors(corsOptions));
@@ -29,12 +29,12 @@ app.use(morgan('dev'));
 auth.verifyToken.unless = unless;
 
 app.use(
-	auth.verifyToken.unless({
-		path: [
-			{ url: '/api/v1/auth/login', method: ['POST'] },
-			{ url: '/api/v1/auth/register', method: ['POST'] },
-		],
-	})
+  auth.verifyToken.unless({
+    path: [
+      { url: '/api/v1/auth/login', method: ['POST'] },
+      { url: '/api/v1/auth/register', method: ['POST'] },
+    ],
+  }),
 );
 
 app.use('/api/v1/auth', require('./routes/auth.route'));

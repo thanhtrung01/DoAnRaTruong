@@ -17,7 +17,7 @@ export default function LoadingScreen() {
 				open={open}
 				//onClick={handleClose}
 			>
-				<Icon src='https://a.trellocdn.com/prgb/dist/images/header-logo-spirit-loading.87e1af770a49ce8e84e3.gif' />
+				<Icon src='https://res.cloudinary.com/thanhtrung01/image/upload/v1680876059/logo/logo_todoapp_ut96zh.gif' />
 			</Backdrop>
 		</div>
 	);

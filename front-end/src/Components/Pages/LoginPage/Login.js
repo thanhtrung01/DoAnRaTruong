@@ -50,7 +50,7 @@ const Login = () => {
         <FormSection>
           <FormCard>
             <Form onSubmit={(e) => handleSubmit(e)}>
-              <Title>Log in to Trello</Title>
+              <Title>Login to Todoweb</Title>
               <Input
                 type="email"
                 placeholder="Enter email"

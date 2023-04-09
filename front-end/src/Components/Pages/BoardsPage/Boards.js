@@ -35,7 +35,7 @@ const Boards = () => {
       <Container>        
         <Navbar searchString={searchString} setSearchString={setSearchString} />
         <Wrapper>
-          <Title>Your Boards</Title>
+          <Title>KHÔNG GIAN LÀM VIỆC </Title>
           {!pending &&
             boardsData.length>0 &&
             boardsData.filter(item=>searchString?item.title.toLowerCase().includes(searchString.toLowerCase()):true).map((item) => {

@@ -13,12 +13,8 @@
     "type": "git",
     "url": "git+https://github.com/thanhtrung01/DoAnRaTruong.git"
   },
-  "keywords": [],
   "author": "thanhtrung01",
   "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.14"
-  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -26,7 +22,7 @@
     "express": "^4.17.1",
     "express-unless": "^1.0.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.0.12",
+    "mongoose": "^5.12.8",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
     "cloudinary": "^1.35.0",
@@ -40,5 +36,18 @@
     "validator": "^13.7.0",
     "yamljs": "^0.3.0",
     "yarn": "^1.22.18"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
+    "prettier": "^2.6.2"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "keywords": [
+    "Nodejs",
+    "mongodb"
+  ]
 }

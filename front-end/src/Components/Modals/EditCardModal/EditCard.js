@@ -14,6 +14,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import IconButton from './ReUsableComponents/IconButton';
 import CoverIcon from '@mui/icons-material/TableChartOutlined';
 import CloseIcon from '@mui/icons-material/Close';
+import BasePopover from './ReUsableComponents/BasePopover';
+import CoverPopover from './Popovers/Cover/CoverPopover';
 import {
 	Container,
 	Wrapper,
@@ -34,6 +36,7 @@ import {
 } from './styled';
 
 export default function EditCard(props) {
+	const [coverPopover, setCoverPopover] = React.useState(null);
 	const { cardId, listId, boardId } = props.ids;
 	const dispatch = useDispatch();
 	const thisCard = useSelector((state) => state.card);
@@ -49,7 +52,19 @@ export default function EditCard(props) {
 				<Container>
 					<CoverContainer color={!thisCard.pending ? thisCard.cover.color : null}>
 						<CoverButtonWrapper>
-							<IconButton title='Cover' icon={<CoverIcon fontSize='small' />} />
+							<IconButton title='Cover' clickCallback={(event) => setCoverPopover(event.currentTarget)} icon={<CoverIcon fontSize='small' />} />
+							{coverPopover && (
+								<BasePopover
+									anchorElement={coverPopover}
+									closeCallback={() => {
+										setCoverPopover(null);
+									}}
+									title='Cover'
+									contents={<CoverPopover closeCallback={() => {
+										setCoverPopover(null);
+									}} />}
+								/>
+							)}
 						</CoverButtonWrapper>
 					</CoverContainer>
 					<TitleContainer>{!thisCard.pending && <Title />}</TitleContainer>
@@ -61,10 +76,10 @@ export default function EditCard(props) {
 										thisCard.labels.filter((label) => label.selected).length > 0 ||
 										thisCard.date.startDate ||
 										thisCard.date.dueDate) && (
-										<FeaturesContainer>
-											<Features />
-										</FeaturesContainer>
-									)}
+											<FeaturesContainer>
+												<Features />
+											</FeaturesContainer>
+										)}
 									<DescriptionContainer>
 										<Description />
 									</DescriptionContainer>
