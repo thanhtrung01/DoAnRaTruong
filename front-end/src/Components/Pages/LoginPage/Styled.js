@@ -95,7 +95,6 @@ export const Button = styled.button`
   padding: 0.6rem 1rem;
   color: white;
   border: none;
-  margin-top: 20px;
   cursor: pointer;
   font-weight: bold;
   &:hover {
@@ -108,6 +107,7 @@ export const ButtonGoogle = styled.button`
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-top: 20px;
   border-radius: 0.4rem;
   padding: 0.55rem 1rem;
   color: #fefefe;

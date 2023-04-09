@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "../../../Services/userService";
 import Background from "../../Background";
-import GoogleIcon from "@mui/icons-material/Google";
 
 import {
   BgContainer,
@@ -16,12 +15,13 @@ import {
   Title,
   Input,
   Button,
-  ButtonGoogle,
-  // GoogleSpan,
   Icon,
   Hr,
   Link,
 } from "./Styled";
+import axios from "axios";
+import { GoogleLogin } from "react-google-login";
+import { gapi } from "gapi-script";
 
 const Login = () => {
   let history = useHistory();
@@ -31,13 +31,51 @@ const Login = () => {
     password: "",
   });
 
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem("loginData")
+      ? JSON.parse(localStorage.getItem("loginData"))
+      : null
+  );
+
   useEffect(() => {
-    document.title = "Log in to Todoapp";
+    document.title = "Log in to Trello Clone";
   }, []);
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  };
+
+  const loginWithUser = () => {
     login(userInformations, dispatch);
   };
+
+  // handle fail google login
+  const handleFailure = (result) => {
+    console.log(result);
+  };
+
+  useEffect(() => {
+    gapi.load("client:auth2", () => {
+      gapi.auth2.init({ clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID });
+    });
+  });
+
+  const loginWithGoogle = async (response) => {
+    // const res = await axios.post("api/google-login", {
+    //   token: googleData.tokenId,
+    // });
+    // const data = await res.json();
+
+    // setLoginData(data);
+    // localStorage.setItem("loginData", JSON.stringify(data));
+    console.log(response);
+  };
+
+  // const handleLogout = () => {
+  //   localStorage.removeItem("loginData");
+  //   setLoginData(null);
+  // };
+
   return (
     <>
       <BgContainer>
@@ -50,7 +88,7 @@ const Login = () => {
         <FormSection>
           <FormCard>
             <Form onSubmit={(e) => handleSubmit(e)}>
-              <Title>Login to Todoweb</Title>
+              <Title>Log in to Trello</Title>
               <Input
                 type="email"
                 placeholder="Enter email"
@@ -75,11 +113,15 @@ const Login = () => {
                   })
                 }
               />
-              <Button>Login</Button>
-              <ButtonGoogle>
-                SignIn with google <GoogleIcon className="google-icon" />
-              </ButtonGoogle>
-              
+              <GoogleLogin
+                className="google-btn"
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                buttonText="Log in with Google"
+                onSuccess={loginWithGoogle}
+                onFailure={handleFailure}
+                cookiePolicy={"single_host_origin"}
+              ></GoogleLogin>
+              <Button onClick={loginWithUser}>Log in</Button>
               <Hr />
               <Link
                 fontSize="0.85rem"
