@@ -7,6 +7,7 @@ const initialState = {
   pending: true,
   loading: false,
   token: localStorage.getItem('token'),
+  expiration: localStorage.getItem('expiration'),
 };
 
 export const userSlice = createSlice({
@@ -27,12 +28,15 @@ export const userSlice = createSlice({
       state.isAuthenticated = true;
       state.userInfo = action.payload.user;
       state.token = action.payload.token;
+      // state.expiration = action.payload.expiration;
       localStorage.setItem("token", action.payload.token);
+      // localStorage.setItem("expiration", action.payload.expiration);
     },
     loginFailure: (state) => {
       state.pending = false;
       state.isAuthenticated = false;
       localStorage.removeItem('token');
+      // localStorage.removeItem('expiration');
     },
     loadStart: (state) => {
       state.pending = true;
@@ -41,6 +45,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = true;
       state.userInfo = action.payload.user;
       state.token = localStorage.getItem('token');
+      state.expiration = localStorage.getItem('expiration');
       state.pending = false;
     },
     loadFailure: (state) => {
@@ -50,8 +55,10 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.userInfo = null;
       state.token = null;
+      state.expiration = null;
       // localStorage.removeItem
       localStorage.removeItem('token');
+      localStorage.removeItem('expiration');
     },
     fetchingStart: (state)=>{
       state.loading = true;

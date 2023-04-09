@@ -65,15 +65,28 @@ export const login = async ({ email, password }, dispatch) => {
   dispatch(loginStart());
   try {
     const res = await axios.post(authUrl + "login", { email, password });
-    const { user, message, token } = res.data;
-    localStorage.setItem("token", token);
+    const { user, message, token, expiration } = res.data;
+    localStorage.setItem('token', token);
+    localStorage.setItem('expiration', expiration);
+    const intervalId = setInterval(() => {
+      const expiration = localStorage.getItem('expiration');
+      if (token && expiration) {
+        const now = new Date().getTime();
+        // const expiration = now + 3600 * 1000; 
+        if (now >= expiration) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('expiration');
+          clearInterval(intervalId);
+        }
+      }
+    }, 1000);
     // Cookies.set('token', user.token, { 
     //   expires: 7 ,
     //   httpOnly: true,
     // });
     // localStorage.setItem('expirationDate', generateToken(expiresIn));
     setBearer(token);
-      dispatch(loginSuccess({ user, token }));
+    dispatch(loginSuccess({ user, token }));
     dispatch(
       openAlert({
         message,
@@ -101,7 +114,7 @@ export const loadUser = async (dispatch) => {
   setBearer(localStorage.token);
   try {
     const res = await axios.get(baseUrl + "get-user");
-    dispatch(loadSuccess({ user: res.data , token: res.data}));
+    dispatch(loadSuccess({ user: res.data, token: res.data }));
   } catch (error) {
     dispatch(loadFailure());
   }
@@ -115,11 +128,11 @@ export const getUserFromEmail = async (email, dispatch) => {
         message: "Please write an email to invite",
         severity: "warning",
       })
-      );
-      dispatch(fetchingFinish());
-      return null;
-    }
-    
+    );
+    dispatch(fetchingFinish());
+    return null;
+  }
+
   try {
     const res = await axios.post(baseUrl + "get-user-with-email", { email });
     dispatch(fetchingFinish());
@@ -128,12 +141,12 @@ export const getUserFromEmail = async (email, dispatch) => {
     dispatch(
       openAlert({
         message: error?.response?.data?.errMessage
-        ? error.response.data.errMessage
-        : error.message,
+          ? error.response.data.errMessage
+          : error.message,
         severity: "error",
       })
-      );
-     dispatch(fetchingFinish());
-     return null;
+    );
+    dispatch(fetchingFinish());
+    return null;
   }
 };
