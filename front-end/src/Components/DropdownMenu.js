@@ -50,7 +50,7 @@ const StyledIcon = styled(DownIcon)({
 	fontSize: '1.3rem',
 });
 
-export default function DropdownMenu(props) {
+export default function DropdownMenu({ title, isDropdownIcon = true }) {
 	const boardsData = useSelector((state) => state.boards.boardsData);
 	const history = useHistory();
 	const dispatch = useDispatch();
@@ -60,11 +60,11 @@ export default function DropdownMenu(props) {
 	const handleClick = async (event) => {
 		setAnchorEl(event.currentTarget);
 		setLoading(true);
-		await getBoards(true,dispatch);
+		await getBoards(true, dispatch);
 		setLoading(false);
 	};
 
-/* 	React.useEffect(() => {
+	/* 	React.useEffect(() => {
 		if (!Object.keys(boardsData).length) getBoards(dispatch);
 	}, []); */
 
@@ -75,21 +75,23 @@ export default function DropdownMenu(props) {
 	return (
 		<div>
 			<BootstrapButton
-				id='demo-positioned-button'
-				aria-controls='demo-positioned-menu'
-				aria-haspopup='true'
+				id="demo-positioned-button"
+				aria-controls="demo-positioned-menu"
+				aria-haspopup="true"
 				aria-expanded={open ? 'true' : undefined}
 				onClick={handleClick}
 			>
-				<Span>{props.title}</Span>
-				<Span>
-					<StyledIcon />
-				</Span>
+				<Span>{title}</Span>
+				{isDropdownIcon && (
+					<Span>
+						<StyledIcon />
+					</Span>
+				)}
 			</BootstrapButton>
 			{Object.keys(boardsData).length > 0 && (
 				<Menu
-					id='demo-positioned-menu'
-					aria-labelledby='demo-positioned-button'
+					id="demo-positioned-menu"
+					aria-labelledby="demo-positioned-button"
 					anchorEl={anchorEl}
 					open={open}
 					onClose={handleClose}

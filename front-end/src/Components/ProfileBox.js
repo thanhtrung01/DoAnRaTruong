@@ -10,9 +10,12 @@ import Logout from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Redux/Slices/userSlice';
 import { reset } from '../Redux/Slices/boardsSlice';
+import { useHistory } from 'react-router';
+import './scss/profile.scss';
 
 export default function ProfileBox() {
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const open = Boolean(anchorEl);
 	const name = useSelector((state) => state.user.userInfo.name);
@@ -25,10 +28,28 @@ export default function ProfileBox() {
 	};
 	return (
 		<React.Fragment>
-			<Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-				<Tooltip title='Logout'>
-					<IconButton onClick={handleClick} size='small' sx={{ ml: 2 }}>
-						<Avatar sx={{ width: 32, height: 32, bgcolor: color, fontSize: '0.875rem', fontWeight: '800' }}>
+			<Box
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+					textAlign: 'center',
+				}}
+			>
+				<Tooltip title="Logout">
+					<IconButton
+						onClick={handleClick}
+						size="small"
+						sx={{ ml: 2 }}
+					>
+						<Avatar
+							sx={{
+								width: 32,
+								height: 32,
+								bgcolor: color,
+								fontSize: '0.875rem',
+								fontWeight: '800',
+							}}
+						>
 							{name[0]}
 						</Avatar>
 					</IconButton>
@@ -69,6 +90,17 @@ export default function ProfileBox() {
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
 				<MenuItem>Thanh Trung</MenuItem>
+				<MenuItem>
+					<div
+						className="profile-link"
+						onClick={() => {
+							history.push('/profile');
+						}}
+					>
+						Profile
+						<span className="profile-line-space"></span>
+					</div>
+				</MenuItem>
 				<MenuItem
 					onClick={() => {
 						dispatch(reset);
@@ -76,7 +108,7 @@ export default function ProfileBox() {
 					}}
 				>
 					<ListItemIcon>
-						<Logout fontSize='small' />
+						<Logout fontSize="small" />
 					</ListItemIcon>
 					Logout
 				</MenuItem>
