@@ -2,19 +2,24 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
+const cookieParser = require("cookie-parser");
 const unless = require('express-unless');
 const bodyParser = require('body-parser');
 const path = require('path');
+const config = require('./config/config');
+const cookieSession = require("cookie-session");
 const auth = require('./middlewares/auth');
 // const swaggerUi = require('swagger-ui-express');
 // Middleware setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // const { Cors } = require('./middlewares/cors');
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: config.CLIENT_URL,
+  credentials: true,
 };
 // const swaggerDocument = require('./api/swagger.json')
 // app.use("/test-api", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -35,6 +40,12 @@ app.use(
       { url: '/api/v1/auth/register', method: ['POST'] },
     ],
   }),
+);
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: ["thanhtrung"]
+  })
 );
 
 app.use('/api/v1/auth', require('./routes/auth.route'));

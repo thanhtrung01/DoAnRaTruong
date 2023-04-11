@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import {
 	Container,
 	SectionContainer,
@@ -17,8 +18,14 @@ import {
 import MemberIcon from '@mui/icons-material/PersonOutlineOutlined';
 import DescriptionIcon from '@mui/icons-material/TextSnippetOutlined';
 import BottomButtonGroup from '../../../Pages/BoardPage/BoardComponents/BottomButtonGroup/BottomButtonGroup';
-import { boardDescriptionUpdate } from '../../../../Services/boardService';
+import { getLists, boardDescriptionUpdate } from '../../../../Services/boardService';
 import { Avatar } from '@mui/material';
+const getBoards = async () => {
+	const newAxios = axios.create();
+	delete newAxios.defaults.headers.common['Authorization'];
+	const res = getLists(res)
+	return res.data;
+};
 const AboutMenu = () => {
 	const textAreaRef = useRef();
 	const hiddenTextRef = useRef();
@@ -26,7 +33,15 @@ const AboutMenu = () => {
 
 	const dispatch = useDispatch();
 
-	const board = useSelector((state) => state.board);
+	// const board = useSelector((state) => state.board);
+	const [board, setBoards] = useState([]);
+	useEffect(() => {
+		getBoards().then((res) => {
+			setTimeout(() => {
+				setBoards(res);
+			}, 2000);
+		});
+	}, []);
 	const [description, setDescription] = useState(board.description);
 	const [textareaFocus, setTextareaFocus] = useState(false);
 
@@ -64,21 +79,21 @@ const AboutMenu = () => {
 					<SectionTitle>Board Admins</SectionTitle>
 				</SectionHeaderContainer>
 				{board.members
-					.filter((member) => member.role === 'owner')
-					.map((member) => {
+					.filter((members) => members.role === 'owner')
+					.map((members) => {
 						return (
-							<MemberSectionContainer key={member.email}>
+							<MemberSectionContainer key={members.email}>
 								<Avatar
-									sx={{ width: '3rem', height: '3rem', bgcolor: member.color, fontWeight: '800' }}
+									sx={{ width: '3rem', height: '3rem', bgcolor: members.color, fontWeight: '800' }}
 								>
-									{member.name[0].toUpperCase()}
+									{members.name[0].toUpperCase()}
 								</Avatar>
 								<MemberInfoContainer>
-									<MemberName>{`${member.name.replace(
+									<MemberName>{`${members.name.replace(
 										/^./,
-										member.name[0].toUpperCase()
-									)} ${member.surname.toUpperCase()}`}</MemberName>
-									<MemberEmail>{member.email}</MemberEmail>
+										members.name[0].toUpperCase()
+									)} ${members.username.toUpperCase()}`}</MemberName>
+									<MemberEmail>{members.email}</MemberEmail>
 								</MemberInfoContainer>
 							</MemberSectionContainer>
 						);

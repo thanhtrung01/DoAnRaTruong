@@ -56,7 +56,7 @@ const BoardSchema = mongoose.Schema(
         name: {
           type: String,
         },
-        surname: {
+        username: {
           type: String,
         },
         email: {

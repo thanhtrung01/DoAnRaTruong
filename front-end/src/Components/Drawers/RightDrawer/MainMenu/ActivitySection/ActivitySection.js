@@ -30,7 +30,7 @@ const ActivitySection = () => {
 		return (
 			<ActionContainer>
 				<Avatar sx={{ width: 32, height: 32, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' }}>
-					{props.name[0].toUpperCase()}
+					{props.name[0].toUpperCase}
 				</Avatar>
 				<ActionWrapper>
 					<CommentTitle>

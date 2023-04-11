@@ -17,7 +17,7 @@ mongoose
   .then(() => CardSchema.createIndexes())
   .then(() => ListSchema.createIndexes())
   .then(() => UserSchema.createIndexes())
-  .then(() => console.log('Connected to MongoDB!'))
+  .then(() => console.log('✅ Connected to MongoDB!'))
   .catch((error) =>
-    console.log(`can not connect to database, ${error}`, error.message),
+    console.log(`❗can not connect to database, ${error}`, error.message),
   );

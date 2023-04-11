@@ -5,8 +5,6 @@ const config = require('../config/config');
 const generateToken = (id, email) => {
   const token = jwt.sign({ id, email }, config.ACCESS_TOKEN_SECRET, {
     expiresIn: config.TOKEN_EXPIRE_TIME,
-    // httpOnly: true,
-    // secure: true,
   });
   return token.toString();
 };
