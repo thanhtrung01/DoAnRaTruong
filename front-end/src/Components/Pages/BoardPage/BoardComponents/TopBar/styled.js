@@ -69,7 +69,7 @@ export const BoardNameInput = styled.input`
 	font-size: 1.1rem;
 	text-align: center;
 	min-width: 6.5rem;
-	max-width: 10rem;
+	max-width: 20rem;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;

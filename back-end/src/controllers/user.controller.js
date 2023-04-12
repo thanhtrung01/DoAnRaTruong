@@ -41,7 +41,7 @@ const login = async (req, res) => {
 
     /* thời gian sống của token là 2h*/
     const now = new Date().getTime();
-    const expiration = now + 7200 * 1000;
+    const expires_in = now + 7200 * 1000;
     /* hiden password || id */
     result.password = undefined;
     result.__v = undefined;
@@ -51,7 +51,7 @@ const login = async (req, res) => {
       message: 'User login successful!',
       user: result,
       token,
-      expiration,
+      expires_in,
       // expiration
     });
   });

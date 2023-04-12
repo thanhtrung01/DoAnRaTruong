@@ -7,7 +7,7 @@ const initialState = {
   pending: true,
   loading: false,
   token: localStorage.getItem('token'),
-  expiration: localStorage.getItem('expiration'),
+  expires_in: localStorage.getItem('expires_in'),
 };
 
 export const userSlice = createSlice({
@@ -45,7 +45,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = true;
       state.userInfo = action.payload.user;
       state.token = localStorage.getItem('token');
-      state.expiration = localStorage.getItem('expiration');
+      state.expires_in = localStorage.getItem('expires_in');
       state.pending = false;
     },
     loadFailure: (state) => {
@@ -55,7 +55,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.userInfo = null;
       state.token = null;
-      state.expiration = null;
+      state.expires_in = null;
       // localStorage.removeItem
       localStorage.removeItem('token');
       localStorage.removeItem('expiration');

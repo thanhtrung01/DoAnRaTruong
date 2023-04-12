@@ -65,17 +65,17 @@ export const login = async ({ email, password }, dispatch) => {
   dispatch(loginStart());
   try {
     const res = await axios.post(authUrl + "login", { email, password });
-    const { user, message, token, expiration } = res.data;
+    const { user, message, token, expires_in } = res.data;
     localStorage.setItem('token', token);
-    localStorage.setItem('expiration', expiration);
+    localStorage.setItem('expires_in', expires_in);
     const intervalId = setInterval(() => {
-      const expiration = localStorage.getItem('expiration');
-      if (token && expiration) {
+      const expires_in = localStorage.getItem('expires_in');
+      if (token && expires_in) {
         const now = new Date().getTime();
         // const expiration = now + 3600 * 1000; 
-        if (now >= expiration) {
+        if (now >= expires_in) {
           localStorage.removeItem('token');
-          localStorage.removeItem('expiration');
+          localStorage.removeItem('expires_in');
           clearInterval(intervalId);
         }
       }
