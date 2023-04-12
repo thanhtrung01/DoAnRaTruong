@@ -1,0 +1,28 @@
+.bell-icon {
+	position: relative;
+
+	margin: 8px 0 0 12px;
+	cursor: pointer;
+
+	.bell-quantity {
+		position: absolute;
+		top: -4px;
+		right: -6px;
+		color: white;
+		background-color: #dc411b;
+		border-radius: 50%;
+		width: 16px;
+		height: 16px;
+		font-size: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+.question-icon {
+	position: relative;
+	cursor: pointer;
+	left: 6px;
+	margin: 6px 0 0 12px;
+}

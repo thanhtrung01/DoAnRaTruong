@@ -1,28 +1,58 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const app = express();
-var bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
+const unless = require('express-unless');
+const bodyParser = require('body-parser');
 const path = require('path');
-
+const config = require('./config/config');
+const cookieSession = require("cookie-session");
+const auth = require('./middlewares/auth');
+// const swaggerUi = require('swagger-ui-express');
 // Middleware setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
-const { Cors } = require('./middlewares/cors');
+// const { Cors } = require('./middlewares/cors');
 
-app.use(Cors);
+const corsOptions = {
+  origin: config.CLIENT_URL,
+  credentials: true,
+};
+// const swaggerDocument = require('./api/swagger.json')
+// app.use("/test-api", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
-app.use('/src/uploads', express.static(path.join(__dirname, './uploads')));
+// app.use('/src/uploads', express.static(path.join(__dirname, './uploads')));
 
-app.use('/api/v1/orders', require('./routes/order.routes'));
-app.use('/api/v1/products', require('./routes/product.routes'));
-app.use('/api/v1/categories', require('./routes/category.routes'));
-app.use('/api/v1/users', require('./routes/user.routes'));
-app.use('/api/v1/auth', require('./routes/auth.routes'));
+// AUTH VERIFICATION AND UNLESS
+auth.verifyToken.unless = unless;
 
+app.use(
+  auth.verifyToken.unless({
+    path: [
+      { url: '/api/v1/auth/login', method: ['POST'] },
+      { url: '/api/v1/auth/register', method: ['POST'] },
+    ],
+  }),
+);
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: ["thanhtrung"]
+  })
+);
+
+app.use('/api/v1/auth', require('./routes/auth.route'));
+app.use('/api/v1/user', require('./routes/user.route'));
+app.use('/api/v1/board', require('./routes/board.route'));
+app.use('/api/v1/list', require('./routes/list.route'));
+app.use('/api/v1/card', require('./routes/card.route'));
 app.get('/', (req, res) => {
   res.json({ msg: 'Welcome to my API shopping' });
 });

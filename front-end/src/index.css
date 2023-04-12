@@ -1,0 +1,22 @@
+* {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.google-btn {
+  height: 40px;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px !important;
+}
+.google-btn:hover {
+  background-color: #888;
+}
+.google-btn > div {
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+}

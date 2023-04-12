@@ -1,0 +1,13 @@
+.profile-link {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	.profile-line-space {
+		bottom: -5px;
+		left: -16px;
+		position: absolute;
+		width: 124px;
+		height: 1px;
+		background-color: #898989;
+	}
+}

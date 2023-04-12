@@ -1,22 +1,54 @@
-const path = require('path');
-// const express = require('express');
 const multer = require('multer');
+const cloudiness = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'src/uploads/');
-  },
-  filename: function (req, file, cb) {
-    let ext = path.extname(file.originalname);
-    cb(null, Date.now() + ext);
+cloudiness.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudiness,
+  params: {
+    folder: 'to-do-app',
+    allowed_formats: ['jpg', 'png', 'jpeg', 'gif', 'jpeg'], // supports promises as well
   },
 });
 
-var upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 2,
-  },
-});
+exports.ImageOrAvatar = function () {
+  const fileFilter = (req, file, cb) => {
+    // reject a file
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  };
 
-module.exports = upload;
+  const upload = multer({ storage: storage, fileFilter: fileFilter });
+
+  return upload.array('image'||'avatar', 12);
+};
+// const path = require('path');
+// // const express = require('express');
+// const multer = require('multer');
+
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'src/uploads/');
+//   },
+//   filename: function (req, file, cb) {
+//     let ext = path.extname(file.originalname);
+//     cb(null, Date.now() + ext);
+//   },
+// });
+
+// var upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 1024 * 1024 * 2,
+//   },
+// });
+
+// module.exports = upload;
