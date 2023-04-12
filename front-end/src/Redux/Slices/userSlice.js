@@ -28,9 +28,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = true;
       state.userInfo = action.payload.user;
       state.token = action.payload.token;
-      // state.expiration = action.payload.expiration;
       localStorage.setItem("token", action.payload.token);
-      // localStorage.setItem("expiration", action.payload.expiration);
     },
     loginFailure: (state) => {
       state.pending = false;
@@ -56,9 +54,8 @@ export const userSlice = createSlice({
       state.userInfo = null;
       state.token = null;
       state.expires_in = null;
-      // localStorage.removeItem
       localStorage.removeItem('token');
-      localStorage.removeItem('expiration');
+      localStorage.removeItem('expires_in');
     },
     fetchingStart: (state)=>{
       state.loading = true;

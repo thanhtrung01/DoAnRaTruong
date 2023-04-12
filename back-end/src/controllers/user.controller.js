@@ -38,10 +38,8 @@ const login = async (req, res) => {
       });
     }
     const token = auth.generateToken(result._id, result.email);
-
-    /* thời gian sống của token là 2h*/
-    const now = new Date().getTime();
-    const expires_in = now + 7200 * 1000;
+    /* thời gian sống của token tính theo giây*/
+    const expires_in = auth.expiresToken(result.token);
     /* hiden password || id */
     result.password = undefined;
     result.__v = undefined;

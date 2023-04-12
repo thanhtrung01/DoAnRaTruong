@@ -72,7 +72,6 @@ export const login = async ({ email, password }, dispatch) => {
       const expires_in = localStorage.getItem('expires_in');
       if (token && expires_in) {
         const now = new Date().getTime();
-        // const expiration = now + 3600 * 1000; 
         if (now >= expires_in) {
           localStorage.removeItem('token');
           localStorage.removeItem('expires_in');
@@ -80,11 +79,6 @@ export const login = async ({ email, password }, dispatch) => {
         }
       }
     }, 1000);
-    // Cookies.set('token', user.token, { 
-    //   expires: 7 ,
-    //   httpOnly: true,
-    // });
-    // localStorage.setItem('expirationDate', generateToken(expiresIn));
     setBearer(token);
     dispatch(loginSuccess({ user, token }));
     dispatch(

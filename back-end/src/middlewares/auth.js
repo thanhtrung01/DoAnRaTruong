@@ -8,7 +8,11 @@ const generateToken = (id, email) => {
   });
   return token.toString();
 };
-
+const expiresToken =(token) =>{
+  const now = new Date().getTime(token);
+  const expires_in = now + config.EXPIRES_IN * 1000;
+  return expires_in.toString();
+}
 const verifyToken = async (req, res, next) => {
   try {
     if (!req.headers['authorization'])
@@ -46,5 +50,6 @@ const verifyToken = async (req, res, next) => {
 
 module.exports = {
   generateToken,
+  expiresToken,
   verifyToken,
 };
