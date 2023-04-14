@@ -9,6 +9,11 @@ const CardSchema = mongoose.Schema({
     type: String,
     default: '',
   },
+  images: {
+    type: Array,
+    required: false,
+    default: []
+  },
   completed: {
     type: Boolean,
     default: false,

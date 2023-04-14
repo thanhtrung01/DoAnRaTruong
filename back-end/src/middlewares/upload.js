@@ -16,7 +16,7 @@ const storage = new CloudinaryStorage({
   },
 });
 
-exports.ImageOrAvatar = function () {
+exports.Avatar = function () {
   const fileFilter = (req, file, cb) => {
     // reject a file
     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
@@ -28,5 +28,20 @@ exports.ImageOrAvatar = function () {
 
   const upload = multer({ storage: storage, fileFilter: fileFilter });
 
-  return upload.array('avatar' || 'image', 12);
+  return upload.array('avatar', 12);
+};
+
+exports.Image = function () {
+  const fileFilter = (req, file, cb) => {
+    // reject a file
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  };
+
+  const upload = multer({ storage: storage, fileFilter: fileFilter });
+
+  return upload.array('images', 12);
 };

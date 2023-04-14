@@ -87,11 +87,15 @@ const updateBoardDescription = async (req, res) => {
           'You can not change description of this board, you are not a member or owner!',
       });
   const { boardId } = req.params;
-  const { description } = req.body;
+  const images_url = req.files.map(image => image.path);
+  // const { description, image } = req.body;
   // Call the service
   await Board.updateBoardDescription(
     boardId,
-    description,
+    {
+      description: req.body.description,
+      images: images_url
+    },
     req.user,
     (err, result) => {
       if (err) return res.status(400).send(err);
