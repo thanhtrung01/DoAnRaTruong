@@ -18,10 +18,23 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  authType: {
+    type: String,
+    default: "system",//can be facebook, google as well
+    enum: ['system', 'google', 'facebook']
+  },
   avatar: {
     type: Array,
     required: false,
     default: []
+  },
+  phone: {
+    type: String,
+    default: '',
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
   },
   color: {
     type: String,

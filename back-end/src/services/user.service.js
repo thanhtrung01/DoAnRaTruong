@@ -1,7 +1,8 @@
 const userModel = require('../models/user.model');
+const session = require('express-session');
 const { createRandomHexColor } = require('../helper/validate');
 
-const register = async (user, callback) => {
+const register = async (req, user, callback) => {
   const newUser = userModel({ ...user, color: createRandomHexColor() });
   await newUser
     .save()
@@ -55,28 +56,9 @@ const getUserWithMail = async (email, callback) => {
   }
 };
 
-const updateUser = async (userId,updatedObj, callback) => {
-  try {
-    const user = await userModel.findByIdAndUpdate(userId);
-    // if (!user)
-    //   return callback({
-    //     errMessage: 'There is no id user with update.',
-    //   });
-    await user.updateOne(updatedObj);
-    await user.save();
-    return callback(false, { ...user.toJSON() });
-  } catch (error) {
-    return callback({
-      errMessage: 'Something went wrong',
-      details: error.message,
-    });
-  }
-};
-
 module.exports = {
   register,
   login,
   getUser,
   getUserWithMail,
-  updateUser
 };

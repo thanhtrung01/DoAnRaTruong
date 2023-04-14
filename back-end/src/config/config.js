@@ -11,5 +11,7 @@ module.exports = {
   CLIENT_URL: process.env.CLIENT_URL,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-  EXPIRES_IN: process.env.EXPIRES_IN
+  EXPIRES_IN: process.env.EXPIRES_IN,
+  GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
+  SESSION_SECRET: process.env.SESSION_SECRET,
 };

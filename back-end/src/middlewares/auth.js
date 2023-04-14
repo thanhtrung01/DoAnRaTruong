@@ -8,7 +8,7 @@ const generateToken = (id, email) => {
   });
   return token.toString();
 };
-const expiresToken =(token) =>{
+const expiresToken = (token) => {
   const now = new Date().getTime(token);
   const expires_in = now + config.EXPIRES_IN * 1000;
   return expires_in.toString();
@@ -23,7 +23,7 @@ const verifyToken = async (req, res, next) => {
     const header = req.headers['authorization'];
     const token = header.split(' ')[1];
 
-    await jwt.verify(
+    jwt.verify(
       token,
       config.ACCESS_TOKEN_SECRET,
       async (err, verifiedToken) => {
@@ -34,17 +34,10 @@ const verifyToken = async (req, res, next) => {
         const user = await User.findById(verifiedToken.id);
         req.user = user;
         next();
-      },
+      }
     );
-    res.cookie('access_token', token, {
-      httpOnly: true,
-      secure: true,
-    });
   } catch (error) {
-    return res.status(500).send({
-      errMesage: 'Internal server error occured!',
-      details: error.message,
-    });
+    next(error);
   }
 };
 

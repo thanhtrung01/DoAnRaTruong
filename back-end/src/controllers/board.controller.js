@@ -143,7 +143,9 @@ const addMember = async (req, res) => {
     return res.status(200).send(result);
   });
 };
-
+const deleteBoard = (req, res) => {
+  
+};
 module.exports = {
   create,
   getAll,
@@ -153,4 +155,5 @@ module.exports = {
   updateBoardDescription,
   updateBackground,
   addMember,
+  deleteBoard
 };

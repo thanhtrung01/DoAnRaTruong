@@ -12,14 +12,14 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudiness,
   params: {
     folder: 'to-do-app',
-    allowed_formats: ['jpg', 'png', 'jpeg', 'gif', 'jpeg'], // supports promises as well
+    allowed_formats: ['png', 'jpeg', 'jpg', 'gif', 'jpeg'], // supports promises as well
   },
 });
 
 exports.ImageOrAvatar = function () {
   const fileFilter = (req, file, cb) => {
     // reject a file
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
       cb(null, true);
     } else {
       cb(null, false);
@@ -28,27 +28,5 @@ exports.ImageOrAvatar = function () {
 
   const upload = multer({ storage: storage, fileFilter: fileFilter });
 
-  return upload.array('image'||'avatar', 12);
+  return upload.array('avatar' || 'image', 12);
 };
-// const path = require('path');
-// // const express = require('express');
-// const multer = require('multer');
-
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'src/uploads/');
-//   },
-//   filename: function (req, file, cb) {
-//     let ext = path.extname(file.originalname);
-//     cb(null, Date.now() + ext);
-//   },
-// });
-
-// var upload = multer({
-//   storage: storage,
-//   limits: {
-//     fileSize: 1024 * 1024 * 2,
-//   },
-// });
-
-// module.exports = upload;

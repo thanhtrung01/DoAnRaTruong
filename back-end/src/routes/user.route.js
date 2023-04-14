@@ -1,11 +1,13 @@
 const express = require('express');
 const userController = require('../controllers/user.controller');
 const upload = require('../middlewares/upload');
+const authAdmin  = require('../middlewares/authAdmin');
 const router = express.Router();
-
-// router.post("/register", userController.register);
+//User
 router.get('/get-user', userController.getUser);
-router.post('/get-user-with-email', upload.ImageOrAvatar('avatar'),userController.getUserWithMail);
-router.put('/:userId', userController.updateUser);
+router.post('/get-user-with-email', userController.getUserWithMail);
+router.patch('/:userId', upload.ImageOrAvatar('avatar'), userController.updateUser);
 
+//router admin 
+router.post('/create-user', authAdmin, upload.ImageOrAvatar('avatar'), userController.createUser);
 module.exports = router;

@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
+const session = require('express-session');
 const cookieParser = require("cookie-parser");
 const unless = require('express-unless');
 const bodyParser = require('body-parser');
@@ -28,7 +29,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
-// app.use('/src/uploads', express.static(path.join(__dirname, './uploads')));
 
 // AUTH VERIFICATION AND UNLESS
 auth.verifyToken.unless = unless;
@@ -36,18 +36,18 @@ auth.verifyToken.unless = unless;
 app.use(
   auth.verifyToken.unless({
     path: [
+      { url: '/api/v1/auth/google', method: ['GET'] },
       { url: '/api/v1/auth/login', method: ['POST'] },
+      { url: '/api/v1/auth/google_login', method: ['POST'] },
       { url: '/api/v1/auth/register', method: ['POST'] },
     ],
   }),
 );
-app.use(
-  cookieSession({
-    maxAge: 24 * 60 * 60 * 1000,
-    keys: ["thanhtrung"]
-  })
-);
-
+app.use(session({
+  secret: config.GOOGLE_CLIENT_SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
 app.use('/api/v1/auth', require('./routes/auth.route'));
 app.use('/api/v1/user', require('./routes/user.route'));
 app.use('/api/v1/board', require('./routes/board.route'));
