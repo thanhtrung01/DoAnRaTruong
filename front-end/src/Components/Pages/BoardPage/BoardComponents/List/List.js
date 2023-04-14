@@ -35,6 +35,7 @@ const List = (props) => {
   const [clickFooter, setClickFooter] = useState(false);
   const [newCardTitle, setNewCardTitle] = useState("");
   const [currentListTitle, setCurrentListTitle] = useState(props.info.title);
+  const [listItemDone, setListItemDone] = useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const ref = useRef();
@@ -45,7 +46,6 @@ const List = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log(props);
 
   const handleFooterClick = async () => {
     setNewCardTitle("");
@@ -81,6 +81,17 @@ const List = (props) => {
         setNewCardTitle("");
       }
   };
+
+  const handleFilterItemsDone = () => {
+    if (props.info.title === "Done 🎉") {
+      setListItemDone(props);
+      return props;
+    }
+  };
+
+  useEffect(() => {
+    handleFilterItemsDone();
+  }, [props]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -174,6 +185,7 @@ const List = (props) => {
                                 key={card._id}
                                 index={index}
                                 info={card}
+                                listItemDone={listItemDone}
                               />
                             );
                           })}

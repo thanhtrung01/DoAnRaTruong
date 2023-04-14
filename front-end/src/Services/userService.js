@@ -11,9 +11,11 @@ import {
   loadStart,
   fetchingStart,
   fetchingFinish,
+  logout,
 } from "../Redux/Slices/userSlice";
 import { openAlert } from "../Redux/Slices/alertSlice";
 import setBearer from "../Utils/setBearer";
+import { useDispatch, useSelector } from "react-redux";
 
 const apiURL = process.env.REACT_APP_SERVER_API;
 const authUrl = apiURL + `auth/`;
@@ -66,15 +68,16 @@ export const login = async ({ email, password }, dispatch) => {
   try {
     const res = await axios.post(authUrl + "login", { email, password });
     const { user, message, token, expires_in } = res.data;
-    localStorage.setItem('token', token);
-    localStorage.setItem('expires_in', expires_in);
+    localStorage.setItem("token", token);
+    localStorage.setItem("expires_in", expires_in);
     const intervalId = setInterval(() => {
-      const expires_in = localStorage.getItem('expires_in');
+      const expires_in = localStorage.getItem("expires_in");
       if (token && expires_in) {
         const now = new Date().getTime();
         if (now >= expires_in) {
-          localStorage.removeItem('token');
-          localStorage.removeItem('expires_in');
+          localStorage.removeItem("token");
+          localStorage.removeItem("expires_in");
+          dispatch(logout());
           clearInterval(intervalId);
         }
       }
