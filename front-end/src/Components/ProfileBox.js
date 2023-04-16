@@ -50,7 +50,7 @@ export default function ProfileBox() {
 								fontWeight: '800',
 							}}
 						>
-							{name[0]}
+							{/* {name[0]} */}
 						</Avatar>
 					</IconButton>
 				</Tooltip>

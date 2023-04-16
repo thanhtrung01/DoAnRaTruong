@@ -1,15 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './profile.scss';
 import Navbar from '../../Navbar';
+import { updateInfoUser } from '../../../Services/userService';
+
 import {
 	DefaultChangeImageIcon,
 	DefaultImageIcon,
 	EarthImageIcon,
 } from '../../../Icons/Icons';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Profile(props) {
+	const infoUser = useSelector((state) => state.user);
+	console.log(infoUser);
+	const dispatch = useDispatch();
+
+	const [nameUser, setNameUser] = useState(
+		infoUser.userInfo.name || 'name user'
+	);
+	const [avatarApi, setAvatarApi] = useState(
+		infoUser.userInfo.avatar[0] ||
+			'https://i1.wp.com/avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NT-3.png?ssl=1)'
+	);
+
+	const [avatar, setAvatar] = useState(
+		infoUser.userInfo.avatar[0] ||
+			'https://i1.wp.com/avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NT-3.png?ssl=1)'
+	);
+
+	const handleNameUser = (e) => {
+		setNameUser(e.target.value);
+	};
+	const handleAvatar = (e) => {
+		// setAvatar(e.target.files[0]);x
+		setAvatarApi(e.target.files);
+
+		console.log(e.target.files);
+	};
+
+	const handleEditUser = async () => {
+		const getUserFromProfile = await updateInfoUser(
+			dispatch,
+			infoUser.userInfo._id,
+			nameUser,
+			avatarApi
+		);
+		console.log(getUserFromProfile);
+	};
+
 	return (
 		<>
 			<Navbar />
@@ -27,10 +67,11 @@ function Profile(props) {
 								</div>
 							</div>
 						</div>
+						<input type="file" onChange={handleAvatar} />
 						<div className="profile-logo-wrap">
 							<img
 								className="profile-image"
-								src="https://i1.wp.com/avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NT-3.png?ssl=1"
+								src={avatar}
 								alt=""
 							/>
 							<DefaultChangeImageIcon />
@@ -48,7 +89,11 @@ function Profile(props) {
 							<div className="info-item full-name">
 								<div className="full-name-left">
 									<span>Họ tên</span>
-									<p>Nhut Dang Thanh</p>
+									<input
+										value={nameUser}
+										onChange={handleNameUser}
+										type="text"
+									/>
 								</div>
 								<div className="full-name-right">
 									<span>
@@ -122,7 +167,9 @@ function Profile(props) {
 							</div>
 						</div>
 					</div>
-					<button className="profile-edit">Edit</button>
+					<button className="profile-edit" onClick={handleEditUser}>
+						Edit
+					</button>
 				</div>
 			</div>
 		</>

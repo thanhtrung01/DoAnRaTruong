@@ -7,5 +7,4 @@ router.post('/login', userController.login);
 router.get('/google', userController.google);
 router.post('/google_login', userController.googleLogin);
 
-
 module.exports = router;
