@@ -39,6 +39,10 @@ export const userSlice = createSlice({
     loadStart: (state) => {
       state.pending = true;
     },
+    updateStart: (state) => {
+      state.loading = true;
+      // state.userInfo = action.payload.user;
+    },
     loadSuccess: (state, action) => {
       state.isAuthenticated = true;
       state.userInfo = action.payload.user;
@@ -76,6 +80,7 @@ export const {
   loginFailure,
   loginSuccess,
   loadStart,
+  updateStart,
   loadSuccess,
   loadFailure,
   logout,

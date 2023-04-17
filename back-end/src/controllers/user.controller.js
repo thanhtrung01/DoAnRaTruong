@@ -142,8 +142,9 @@ const getUserWithMail = async (req, res) => {
 
 const updateUser = async (req, res) => {
 	const { userId } = req.params;
-	console.log('req.file', req.file);
-	const images_url = req.files.map((image) => image.path);
+	console.log('req.file', req.files);
+	const images_url = req.files[0].path;
+	// const images_url = req.file;
 	await UserSchema.findByIdAndUpdate(
 		userId,
 		{

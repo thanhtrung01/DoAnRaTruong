@@ -1,6 +1,5 @@
 import axios from 'axios';
 import FormData from 'form-data';
-// import Cookies from 'js-cookie';
 import {
 	registrationStart,
 	registrationEnd,
@@ -10,6 +9,7 @@ import {
 	loadSuccess,
 	loadFailure,
 	loadStart,
+	updateStart,
 	fetchingStart,
 	fetchingFinish,
 	logout,
@@ -151,63 +151,26 @@ export const getUserFromEmail = async (email, dispatch) => {
 	}
 };
 
-// export const updateInfoUser = async (id, name, avatar) => {
-// 	try {
-// 		// await dispatch(updateDescription(description));
-// 		await axios.patch(`user/${id}`, {
-// 			name,
-// 			avatar,
-// 		});
-// 	} catch (error) {
-// 		console.log('Update user error');
-// 		// dispatch(
-// 		// 	openAlert({
-// 		// 		message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,
-// 		// 		severity: 'error',
-// 		// 	})
-// 		// );
-// 	}
-// };
-
-export const updateInfoUser = async (dispatch, id, name, files) => {
-	dispatch(loadStart());
+export const updateInfoUser = async (dispatch, id, name, avatar) => {
+	dispatch(updateStart());
 	if (!localStorage.token) return dispatch(loadFailure());
 	setBearer(localStorage.token);
+	const formData = new FormData();
+	formData.append('name', name);
+	formData.append('avatar', avatar);
 	try {
-		const formData = new FormData();
-		formData.append('avatar', files);
-		formData._boundary = 'something';
-		const res = await axios.patch(
-			`${baseUrl}/${id}`,
-			{
-				name,
-				avatar: formData,
-			},
-			{
-				headers: {
-					'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-				},
-			}
-		);
+		const res = await axios.patch(baseUrl + `${id}`,formData)
+			.then(res => {
+				console.log('Đã upload hình ảnh thành công', res.data);
+			})
+			.catch(error => {
+				console.error('Lỗi khi upload hình ảnh', error);
+			})
+
 		dispatch(loadSuccess({ user: res.data, token: res.data }));
 	} catch (error) {
 		dispatch(loadFailure());
 	}
+
 };
 
-// export const getUser = async (id, token, name, avatar) => {
-// 	const tokenLocalStorage = localStorage.getItem('token');
-// 	setBearer(tokenLocalStorage);
-// 	try {
-// 		// await dispatch(updateDescription(description));
-// 		await axios.get(`user/get-user`);
-// 	} catch (error) {
-// 		console.log('Update user error', error);
-// 		// dispatch(
-// 		// 	openAlert({
-// 		// 		message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,
-// 		// 		severity: 'error',
-// 		// 	})
-// 		// );
-// 	}
-// };

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
+import { useDropzone } from 'react-dropzone';
 import './profile.scss';
 import Navbar from '../../Navbar';
 import { updateInfoUser } from '../../../Services/userService';
-
+import Dropzone from 'react-dropzone';
 import {
 	DefaultChangeImageIcon,
 	DefaultImageIcon,
@@ -14,40 +14,36 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function Profile(props) {
 	const infoUser = useSelector((state) => state.user);
+	const color = useSelector((state) => state.user.userInfo.color);
 	console.log(infoUser);
 	const dispatch = useDispatch();
-
+	const name = useSelector((state) => state.user.userInfo.name);
+	const avatar = useSelector((state) => state.user.userInfo.avatar);
+	
 	const [nameUser, setNameUser] = useState(
-		infoUser.userInfo.name || 'name user'
+		name ||'add name user'
 	);
 	const [avatarApi, setAvatarApi] = useState(
-		infoUser.userInfo.avatar[0] ||
-			'https://i1.wp.com/avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NT-3.png?ssl=1)'
+		avatar|| 'https://res.cloudinary.com/thanhtrung01/image/upload/v1681693079/to-do-app/jfhtywfis0xfrpv4jvaz.jpg'
 	);
-
-	const [avatar, setAvatar] = useState(
-		infoUser.userInfo.avatar[0] ||
-			'https://i1.wp.com/avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NT-3.png?ssl=1)'
-	);
+	console.log(avatarApi);
 
 	const handleNameUser = (e) => {
 		setNameUser(e.target.value);
 	};
 	const handleAvatar = (e) => {
-		// setAvatar(e.target.files[0]);x
-		setAvatarApi(e.target.files);
-
-		console.log(e.target.files);
+		setAvatarApi(e.target.files[0]);
 	};
 
+
 	const handleEditUser = async () => {
-		const getUserFromProfile = await updateInfoUser(
+		await updateInfoUser(
 			dispatch,
 			infoUser.userInfo._id,
 			nameUser,
 			avatarApi
 		);
-		console.log(getUserFromProfile);
+		console.log(avatarApi);
 	};
 
 	return (
@@ -67,11 +63,21 @@ function Profile(props) {
 								</div>
 							</div>
 						</div>
-						<input type="file" onChange={handleAvatar} />
+						<input
+							type="file"
+							onChange={handleAvatar}
+						/>
 						<div className="profile-logo-wrap">
 							<img
+								sx={{
+									width: 32,
+									height: 32,
+									bgcolor: color,
+									fontSize: '0.875rem',
+									fontWeight: '800',
+								}}
 								className="profile-image"
-								src={avatar}
+								src={avatar[0]}
 								alt=""
 							/>
 							<DefaultChangeImageIcon />

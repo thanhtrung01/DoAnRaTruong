@@ -19,6 +19,7 @@ export default function ProfileBox() {
 	const dispatch = useDispatch();
 	const open = Boolean(anchorEl);
 	const name = useSelector((state) => state.user.userInfo.name);
+	const avatar = useSelector((state) => state.user.userInfo.avatar);
 	const color = useSelector((state) => state.user.userInfo.color);
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -50,7 +51,24 @@ export default function ProfileBox() {
 								fontWeight: '800',
 							}}
 						>
-							{/* {name[0]} */}
+							{
+								(name === null || avatar===[null]) 
+								? (
+									(name !== null)
+									? 
+									name[0]
+									:
+									'user'
+								)
+								: (
+								<img
+									alt="profile"
+									src={avatar}
+									style={{ width: "100%" }}
+								/>
+								)
+							}
+
 						</Avatar>
 					</IconButton>
 				</Tooltip>
@@ -89,7 +107,27 @@ export default function ProfileBox() {
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
-				<MenuItem>Thanh Trung</MenuItem>
+				<MenuItem>
+
+					{
+						(name !== null) 
+						?<div
+							className="profile-link"
+							onClick={() => {
+								history.push('/profile');
+							}}
+						> {name} </div> 
+						:<div
+							className="profile-link"
+							onClick={() => {
+							history.push('/profile');
+							}}
+						> 
+						user name
+						</div>
+					}
+
+				</MenuItem>
 				<MenuItem>
 					<div
 						className="profile-link"
