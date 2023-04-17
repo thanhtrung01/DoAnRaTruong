@@ -23,6 +23,7 @@ const boardSlice = createSlice({
 		successFetchingBoard: (state, action) => {
 			state.id = action.payload._id;
 			state.title = action.payload.title;
+			// state.members = action.payload.members.avatar;
 			state.backgroundImageLink = action.payload.backgroundImageLink;
 			state.isImage = action.payload.isImage;
 			state.lists = action.payload.lists;

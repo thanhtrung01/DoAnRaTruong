@@ -28,6 +28,7 @@ import {
 import { Draggable } from "react-beautiful-dnd";
 import moment from "moment";
 import { Avatar } from "@mui/material";
+
 const Card = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [lengthListDone, setLengthListDone] = useState(0);
@@ -212,6 +213,8 @@ const Card = (props) => {
                     <MembersWrapper>
                       {card.members &&
                         card.members.map((member, i) => {
+                          const nameAvatar= member.name[0].toUpperCase();
+                          const avatarInitial = (member.avatar==null) ? nameAvatar: member.avatar[0];
                           return (
                             <Avatar
                               key={i}
@@ -222,8 +225,9 @@ const Card = (props) => {
                                 fontSize: "0.875rem",
                                 fontWeight: "800",
                               }}
+                              src={avatarInitial}
                             >
-                              {member.name[0].toUpperCase()}
+                              {nameAvatar}
                             </Avatar>
                           );
                         })}

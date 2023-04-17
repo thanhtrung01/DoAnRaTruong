@@ -21,8 +21,9 @@ const ActivityLog = () => {
 										fontSize: '0.875rem',
 										fontWeight: '800',
 									}}
+									src={activity.avatar[0]}
 								>
-									{activity.userName[0].toUpperCase()}
+									{/* {activity.userName[0].toUpperCase()} */}
 								</Avatar>
 							</LeftContainer>
 							<RightContainer>

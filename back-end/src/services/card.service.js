@@ -30,6 +30,7 @@ const create = async (title, listId, boardId, user, callback) => {
     card.activities.unshift({
       text: `added this card to ${list.title}`,
       userName: user.name,
+      avatar: user.avatar,
       color: user.color,
     });
     card.labels = helperMethods.labelsSeed;
@@ -42,6 +43,7 @@ const create = async (title, listId, boardId, user, callback) => {
     // Add log to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: `added ${card.title} to this board`,
       color: user.color,
@@ -197,6 +199,7 @@ const addComment = async (cardId, listId, boardId, user, body, callback) => {
     //Add comment
     card.activities.unshift({
       text: body.text,
+      avatar: user.avatar,
       userName: user.name,
       isComment: true,
       color: user.color,
@@ -206,6 +209,7 @@ const addComment = async (cardId, listId, boardId, user, body, callback) => {
     //Add comment to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: body.text,
       actionType: 'comment',
@@ -267,6 +271,7 @@ const updateComment = async (
     //Add to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: body.text,
       actionType: 'comment',
@@ -320,6 +325,7 @@ const deleteComment = async (
     //Add to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: `deleted his/her own comment from ${card.title}`,
       color: user.color,
@@ -358,6 +364,7 @@ const addMember = async (cardId, listId, boardId, user, memberId, callback) => {
     //Add member
     card.members.unshift({
       user: member._id,
+      avatar: member.avatar,
       name: member.name,
       color: member.color,
     });
@@ -366,6 +373,7 @@ const addMember = async (cardId, listId, boardId, user, memberId, callback) => {
     //Add to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: member.avatar,
       name: user.name,
       action: `added '${member.name}' to ${card.title}`,
       color: user.color,
@@ -419,6 +427,7 @@ const deleteMember = async (
     //Add to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action:
         tempMember.name === user.name
@@ -646,6 +655,7 @@ const createChecklist = async (
     //Add to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: `added '${title}' to ${card.title}`,
       color: user.color,
@@ -698,6 +708,7 @@ const deleteChecklist = async (
     //Add to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: `removed '${cl.title}' from ${card.title}`,
       color: user.color,
@@ -812,6 +823,7 @@ const setChecklistItemCompleted = async (
     //Add to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: completed
         ? `completed '${clItem}' on ${card.title}`
@@ -1002,6 +1014,7 @@ const updateDateCompleted = async (
     //Add to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: `marked the due date on ${card.title} ${
         completed ? 'complete' : 'uncomplete'
@@ -1057,6 +1070,7 @@ const addAttachment = async (
     //Add to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: `attached ${validLink} to ${card.title}`,
       color: user.color,
@@ -1114,6 +1128,7 @@ const deleteAttachment = async (
     //Add to board activity
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: `deleted the ${attachmentObj[0].link} attachment from ${card.title}`,
       color: user.color,

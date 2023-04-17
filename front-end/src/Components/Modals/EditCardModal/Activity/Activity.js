@@ -58,8 +58,9 @@ const Activity = () => {
 							fontSize: '0.875rem',
 							fontWeight: '800',
 						}}
+						src={user.userInfo.avatar[0]}
 					>
-						{user.userInfo.name[0].toUpperCase()}
+						{/* {user.userInfo.name[0].toUpperCase()} */}
 					</Avatar>
 				</LeftContainer>
 				<RightContainer>

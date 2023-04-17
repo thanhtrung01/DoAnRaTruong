@@ -23,6 +23,11 @@ const BoardSchema = mongoose.Schema(
         name: {
           type: String,
         },
+        avatar: {
+          type: Array,
+          required: false,
+          default: []
+        },
         action: {
           type: String,
         },
@@ -55,6 +60,11 @@ const BoardSchema = mongoose.Schema(
         },
         name: {
           type: String,
+        },
+        avatar: {
+          type: Array,
+          required: false,
+          default: []
         },
         username: {
           type: String,

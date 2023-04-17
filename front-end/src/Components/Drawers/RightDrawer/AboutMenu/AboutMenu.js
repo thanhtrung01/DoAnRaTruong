@@ -85,8 +85,9 @@ const AboutMenu = () => {
 							<MemberSectionContainer key={members.email}>
 								<Avatar
 									sx={{ width: '3rem', height: '3rem', bgcolor: members.color, fontWeight: '800' }}
+									src={members.avatar[0]}
 								>
-									{members.name[0].toUpperCase()}
+									{/* {members.name[0].toUpperCase()} */}
 								</Avatar>
 								<MemberInfoContainer>
 									<MemberName>{`${members.name.replace(

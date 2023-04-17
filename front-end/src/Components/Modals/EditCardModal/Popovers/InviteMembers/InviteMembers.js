@@ -19,14 +19,20 @@ const useStyles = makeStyles({
 });
 
 const ChipComponent = (props) => {
-	const { name, surname, email, callback } = props;
+	const { avatar, name, username, email, callback } = props;
 	const classes = useStyles();
 	return (
-		<Tooltip TransitionComponent={Zoom} title={`${name} ${surname}`} size='small' placement='top' arrow>
+		<Tooltip TransitionComponent={Zoom} title={`${name} ${username}`} size='small' placement='top' arrow>
 			<Chip
 				className={classes.root}
 				onDelete={() => callback(email)}
-				avatar={<Avatar>{name.toString()[0]}</Avatar>}
+				avatar={
+					<Avatar
+						sx={{ width: 28, height: 28, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' }}
+						src={avatar[0]}
+					>
+						{name.toString()[0]}
+					</Avatar>}
 				label={name}
 				size='small'
 				color='secondary'

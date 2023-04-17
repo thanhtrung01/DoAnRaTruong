@@ -39,6 +39,9 @@ export const userSlice = createSlice({
     loadStart: (state) => {
       state.pending = true;
     },
+    loadAllStart: (state) => {
+      state.pending = true;
+    },
     updateStart: (state) => {
       state.loading = true;
       // state.userInfo = action.payload.user;
@@ -80,6 +83,7 @@ export const {
   loginFailure,
   loginSuccess,
   loadStart,
+  loadAllStart,
   updateStart,
   loadSuccess,
   loadFailure,

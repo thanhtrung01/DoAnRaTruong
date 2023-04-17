@@ -35,8 +35,9 @@ const Comment = (props) => {
 				<LeftContainer>
 					<Avatar
 						sx={{ width: 28, height: 28, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' }}
+						src={props.avatar[0]}
 					>
-						{props.userName[0].toUpperCase()}
+						{/* {props.userName[0].toUpperCase()} */}
 					</Avatar>
 				</LeftContainer>
 				<RightContainer>

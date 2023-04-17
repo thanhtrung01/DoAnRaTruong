@@ -29,8 +29,11 @@ const ActivitySection = () => {
 	const Comment = (props) => {
 		return (
 			<ActionContainer>
-				<Avatar sx={{ width: 32, height: 32, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' }}>
-					{props.name[0].toUpperCase}
+				<Avatar 
+					sx={{ width: 32, height: 32, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' }}
+					src={props.avatar[0]}
+				>
+					{/* {props.name[0].toUpperCase} */}
 				</Avatar>
 				<ActionWrapper>
 					<CommentTitle>
@@ -48,8 +51,11 @@ const ActivitySection = () => {
 	const Action = (props) => {
 		return (
 			<ActionContainer>
-				<Avatar sx={{ width: 32, height: 32, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' }}>
-					{props.name[0].toUpperCase()}
+				<Avatar 
+					sx={{ width: 32, height: 32, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' }}
+					src={props.avatar[0]}
+				>
+					{/* {props.name[0].toUpperCase()} */}
 				</Avatar>
 				<ActionWrapper>
 					<Text>

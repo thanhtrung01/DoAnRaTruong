@@ -9,6 +9,7 @@ import {
 	loadSuccess,
 	loadFailure,
 	loadStart,
+	loadAllStart,
 	updateStart,
 	fetchingStart,
 	fetchingFinish,
@@ -172,5 +173,17 @@ export const updateInfoUser = async (dispatch, id, name, avatar) => {
 		dispatch(loadFailure());
 	}
 
+};
+
+export const getAllUser = async (dispatch) => {
+	dispatch(loadAllStart());
+	if (!localStorage.token) return dispatch(loadFailure());
+	setBearer(localStorage.token);
+	try {
+		const res = await axios.get(baseUrl + 'get-users');
+		dispatch(loadSuccess({ user: res.data, token: res.data }));
+	} catch (error) {
+		dispatch(loadFailure());
+	}
 };
 

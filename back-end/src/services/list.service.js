@@ -19,6 +19,7 @@ const create = async (model, user, callback) => {
     // Add created activity to owner board activities
     ownerBoard.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: `added ${newList.title} to this board`,
       color: user.color,
@@ -89,6 +90,7 @@ const deleteById = async (listId, boardId, user, callback) => {
     // Add activity log to board
     board.activity.unshift({
       user: user._id,
+      avatar: user.avatar,
       name: user.name,
       action: `deleted ${result.title} from this board`,
       color: user.color,
@@ -150,6 +152,7 @@ const updateCardOrder = async (
     if (sourceId !== destinationId)
       card.activities.unshift({
         text: `moved this card from ${sourceList.title} to ${destinationList.title}`,
+        avatar: user.avatar,
         userName: user.name,
         color: user.color,
       });

@@ -82,8 +82,11 @@ const MemberComponent = (props) => {
 	};
 	return (
 		<MemberWrapper onClick={handleClick}>
-			<Avatar sx={{ width: 28, height: 28, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' }}>
-				{props.name[0].toUpperCase()}
+			<Avatar 
+				src={props.avatar[0]}
+				sx={{ width: 28, height: 28, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' 
+			}}>
+				{/* {props.name[0].toUpperCase()} */}
 			</Avatar>
 			<MemberName>{props.name}</MemberName>
 			{isMember && (

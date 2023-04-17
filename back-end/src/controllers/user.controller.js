@@ -123,6 +123,32 @@ const getUser = async (req, res) => {
 		return res.status(200).send(result);
 	});
 };
+const getAllUser = async (req, res) => {
+	try {
+		const users = await UserSchema.find(
+		).sort('__v')
+
+		//hiden password or role change
+		const usersWithoutPassword = users.map(user => {
+			const { 
+				password, 
+				isAdmin, 
+				authType, 
+				...userWithoutPassword 
+			} = user.toObject();
+			return userWithoutPassword;
+		  });
+		const countAllUsers = await UserSchema.countDocuments();
+		
+		return res.status(200).json({
+			user: usersWithoutPassword,
+			count: countAllUsers,
+		});
+	} catch (err) {
+		console.log(err);
+		return res.status(500).json({ msg: err.message });
+	}
+};
 
 const getUserWithMail = async (req, res) => {
 	const { email } = req.body;
@@ -142,7 +168,7 @@ const getUserWithMail = async (req, res) => {
 
 const updateUser = async (req, res) => {
 	const { userId } = req.params;
-	console.log('req.file', req.files);
+	// console.log('req.file', req.files);
 	const images_url = req.files[0].path;
 	// const images_url = req.file;
 	await UserSchema.findByIdAndUpdate(
@@ -204,6 +230,7 @@ module.exports = {
 	google,
 	googleLogin,
 	getUser,
+	getAllUser,
 	getUserWithMail,
 	updateUser,
 	createUser,

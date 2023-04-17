@@ -41,6 +41,11 @@ const CardSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
       },
+      avatar: {
+        type: Array,
+        required: false,
+        default: []
+      },
       name: {
         type: String,
       },
@@ -95,6 +100,11 @@ const CardSchema = mongoose.Schema({
     {
       userName: {
         type: String,
+      },
+      avatar: {
+        type: Array,
+        required: false,
+        default: []
       },
       text: {
         type: String,
