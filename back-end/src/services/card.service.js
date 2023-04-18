@@ -216,7 +216,7 @@ const addComment = async (cardId, listId, boardId, user, body, callback) => {
       cardTitle: card.title,
       color: user.color,
     });
-    board.save();
+    await board.save();
 
     return callback(false, card.activities);
   } catch (error) {
@@ -279,7 +279,7 @@ const updateComment = async (
       color: user.color,
       cardTitle: card.title,
     });
-    board.save();
+    await board.save();
 
     return callback(false, { message: 'Success!' });
   } catch (error) {
@@ -330,7 +330,7 @@ const deleteComment = async (
       action: `deleted his/her own comment from ${card.title}`,
       color: user.color,
     });
-    board.save();
+    await board.save();
 
     return callback(false, { message: 'Success!' });
   } catch (error) {
@@ -373,12 +373,12 @@ const addMember = async (cardId, listId, boardId, user, memberId, callback) => {
     //Add to board activity
     board.activity.unshift({
       user: user._id,
-      avatar: member.avatar,
+      avatar: user.avatar,
       name: user.name,
       action: `added '${member.name}' to ${card.title}`,
       color: user.color,
     });
-    board.save();
+    await board.save();
 
     return callback(false, { message: 'success' });
   } catch (error) {
@@ -435,7 +435,7 @@ const deleteMember = async (
           : `removed '${tempMember.name}' from ${card.title}`,
       color: user.color,
     });
-    board.save();
+    await board.save();
 
     return callback(false, { message: 'success' });
   } catch (error) {

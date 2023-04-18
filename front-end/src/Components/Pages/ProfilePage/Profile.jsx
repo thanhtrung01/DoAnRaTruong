@@ -77,7 +77,7 @@ function Profile(props) {
 									fontWeight: '800',
 								}}
 								className="profile-image"
-								src={avatar[0]}
+								src={avatarApi[0]}
 								alt=""
 							/>
 							<DefaultChangeImageIcon />

@@ -207,7 +207,6 @@ const addMember = async (id, members, user, callback) => {
       members.map(async (member) => {
         const newMember = await userModel.findOne({ email: member.email });
         newMember.boards.push(board._id);
-        await newMember.save();
         board.members.push({
           user: newMember._id,
           avatar: newMember.avatar,
@@ -217,9 +216,11 @@ const addMember = async (id, members, user, callback) => {
           color: newMember.color,
           role: 'member',
         });
+        await newMember.save();
         //Add to board activity
         board.activity.push({
           user: user.id,
+          avatar: user.avatar,
           name: user.name,
           action: `added user '${newMember.name}' to this board`,
           color: user.color,

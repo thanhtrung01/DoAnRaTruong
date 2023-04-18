@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import DoneIcon from '@mui/icons-material/Done';
 import { useDispatch, useSelector } from 'react-redux';
@@ -82,10 +82,11 @@ const MemberComponent = (props) => {
 	};
 	return (
 		<MemberWrapper onClick={handleClick}>
-			<Avatar 
+			<Avatar
 				src={props.avatar[0]}
-				sx={{ width: 28, height: 28, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800' 
-			}}>
+				sx={{
+					width: 28, height: 28, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800'
+				}}>
 				{/* {props.name[0].toUpperCase()} */}
 			</Avatar>
 			<MemberName>{props.name}</MemberName>
@@ -100,11 +101,23 @@ const MemberComponent = (props) => {
 
 const MembersPopover = () => {
 	const members = useSelector((state) => state.board.members);
+	const [searchValue, setSearchValue] = useState('');
+	const handleSearchChange = (e) => {
+		setSearchValue(e.target.value);
+	  };
+	const filteredMembers = members.filter(
+		(member) =>member.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+	);
 	return (
 		<Container>
-			<SearchArea placeholder='Search member...' />
+			<SearchArea
+				type="text"
+				placeholder='Search member...'
+				onChange={handleSearchChange}
+				value={searchValue}
+			/>
 			<Title>Board members</Title>
-			{members.map((member) => {
+			{filteredMembers.map((member) => {
 				return <MemberComponent key={member.user} {...member} />;
 			})}
 		</Container>

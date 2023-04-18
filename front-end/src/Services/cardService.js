@@ -188,17 +188,19 @@ export const commentDelete = async (cardId, listId, boardId, commentId, dispatch
 };
 
 export const memberAdd = async (cardId, listId, boardId, memberId, memberName, memberColor, dispatch) => {
+	dispatch(setPending(true));
 	try {
 		dispatch(addMember({ memberId, memberName, memberColor }));
 		dispatch(updateMemberOfCard({ listId, cardId, memberId, memberName, memberColor }));
-
-		submitCall = submitCall.then(() =>
+		submitCall = await submitCall.then(() =>
 			axios.post(baseUrl + '/' + boardId + '/' + listId + '/' + cardId + '/add-member', {
 				memberId: memberId,
 			})
 		);
 		await submitCall;
+		dispatch(setPending(false));
 	} catch (error) {
+		dispatch(setPending(false));
 		dispatch(
 			openAlert({
 				message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,

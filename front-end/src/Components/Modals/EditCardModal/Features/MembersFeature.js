@@ -11,11 +11,11 @@ const MembersFeature = (props) => {
 		<>
 			<Title>Members</Title>
 			<RowContainer>
-				{card.members.map((member,index) => {
+				{card.members.map((i, index) => {
 					return <Avatar 
 							key={index} 
-							src={member.avatar[0]}
-							sx={{ width: 32, height: 32, bgcolor: member.color, fontSize:'0.875rem', fontWeight:'800' }}
+							src={i.avatar && i.avatar.length > 0 ? i.avatar[0] : ''}
+							sx={{ width: 32, height: 32, bgcolor: i.color, fontSize:'0.875rem', fontWeight:'800' }}
 					>
 						{/* {member.name[0].toUpperCase()} */}
 					</Avatar>;
