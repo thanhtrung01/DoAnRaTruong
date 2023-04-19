@@ -46,6 +46,7 @@ const List = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  // console.log(props);
 
   const handleFooterClick = async () => {
     setNewCardTitle("");
@@ -92,6 +93,8 @@ const List = (props) => {
   useEffect(() => {
     handleFilterItemsDone();
   }, [props]);
+
+  console.log(props);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);

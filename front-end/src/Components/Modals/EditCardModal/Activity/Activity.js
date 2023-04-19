@@ -7,8 +7,13 @@ import {
   CommentWrapper,
   SaveButton,
   CommentArea,
+<<<<<<< HEAD
   LinkButton,
   TitleWrapper,
+=======
+  TitleWrapper,
+  LinkButton,
+>>>>>>> bc2f5ceba682b6fb87f1811559ad6587fdd0161f
 } from "./styled";
 import MessageIcon from "@mui/icons-material/MessageOutlined";
 import Comment from "../Comment/Comment";

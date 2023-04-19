@@ -22,6 +22,7 @@ const Container = styled.nav`
 `;
 
 const Icon = styled.img`
+  width: 150px;
   margin-left: 1rem;
   ${lg({
     marginLeft: "0",

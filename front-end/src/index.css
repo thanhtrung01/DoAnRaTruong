@@ -22,6 +22,10 @@
 }
 
 .drag-file-area {
+<<<<<<< HEAD
+=======
+  padding: 2px 0;
+>>>>>>> bc2f5ceba682b6fb87f1811559ad6587fdd0161f
   background: white !important;
   color: #7b2cbf;
   border: 2px dashed #7b2cbf;
@@ -34,11 +38,22 @@
   display: flex;
   justify-content: center;
 }
+<<<<<<< HEAD
 .drag-file-area .upload-icon {
   font-size: 50px;
 }
 .drag-file-area label {
   font-size: 19px;
+=======
+.icon-file svg {
+  font-size: 20px;
+}
+.drag-file-area .upload-icon {
+  font-size: 30px;
+}
+.drag-file-area label {
+  font-size: 18px;
+>>>>>>> bc2f5ceba682b6fb87f1811559ad6587fdd0161f
 }
 .drag-file-area label .browse-files-text {
   color: #7b2cbf;
