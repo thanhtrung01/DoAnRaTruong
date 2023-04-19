@@ -83,7 +83,7 @@ const List = (props) => {
   };
 
   const handleFilterItemsDone = () => {
-    if (props.info.title === "Done 🎉") {
+    if (props.info.title === "Done🎉") {
       setListItemDone(props);
       return props;
     }

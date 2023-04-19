@@ -28,13 +28,11 @@ import {
 import { Draggable } from "react-beautiful-dnd";
 import moment from "moment";
 import { Avatar } from "@mui/material";
-
 const Card = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [lengthListDone, setLengthListDone] = useState(0);
   const [statusFirework, setStatusFirework] = useState(false);
   const card = props.info;
-
   const comment = card.activities.filter((act) => act.isComment).length;
   let checks = { c: 0, n: 0 };
   card.checklists.map((checklist) => {
@@ -61,15 +59,20 @@ const Card = (props) => {
       if (itemsDone?.length > lengthListDone) {
         setStatusFirework(true);
       }
-
       setLengthListDone(itemsDone?.length);
       return itemsDone;
     }
   };
 
+  // console.log(props);
+
   useEffect(() => {
     handleCardDone();
-  });
+
+    setTimeout(() => {
+      setStatusFirework(false);
+    }, 2000);
+  }, [props]);
 
   // console.log(statusFirework);
 
@@ -91,7 +94,14 @@ const Card = (props) => {
 
   return (
     <>
-      {/* {statusFirework ? <div className="firework"></div> : ""} */}
+      {statusFirework ? (
+        <div class="firework">
+          <div class="before"></div>
+          <div class="after"></div>
+        </div>
+      ) : (
+        ""
+      )}
       <Draggable draggableId={props.info._id} index={props.index}>
         {(provided, snapshot) => {
           return (
@@ -137,20 +147,20 @@ const Card = (props) => {
                             ? "#61bd4f"
                             : moment(card.date.dueDate).toDate().getTime() <
                               new Date().getTime()
-                              ? "#ec9488"
-                              : "transparent"
+                            ? "#ec9488"
+                            : "transparent"
                         }
                         hoverBg={
                           card.date.completed
                             ? "#81dd6f"
                             : moment(card.date.dueDate).toDate().getTime() <
                               new Date().getTime()
-                              ? "#eb5a46"
-                              : "lightgray"
+                            ? "#eb5a46"
+                            : "lightgray"
                         }
                         color={
                           card.date.completed ||
-                            moment(card.date.dueDate).toDate().getTime() <
+                          moment(card.date.dueDate).toDate().getTime() <
                             new Date().getTime()
                             ? "white"
                             : "darkgray"
@@ -160,7 +170,7 @@ const Card = (props) => {
                           style={{
                             color:
                               card.date.completed ||
-                                moment(card.date.dueDate).toDate().getTime() <
+                              moment(card.date.dueDate).toDate().getTime() <
                                 new Date().getTime()
                                 ? "white"
                                 : "darkgray",
@@ -170,22 +180,26 @@ const Card = (props) => {
                         <Span
                           color={
                             card.date.completed ||
-                              moment(card.date.dueDate).toDate().getTime() <
+                            moment(card.date.dueDate).toDate().getTime() <
                               new Date().getTime()
                               ? "white"
                               : "darkgray"
                           }
-                        >{`${card.date.startDate
+                        >{`${
+                          card.date.startDate
                             ? formatDate(card.date.startDate)
                             : ""
-                          }${card.date.startDate
+                        }${
+                          card.date.startDate
                             ? card.date.dueDate
                               ? " - "
                               : ""
                             : ""
-                          }${card.date.dueDate ? formatDate(card.date.dueDate) : ""
-                          }${card.date.dueTime ? " at " + card.date.dueTime : ""
-                          }`}</Span>
+                        }${
+                          card.date.dueDate ? formatDate(card.date.dueDate) : ""
+                        }${
+                          card.date.dueTime ? " at " + card.date.dueTime : ""
+                        }`}</Span>
                       </DateContainer>
                     )}
                     {card.description && <DescriptiondIcon fontSize="0.5rem" />}
@@ -210,8 +224,6 @@ const Card = (props) => {
                     <MembersWrapper>
                       {card.members &&
                         card.members.map((member, i) => {
-                          const nameAvatar= member.name[0].toUpperCase();
-                          const avatarInitial = (member.avatar==null) ? nameAvatar: member.avatar[0];
                           return (
                             <Avatar
                               key={i}
@@ -222,9 +234,8 @@ const Card = (props) => {
                                 fontSize: "0.875rem",
                                 fontWeight: "800",
                               }}
-                              src={avatarInitial}
                             >
-                              {nameAvatar}
+                              {member.name[0].toUpperCase()}
                             </Avatar>
                           );
                         })}

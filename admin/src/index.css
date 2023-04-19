@@ -1,0 +1,12 @@
+.container {
+  padding: 0 50px;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-verify {
+  height: 40% !important;
+  align-items: initial !important;
+}

@@ -20,3 +20,35 @@
   display: flex;
   align-items: center;
 }
+
+.drag-file-area {
+  background: white !important;
+  color: #7b2cbf;
+  border: 2px dashed #7b2cbf;
+  margin-left: auto;
+  border-radius: 40px;
+  width: 120px;
+  text-align: center;
+}
+.icon-file {
+  display: flex;
+  justify-content: center;
+}
+.drag-file-area .upload-icon {
+  font-size: 50px;
+}
+.drag-file-area label {
+  font-size: 19px;
+}
+.drag-file-area label .browse-files-text {
+  color: #7b2cbf;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.browse-files span {
+  position: relative;
+  /* top: -25px; */
+}
+.default-file-input {
+  display: none;
+}
