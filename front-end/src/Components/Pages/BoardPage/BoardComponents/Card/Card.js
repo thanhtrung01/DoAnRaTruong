@@ -28,7 +28,6 @@ import {
 import { Draggable } from "react-beautiful-dnd";
 import moment from "moment";
 import { Avatar } from "@mui/material";
-
 const Card = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [lengthListDone, setLengthListDone] = useState(0);
@@ -60,17 +59,22 @@ const Card = (props) => {
       if (itemsDone?.length > lengthListDone) {
         setStatusFirework(true);
       }
-
       setLengthListDone(itemsDone?.length);
       return itemsDone;
     }
   };
 
+  // console.log(props);
+
   useEffect(() => {
     handleCardDone();
-  });
 
-  console.log(statusFirework);
+    setTimeout(() => {
+      setStatusFirework(false);
+    }, 2000);
+  }, [props]);
+
+  // console.log(statusFirework);
 
   const formatDate = (date) => {
     if (moment(date).toDate().getFullYear() < new Date().getFullYear())
@@ -90,7 +94,14 @@ const Card = (props) => {
 
   return (
     <>
-      {/* {statusFirework ? <div className="firework"></div> : ""} */}
+      {statusFirework ? (
+        <div class="firework">
+          <div class="before"></div>
+          <div class="after"></div>
+        </div>
+      ) : (
+        ""
+      )}
       <Draggable draggableId={props.info._id} index={props.index}>
         {(provided, snapshot) => {
           return (
@@ -213,8 +224,6 @@ const Card = (props) => {
                     <MembersWrapper>
                       {card.members &&
                         card.members.map((member, i) => {
-                          const nameAvatar= member.name[0].toUpperCase();
-                          const avatarInitial = (member.avatar==null) ? nameAvatar: member.avatar[0];
                           return (
                             <Avatar
                               key={i}
@@ -225,9 +234,8 @@ const Card = (props) => {
                                 fontSize: "0.875rem",
                                 fontWeight: "800",
                               }}
-                              src={avatarInitial}
                             >
-                              {nameAvatar}
+                              {member.name[0].toUpperCase()}
                             </Avatar>
                           );
                         })}
