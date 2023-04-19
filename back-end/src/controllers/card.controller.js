@@ -49,9 +49,14 @@ const update = async (req, res) => {
   // Get params
   const user = req.user;
   const { boardId, listId, cardId } = req.params;
+  const images_url = req.files[0].path;
 
   // Call the card service
-  await Card.update(cardId, listId, boardId, user, req.body, (err, result) => {
+  await Card.update(cardId, listId, boardId, user, 
+    {
+      images: images_url, 
+      ...req.body
+    }, (err, result) => {
     if (err) return res.status(500).send(err);
     return res.status(200).send(result);
   });

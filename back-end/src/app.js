@@ -10,6 +10,7 @@ const path = require('path');
 const config = require('./config/config');
 const cookieSession = require("cookie-session");
 const auth = require('./middlewares/auth');
+const accessCors = require('./middlewares/constant');
 // const swaggerUi = require('swagger-ui-express');
 // Middleware setup
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,7 +18,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // const { Cors } = require('./middlewares/cors');
-
 const corsOptions = {
   origin: config.CLIENT_URL,
   credentials: true,
@@ -25,22 +25,15 @@ const corsOptions = {
 // const swaggerDocument = require('./api/swagger.json')
 // app.use("/test-api", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors(corsOptions));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
-
 // AUTH VERIFICATION AND UNLESS
 auth.verifyToken.unless = unless;
 
 app.use(
   auth.verifyToken.unless({
-    path: [
-      { url: '/api/v1/auth/google', method: ['GET'] },
-      { url: '/api/v1/auth/login', method: ['POST'] },
-      { url: '/api/v1/auth/google_login', method: ['POST'] },
-      { url: '/api/v1/auth/register', method: ['POST'] },
-    ],
+    path: accessCors
   }),
 );
 app.use(session({

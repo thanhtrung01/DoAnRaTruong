@@ -101,10 +101,10 @@ export const titleUpdate = async (cardId, listId, boardId, title, dispatch) => {
 	}
 };
 
-export const descriptionUpdate = async (cardId, listId, boardId, description, dispatch) => {
+export const descriptionUpdate = async (cardId, listId, boardId, images, description, dispatch) => {
 	try {
-		dispatch(updateDescription(description));
-		dispatch(updateDescriptionOfCard({ listId, cardId, description }));
+		dispatch(updateDescription(images, description));
+		dispatch(updateDescriptionOfCard({ listId, cardId, images, description }));
 
 		submitCall = submitCall.then(() =>
 			axios.put(baseUrl + '/' + boardId + '/' + listId + '/' + cardId, { description: description })
@@ -187,10 +187,10 @@ export const commentDelete = async (cardId, listId, boardId, commentId, dispatch
 	}
 };
 
-export const memberAdd = async (cardId, listId, boardId, memberId, memberName, memberColor, dispatch) => {
+export const memberAdd = async (cardId, listId, boardId, memberId, memberAvatar, memberName, memberColor, dispatch) => {
 	try {
-		dispatch(addMember({ memberId, memberName, memberColor }));
-		dispatch(updateMemberOfCard({ listId, cardId, memberId, memberName, memberColor }));
+		dispatch(addMember({ memberId, memberAvatar, memberName, memberColor }));
+		dispatch(updateMemberOfCard({ listId, cardId, memberId, memberAvatar, memberName, memberColor }));
 
 		submitCall = submitCall.then(() =>
 			axios.post(baseUrl + '/' + boardId + '/' + listId + '/' + cardId + '/add-member', {
@@ -208,10 +208,10 @@ export const memberAdd = async (cardId, listId, boardId, memberId, memberName, m
 	}
 };
 
-export const memberDelete = async (cardId, listId, boardId, memberId, memberName, dispatch) => {
+export const memberDelete = async (cardId, listId, boardId, memberId, memberAvatar, memberName, dispatch) => {
 	try {
 		dispatch(deleteMember({ memberId }));
-		dispatch(deleteMemberOfCard({ listId, cardId, memberId }));
+		dispatch(deleteMemberOfCard({ listId, cardId, memberId, memberAvatar, memberName }));
 
 		submitCall = submitCall.then(() =>
 			axios.delete(baseUrl + '/' + boardId + '/' + listId + '/' + cardId + '/' + memberId + '/delete-member')

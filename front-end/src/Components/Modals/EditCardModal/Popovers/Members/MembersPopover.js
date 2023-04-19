@@ -75,9 +75,9 @@ const MemberComponent = (props) => {
 	const isMember = card.members.filter((a) => a.user === props.user).length ? true : false;
 	const handleClick = async () => {
 		if (isMember) {
-			await memberDelete(card.cardId, card.listId, card.boardId, props.user, props.name, dispatch);
+			await memberDelete(card.cardId, card.listId, card.boardId, props.user, props.avatar, props.name, dispatch);
 		} else {
-			await memberAdd(card.cardId, card.listId, card.boardId, props.user, props.name, props.color, dispatch);
+			await memberAdd(card.cardId, card.listId, card.boardId, props.user, props.avatar, props.name, props.color, dispatch);
 		}
 	};
 	return (
@@ -87,7 +87,6 @@ const MemberComponent = (props) => {
 				sx={{
 					width: 28, height: 28, bgcolor: props.color, fontSize: '0.875rem', fontWeight: '800'
 				}}>
-				{/* {props.name[0].toUpperCase()} */}
 			</Avatar>
 			<MemberName>{props.name}</MemberName>
 			{isMember && (

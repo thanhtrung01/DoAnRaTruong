@@ -54,6 +54,7 @@ const cardsSlice = createSlice({
 			state.listId = action.payload.listId;
 			state.boardId = action.payload.boardId;
 			state.description = action.payload.description;
+			state.images = action.payload.images;
 			state.checklists = action.payload.checklists;
 			state.date = action.payload.date;
 			state.attachments = action.payload.attachments;
@@ -64,6 +65,7 @@ const cardsSlice = createSlice({
 		},
 		updateDescription: (state, action) => {
 			state.description = action.payload;
+			state.images = action.payload;
 		},
 		addComment: (state, action) => {
 			state.activities = action.payload;
@@ -81,8 +83,8 @@ const cardsSlice = createSlice({
 			state.activities = state.activities.filter((act) => act._id !== action.payload);
 		},
 		addMember: (state, action) => {
-			const { memberId, memberName, memberColor } = action.payload;
-			state.members.unshift({ user: memberId, name: memberName, color: memberColor });
+			const { memberId, memberAvatar, memberName, memberColor } = action.payload;
+			state.members.unshift({ user: memberId, avatar: memberAvatar, name: memberName, color: memberColor });
 		},
 		deleteMember: (state, action) => {
 			const { memberId } = action.payload;

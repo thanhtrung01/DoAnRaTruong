@@ -196,7 +196,8 @@ const updateUser = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-	const images_url = req.files.map((image) => image.path);
+	// const images_url = req.files.map((image) => image.path);
+	const images_url = req.files[0].path;
 	const salt = bcrypt.genSaltSync(10);
 	const newUser = new UserSchema({
 		name: req.body.name,

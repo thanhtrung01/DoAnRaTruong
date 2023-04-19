@@ -65,7 +65,7 @@ const create = async (req, callback) => {
     newBoard.members = allMembers;
     await newBoard.save();
 
-    return callback(false, newBoard);
+    return newBoard;
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',

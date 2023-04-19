@@ -34,6 +34,7 @@ const Card = (props) => {
   const [lengthListDone, setLengthListDone] = useState(0);
   const [statusFirework, setStatusFirework] = useState(false);
   const card = props.info;
+
   const comment = card.activities.filter((act) => act.isComment).length;
   let checks = { c: 0, n: 0 };
   card.checklists.map((checklist) => {
@@ -70,7 +71,7 @@ const Card = (props) => {
     handleCardDone();
   });
 
-  console.log(statusFirework);
+  // console.log(statusFirework);
 
   const formatDate = (date) => {
     if (moment(date).toDate().getFullYear() < new Date().getFullYear())
@@ -136,20 +137,20 @@ const Card = (props) => {
                             ? "#61bd4f"
                             : moment(card.date.dueDate).toDate().getTime() <
                               new Date().getTime()
-                            ? "#ec9488"
-                            : "transparent"
+                              ? "#ec9488"
+                              : "transparent"
                         }
                         hoverBg={
                           card.date.completed
                             ? "#81dd6f"
                             : moment(card.date.dueDate).toDate().getTime() <
                               new Date().getTime()
-                            ? "#eb5a46"
-                            : "lightgray"
+                              ? "#eb5a46"
+                              : "lightgray"
                         }
                         color={
                           card.date.completed ||
-                          moment(card.date.dueDate).toDate().getTime() <
+                            moment(card.date.dueDate).toDate().getTime() <
                             new Date().getTime()
                             ? "white"
                             : "darkgray"
@@ -159,7 +160,7 @@ const Card = (props) => {
                           style={{
                             color:
                               card.date.completed ||
-                              moment(card.date.dueDate).toDate().getTime() <
+                                moment(card.date.dueDate).toDate().getTime() <
                                 new Date().getTime()
                                 ? "white"
                                 : "darkgray",
@@ -169,26 +170,22 @@ const Card = (props) => {
                         <Span
                           color={
                             card.date.completed ||
-                            moment(card.date.dueDate).toDate().getTime() <
+                              moment(card.date.dueDate).toDate().getTime() <
                               new Date().getTime()
                               ? "white"
                               : "darkgray"
                           }
-                        >{`${
-                          card.date.startDate
+                        >{`${card.date.startDate
                             ? formatDate(card.date.startDate)
                             : ""
-                        }${
-                          card.date.startDate
+                          }${card.date.startDate
                             ? card.date.dueDate
                               ? " - "
                               : ""
                             : ""
-                        }${
-                          card.date.dueDate ? formatDate(card.date.dueDate) : ""
-                        }${
-                          card.date.dueTime ? " at " + card.date.dueTime : ""
-                        }`}</Span>
+                          }${card.date.dueDate ? formatDate(card.date.dueDate) : ""
+                          }${card.date.dueTime ? " at " + card.date.dueTime : ""
+                          }`}</Span>
                       </DateContainer>
                     )}
                     {card.description && <DescriptiondIcon fontSize="0.5rem" />}

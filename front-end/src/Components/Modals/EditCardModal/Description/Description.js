@@ -9,6 +9,7 @@ const Description = () => {
 	const dispatch = useDispatch();
 	const [inputFocus, setInputFocus] = useState(false);
 	const [description, setDescription] = useState(thisCard.description);
+	const [images, setImages] = useState(thisCard.images);
 	const ref = useRef();
 	const ref2 = useRef();
 
@@ -16,6 +17,10 @@ const Description = () => {
 		setInputFocus(false);
 		await descriptionUpdate(thisCard.cardId, thisCard.listId, thisCard.boardId, description, dispatch);
 	};
+
+	useEffect(() => {
+		setImages(thisCard.images);
+	}, [thisCard.images]);
 
 	useEffect(() => {
 		setDescription(thisCard.description);
@@ -31,6 +36,7 @@ const Description = () => {
 		if (ref2.current && !ref2.current.contains(event.target)) {
 			setInputFocus(false);
 			setDescription(thisCard.description);
+			setImages(thisCard.images);
 		} else {
 			setInputFocus(true);
 		}
@@ -48,15 +54,16 @@ const Description = () => {
 			<DescriptionIcon fontSize='small' />
 			<RightContainer>
 				<Title>Description</Title>
-				{description && !inputFocus ? (
+				{(description||images) && !inputFocus ? (
 					<DescriptionText onClick={() => setInputFocus(true)}>{description}</DescriptionText>
 				) : (
 					<DescriptionInput
 						ref={ref}
 						minHeight={inputFocus ? '5.5rem' : '2.5rem'}
 						placeholder='Add a more detailed description...'
-						value={description}
+						value={description && images[0]}
 						onChange={(e) => setDescription(e.target.value)}
+						// src={images[0]}
 					/>
 				)}
 				<div style={{ display: inputFocus ? 'block' : 'none' }}>
@@ -64,6 +71,7 @@ const Description = () => {
 						closeCallback={() => {
 							setInputFocus(false);
 							setDescription(thisCard.description);
+							setImages(thisCard.images);
 						}}
 						clickCallback={handleSaveClick}
 						title='Save'
