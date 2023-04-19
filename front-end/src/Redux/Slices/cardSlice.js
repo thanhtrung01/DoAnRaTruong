@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
 	cardId: '',
 	title: '',
+	completed: false,
 	labels: [],
 	members: [],
 	watchers: [],
@@ -202,6 +203,9 @@ const cardsSlice = createSlice({
 			state.date.dueTime = dueTime;
 			if (dueDate === null) state.date.completed = false;
 		},
+		updateCompleted: (state, action) => {
+			state.completed = action.payload;
+		},
 		updateDateCompleted: (state, action) => {
 			state.date.completed = action.payload;
 		},
@@ -262,6 +266,7 @@ export const {
 	setChecklistItemCompleted,
 	setChecklistItemText,
 	deleteChecklistItem,
+	updateCompleted,
 	updateStartDueDates,
 	updateDateCompleted,
 	addAttachment,

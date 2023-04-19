@@ -109,25 +109,30 @@ const deleteById = async (listId, boardId, user, callback) => {
   }
 };
 
-const updateCardOrder = async (
+const updateCardOrderAndCompleted = async (
   boardId,
   sourceId,
   destinationId,
   destinationIndex,
   cardId,
   user,
+  completed,
   callback,
 ) => {
   try {
-    // Validate the parent board of the lists
+    // Get models
     const board = await boardModel.findById(boardId);
+    const sourceList = await listModel.findById(sourceId);
+    const card = await cardModel.findById(cardId);
+    const destinationList = await listModel.findById(destinationId);
+
+    // Validate the parent board of the lists
     let validate = board.lists.filter((list) => list.id === sourceId);
     const validate2 = board.lists.filter((list) => list.id === destinationId);
     if (!validate || !validate2)
       return callback({ errMessage: 'List or board informations are wrong' });
 
     // Validate the parent list of the card
-    const sourceList = await listModel.findById(sourceId);
     validate = sourceList.cards.filter(
       (card) => card._id.toString() === cardId,
     );
@@ -141,8 +146,6 @@ const updateCardOrder = async (
     await sourceList.save();
 
     // Insert the card to destination list and save
-    const card = await cardModel.findById(cardId);
-    const destinationList = await listModel.findById(destinationId);
     const temp = Array.from(destinationList.cards);
     temp.splice(destinationIndex, 0, cardId);
     destinationList.cards = temp;
@@ -159,9 +162,12 @@ const updateCardOrder = async (
 
     // Change owner board of card
     card.owner = destinationId;
+
+    //Update completed of card
+    card.completed = completed;
     await card.save();
 
-    return callback(false, { message: 'Success' });
+    return callback(false, { sourceList, destinationList, card, message: 'Success' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -233,7 +239,7 @@ module.exports = {
   create,
   getAll,
   deleteById,
-  updateCardOrder,
+  updateCardOrderAndCompleted,
   updateListOrder,
   updateListTitle,
 };

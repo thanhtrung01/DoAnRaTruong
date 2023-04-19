@@ -44,6 +44,26 @@ const listSlice = createSlice({
 		updateListDragDrop: (state, action) => {
 			state.allLists = action.payload;
 		},
+		// setCardDragDrop: (props, state, action) => {
+		// 	const { 
+		// 		boardId, 
+		// 		sourceId, 
+		// 		destinationId, 
+		// 		destinationIndex, 
+		// 		cardId,
+		// 		completed 
+		// 	} = action.payload;
+		// 	state.allLists = state.allLists.map((list) => {
+		// 		let cardItem = props.allLists
+		// 		if (list._id === sourceId) {
+		// 			list.cards = list.cards.map((card) => {
+		// 				if (card._id === cardId) card.title = title;
+		// 				return card;
+		// 			});
+		// 		}
+		// 		return list;
+		// 	});
+		// },
 		setCardTitle: (state, action) => {
 			const { listId, cardId, title } = action.payload;
 			state.allLists = state.allLists.map((list) => {

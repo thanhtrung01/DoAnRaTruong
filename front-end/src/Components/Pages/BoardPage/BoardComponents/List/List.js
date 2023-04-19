@@ -39,7 +39,8 @@ const List = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const ref = useRef();
-
+  console.log("currentListTitle", currentListTitle);
+  console.log("clickTitle", clickTitle);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -141,7 +142,7 @@ const List = (props) => {
                   aria-expanded={open ? "true" : undefined}
                   onClick={handleClick}
                 >
-                  <MoreHorizIcon fontSize="0.1rem" onClick={() => {}} />
+                  <MoreHorizIcon fontSize="0.1rem" onClick={() => { }} />
                 </ClickableIcon>
                 <Menu
                   id="basic-menu"
@@ -173,8 +174,8 @@ const List = (props) => {
                           .filter((card) =>
                             props.searchString
                               ? card.title
-                                  .toLowerCase()
-                                  .includes(props.searchString.toLowerCase())
+                                .toLowerCase()
+                                .includes(props.searchString.toLowerCase())
                               : true
                           )
                           .map((card, index) => {

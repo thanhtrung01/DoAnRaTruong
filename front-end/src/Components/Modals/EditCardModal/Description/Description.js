@@ -4,6 +4,7 @@ import DescriptionIcon from '@mui/icons-material/TextSnippetOutlined';
 import BottomButtonGroup from '../../../Pages/BoardPage/BoardComponents/BottomButtonGroup/BottomButtonGroup.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { descriptionUpdate } from '../../../../Services/cardService';
+import { TextField, Button } from '@mui/material';
 const Description = () => {
 	const thisCard = useSelector((state) => state.card);
 	const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const Description = () => {
 						ref={ref}
 						minHeight={inputFocus ? '5.5rem' : '2.5rem'}
 						placeholder='Add a more detailed description...'
-						value={description && images[0]}
+						value={description || images[0]}
 						onChange={(e) => setDescription(e.target.value)}
 						// src={images[0]}
 					/>

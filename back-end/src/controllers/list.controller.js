@@ -65,9 +65,9 @@ const deleteById = async (req, res) => {
   });
 };
 
-const updateCardOrder = async (req, res) => {
+const updateCardOrderAndCompleted = async (req, res) => {
   // deconstruct the params
-  const { boardId, sourceId, destinationId, destinationIndex, cardId } =
+  const { boardId, sourceId, destinationId, destinationIndex, cardId, completed } =
     req.body;
   const user = req.user;
 
@@ -83,13 +83,14 @@ const updateCardOrder = async (req, res) => {
       .send({ errMessage: 'You cannot edit the board that you hasnt' });
 
   // Call the service
-  await List.updateCardOrder(
+  await List.updateCardOrderAndCompleted(
     boardId,
     sourceId,
     destinationId,
     destinationIndex,
     cardId,
     user,
+    completed,
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
@@ -153,7 +154,7 @@ module.exports = {
   create,
   getAll,
   deleteById,
-  updateCardOrder,
+  updateCardOrderAndCompleted,
   updateListOrder,
   updateListTitle,
 };

@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { updateCardDragDrop, updateListDragDrop } from '../Redux/Slices/listSlice';
+import { 
+	updateCardDragDrop, 
+	updateListDragDrop,
+} from '../Redux/Slices/listSlice';
+// import {updateCompleted} from '../Redux/Slices/cardSlice';
 import { openAlert } from '../Redux/Slices/alertSlice';
 
 const apiURL = process.env.REACT_APP_SERVER_API;
@@ -16,18 +20,30 @@ export const updateCardOrder = async (props, dispatch) => {
 
 	// Manupulate redux states first
 	let tempList = JSON.parse(JSON.stringify(props.allLists));
+	// let tempCard = JSON.parse(JSON.stringify(props.allLists));
 	let cardItem = props.allLists
 		.filter((list) => list._id === props.sourceId)[0]
 		.cards.filter((card) => card._id === props.cardId)[0];
-	if (props.sourceId === props.destinationId) {
+	if ((props.sourceId === props.destinationId) && (props.cardId.length > 0)) {
 		tempList = tempList.map((list) => {
 			if (list._id === props.sourceId) {
 				list.cards.splice(props.sourceIndex, 1);
 				list.cards.splice(props.destinationIndex, 0, cardItem);
+				list.cards = list.cards.map((card) => {
+					if (card._id === props.cardId) {
+						// let completed = Array.from(card.completed===true);
+						if ((list.title === "Done🎉" || list.title === "Done" || list.title === "Hoàn thành")) {
+							card.completed = props.completed;
+						}
+
+					}
+					return card;
+				});
 			}
 			return list;
 		});
-	} else {
+	}
+	else {
 		tempList = tempList.map((list) => {
 			if (list._id === props.sourceId) list.cards.splice(props.sourceIndex, 1);
 			return list;
@@ -46,21 +62,28 @@ export const updateCardOrder = async (props, dispatch) => {
 			return list;
 		});
 	}
-	await dispatch(updateCardDragDrop(tempList));
 
-	// Server side requests
 
-	submitCall = submitCall.then(() =>
-		axios.post(baseUrl + '/change-card-order', {
-			boardId: props.boardId,
-			sourceId: props.sourceId,
-			destinationId: props.destinationId,
-			destinationIndex: props.destinationIndex,
-			cardId: props.cardId,
-		})
-	);
+	// }
+	
 	try {
+		await dispatch(updateCardDragDrop(tempList));
+		// await dispatch(updateCardDragDrop(tempCard));
+
+		// Server side requests
+		// dispatch(updateCompleted(props.completed));
+		submitCall = submitCall.then(() =>
+			axios.put(baseUrl + '/change-card-order', {
+				boardId: props.boardId,
+				sourceId: props.sourceId,
+				destinationId: props.destinationId,
+				destinationIndex: props.destinationIndex,
+				cardId: props.cardId,
+				completed: props.completed
+			})
+		);
 		await submitCall;
+		console.log("submitCall", submitCall);
 	} catch (error) {
 		await dispatch(updateCardDragDrop(savedList));
 		dispatch(
@@ -88,7 +111,7 @@ export const updateListOrder = async (props, dispatch) => {
 
 	// Server side requests
 	submitCall = submitCall.then(() =>
-		axios.post(baseUrl + '/change-list-order', {
+		axios.put(baseUrl + '/change-list-order', {
 			boardId: props.boardId,
 			sourceIndex: props.sourceIndex,
 			destinationIndex: props.destinationIndex,
