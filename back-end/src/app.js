@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 // const { Cors } = require('./middlewares/cors');
 const corsOptions = {
-  origin: config.CLIENT_URL,
+  origin: config.CLIENT_URL||'http://127.0.0.1:3000',
   credentials: true,
 };
 // const swaggerDocument = require('./api/swagger.json')

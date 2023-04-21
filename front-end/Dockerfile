@@ -1,6 +1,6 @@
 FROM node:16-alpine
-WORKDIR /app
+WORKDIR /client
 COPY . .
 RUN yarn install --production
 CMD ["yarn", "start"]
-EXPOSE 3000
+EXPOSE 4001
