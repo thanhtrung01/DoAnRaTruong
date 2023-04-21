@@ -1,0 +1,20 @@
+version: "3"
+services:
+  frontend:
+    container_name: server_todoweb
+    image: natsu2001/server_todoweb:tagname
+    build:
+      context: ./back-end
+      dockerfile: ./Dockerfile
+    ports:
+      - "1901:1901"
+    networks:
+      - goals-net
+    volumes:
+      - ./back-end:/app
+      - /app/node_modules
+    depends_on:
+      - server
+networks:
+  goals-net:
+    external: true
