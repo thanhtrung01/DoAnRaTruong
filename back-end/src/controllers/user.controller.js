@@ -2,19 +2,15 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../services/user.service');
 const session = require('express-session');
-const { UserSchema } = require('../models/index');
+const UserSchema = require('../models/user.model');
 const auth = require('../middlewares/auth');
 // const oauth2Client = require('../middlewares/authGoogle');
 const config = require('../config/config');
-const { OAuth2Client } = require('google-auth-library');
-// const { google } = require("googleapis");
-// const { OAuth2 } = google.auth;
+// const { OAuth2Client } = require('google-auth-library');
+const { google } = require("googleapis");
+const { OAuth2 } = google.auth;
 
-const client = new OAuth2Client({
-	clientId: config.GOOGLE_CLIENT_ID, // Thay YOUR_CLIENT_ID bằng client_id của bạn
-	clientSecret: config.GOOGLE_CLIENT_SECRET, // Thay YOUR_CLIENT_SECRET bằng client_secret của bạn
-	redirectUri: config.GOOGLE_REDIRECT_URI, // Thay YOUR_REDIRECT_URI bằng redirect_uri của bạn
-});
+const client = new OAuth2(config.GOOGLE_CLIENT_ID);
 const register = async (req, res) => {
 	const { name, username, email, password } = req.body;
 	if (!(name && username && email && password)) {
@@ -67,49 +63,75 @@ const login = async (req, res) => {
 		});
 	});
 };
-const google = (req, res) => {
-	const authUrl = client.generateAuthUrl({
-		scope: ['profile', 'email'], // Phạm vi truy cập thông tin người dùng
-	});
-	console.log('auth_url', authUrl);
-	res.redirect(authUrl);
-};
+
 const googleLogin = async (req, res) => {
-	const { tokenId } = req.body;
 	try {
-		const token = await client.getToken(tokenId);
-		const { id_token } = await token.tokens;
-		const ticket = await client.verifyIdToken({
-			idToken: id_token,
+		const { tokenId, authType } = req.body;
+
+		const verify = await client.verifyIdToken({
+			idToken: tokenId,
 			audience: config.GOOGLE_CLIENT_ID,
 		});
-		const payload = await ticket.getPayload();
-		const { sub, name, email } = payload;
-		console.log('sub:', sub); // id người dùng
-		console.log('name:', name); // tên người dùng
-		console.log('email:', email); // email người dùng
-		// Kiểm tra xem người dùng đã tồn tại trong cơ sở dữ liệu chưa
-		let user = await UserSchema.findOne({ googleId: sub });
-		if (!user) {
-			// Nếu chưa tồn tại, thêm người dùng mới vào cơ sở dữ liệu
-			user = new UserSchema({
-				googleId: sub,
-				name,
-				email,
-			});
-			await user.save();
-		}
+		const { family_name, given_name, email, picture } = verify.payload;
+		const salt = bcrypt.genSaltSync(10);
+		const password = email + config.GOOGLE_CLIENT_SECRET;
+		const passwordHash = bcrypt.hashSync(password, salt);
 
-		// Đăng nhập thành công, lưu thông tin người dùng vào session hoặc jwt token
-		// (tùy thuộc vào cách xác thực người dùng của bạn)
-		req.session.user = user;
-		res.redirect('/');
+		const user = await UserSchema.findOne({
+			email,
+			authType: "google"
+		});
+
+		if (user) {
+			const isMatch = bcrypt.compareSync(password, user.password);
+			if (!isMatch) {
+				return res.status(400).json({ msg: "Password is incorrect" });
+			}
+			const token = auth.generateToken(user._id, user.email );
+			const expires_in = auth.expiresToken({token});
+			/* hiden password || id */
+			user.password = undefined;
+			user.__v = undefined;
+			res.status(200).json({
+				oke: true,
+				message: 'User login successful!',
+				user: user,
+				token: token,
+				expires_in
+			});
+		} else {
+			const newUser = new UserSchema({
+				name: family_name + given_name,
+				username: email,
+				password: passwordHash,
+				email: email,
+				authType: 'google',
+				avatar: picture,
+			});
+			await newUser.save();
+			const token = auth.generateToken(newUser._id, newUser.email );
+			const expires_in = auth.expiresToken({token});
+			/* hiden password || id */
+			newUser.password = undefined;
+			newUser.__v = undefined;
+			res.status(200).json({ 
+				oke: true,
+				message: 'User login successful!',
+				user: newUser,
+				token: token,
+				expires_in
+			});
+		}
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({ msg: error.message });
 	}
 };
-
+const createAccessToken = (payload) => {
+	return jwt.sign(payload, config.ACCESS_TOKEN_SECRET, {
+		expiresIn: "1d",
+	});
+};
 const getUser = async (req, res) => {
 	const userId = req.user.id;
 	await User.getUser(userId, (err, result) => {
@@ -130,16 +152,16 @@ const getAllUser = async (req, res) => {
 
 		//hiden password or role change
 		const usersWithoutPassword = users.map(user => {
-			const { 
-				password, 
-				isAdmin, 
-				authType, 
-				...userWithoutPassword 
+			const {
+				password,
+				isAdmin,
+				authType,
+				...userWithoutPassword
 			} = user.toObject();
 			return userWithoutPassword;
-		  });
+		});
 		const countAllUsers = await UserSchema.countDocuments();
-		
+
 		return res.status(200).json({
 			user: usersWithoutPassword,
 			count: countAllUsers,

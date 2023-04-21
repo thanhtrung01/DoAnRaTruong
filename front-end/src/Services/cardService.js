@@ -102,12 +102,14 @@ export const titleUpdate = async (cardId, listId, boardId, title, dispatch) => {
 };
 
 export const descriptionUpdate = async (cardId, listId, boardId, images, description, dispatch) => {
+	dispatch(updateDescription(images, description));
+	dispatch(updateDescriptionOfCard({ listId, cardId, images, description }));
+	const formData = new FormData();
+	formData.append('images', images);
+	formData.append('description', description);
 	try {
-		dispatch(updateDescription(images, description));
-		dispatch(updateDescriptionOfCard({ listId, cardId, images, description }));
-
 		submitCall = submitCall.then(() =>
-			axios.put(baseUrl + '/' + boardId + '/' + listId + '/' + cardId, { description: description })
+			axios.put(baseUrl + '/' + boardId + '/' + listId + '/' + cardId, formData)
 		);
 		await submitCall;
 	} catch (error) {
@@ -447,17 +449,17 @@ export const checklistItemCompletedSet = async (
 		submitCall = submitCall.then(() =>
 			axios.put(
 				baseUrl +
-					'/' +
-					boardId +
-					'/' +
-					listId +
-					'/' +
-					cardId +
-					'/' +
-					checklistId +
-					'/' +
-					checklistItemId +
-					'/set-checklist-item-completed',
+				'/' +
+				boardId +
+				'/' +
+				listId +
+				'/' +
+				cardId +
+				'/' +
+				checklistId +
+				'/' +
+				checklistItemId +
+				'/set-checklist-item-completed',
 				{
 					completed,
 				}
@@ -490,17 +492,17 @@ export const checklistItemTextSet = async (cardId, listId, boardId, checklistId,
 		submitCall = submitCall.then(() =>
 			axios.put(
 				baseUrl +
-					'/' +
-					boardId +
-					'/' +
-					listId +
-					'/' +
-					cardId +
-					'/' +
-					checklistId +
-					'/' +
-					checklistItemId +
-					'/set-checklist-item-text',
+				'/' +
+				boardId +
+				'/' +
+				listId +
+				'/' +
+				cardId +
+				'/' +
+				checklistId +
+				'/' +
+				checklistItemId +
+				'/set-checklist-item-text',
 				{
 					text,
 				}
@@ -527,17 +529,17 @@ export const checklistItemDelete = async (cardId, listId, boardId, checklistId, 
 		submitCall = submitCall.then(() =>
 			axios.delete(
 				baseUrl +
-					'/' +
-					boardId +
-					'/' +
-					listId +
-					'/' +
-					cardId +
-					'/' +
-					checklistId +
-					'/' +
-					checklistItemId +
-					'/delete-checklist-item'
+				'/' +
+				boardId +
+				'/' +
+				listId +
+				'/' +
+				cardId +
+				'/' +
+				checklistId +
+				'/' +
+				checklistItemId +
+				'/delete-checklist-item'
 			)
 		);
 		await submitCall;

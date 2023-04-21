@@ -3,7 +3,7 @@ import {
 	updateCardDragDrop, 
 	updateListDragDrop,
 } from '../Redux/Slices/listSlice';
-// import {updateCompleted} from '../Redux/Slices/cardSlice';
+import {updateCompleted} from '../Redux/Slices/cardSlice';
 import { openAlert } from '../Redux/Slices/alertSlice';
 
 const apiURL = process.env.REACT_APP_SERVER_API;
@@ -12,7 +12,7 @@ const baseUrl = apiURL + `list`;
 //  Create promise to queue requests
 let submitCall = Promise.resolve();
 
-export const updateCardOrder = async (props, dispatch) => {
+export const updateCardOrder = async (props, dispatch, completed) => {
 	// SavedList stores the allLists before manupulating because...
 	// if the request will be failed, we need to restore allLists...
 	// because of consistency between server and client.
@@ -33,7 +33,7 @@ export const updateCardOrder = async (props, dispatch) => {
 					if (card._id === props.cardId) {
 						// let completed = Array.from(card.completed===true);
 						if ((list.title === "Done🎉" || list.title === "Done" || list.title === "Hoàn thành")) {
-							card.completed = props.completed;
+							list.card.completed = true;
 						}
 
 					}
@@ -71,7 +71,7 @@ export const updateCardOrder = async (props, dispatch) => {
 		// await dispatch(updateCardDragDrop(tempCard));
 
 		// Server side requests
-		// dispatch(updateCompleted(props.completed));
+		dispatch(updateCompleted(completed));
 		submitCall = submitCall.then(() =>
 			axios.put(baseUrl + '/change-card-order', {
 				boardId: props.boardId,
@@ -79,11 +79,11 @@ export const updateCardOrder = async (props, dispatch) => {
 				destinationId: props.destinationId,
 				destinationIndex: props.destinationIndex,
 				cardId: props.cardId,
-				completed: props.completed
+				completed: completed
 			})
 		);
 		await submitCall;
-		console.log("submitCall", submitCall);
+		// console.log("submitCall", submitCall);
 	} catch (error) {
 		await dispatch(updateCardDragDrop(savedList));
 		dispatch(

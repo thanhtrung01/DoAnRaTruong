@@ -10,7 +10,7 @@ const generateToken = (id, email) => {
 };
 const expiresToken = (token) => {
   const now = new Date().getTime(token);
-  const expires_in = now + config.EXPIRES_IN * 1000;
+  const expires_in = now + config.EXPIRES_IN * 24 * 60 * 60 * 1000;
   return expires_in.toString();
 }
 const verifyToken = async (req, res, next) => {

@@ -39,8 +39,8 @@ const List = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const ref = useRef();
-  console.log("currentListTitle", currentListTitle);
-  console.log("clickTitle", clickTitle);
+  // console.log("currentListTitle", currentListTitle);
+  // console.log("clickTitle", props.info.cards);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -186,7 +186,7 @@ const List = (props) => {
                                 key={card._id}
                                 index={index}
                                 info={card}
-                                listItemDone={listItemDone}
+                                listItemDone={card.completed}
                               />
                             );
                           })}

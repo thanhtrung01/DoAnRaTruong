@@ -116,7 +116,6 @@ const updateCardOrderAndCompleted = async (
   destinationIndex,
   cardId,
   user,
-  completed,
   callback,
 ) => {
   try {
@@ -164,10 +163,9 @@ const updateCardOrderAndCompleted = async (
     card.owner = destinationId;
 
     //Update completed of card
-    card.completed = completed;
-    await card.save();
-
-    return callback(false, { sourceList, destinationList, card, message: 'Success' });
+    // card.completed = true;
+    // console.log(card);
+    return callback(false, { message: 'Success' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',

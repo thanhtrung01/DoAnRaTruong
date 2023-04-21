@@ -1,20 +1,11 @@
-FROM node:14-alpine
-
+FROM node:16-alpine
 WORKDIR /app
+COPY . .
+RUN yarn install --production
 
-RUN chown node:node /app
-
-COPY --chown=node:node package*.json ./
-
-USER node
-
-RUN npm ci --quiet --production
-
-COPY --chown=node:node . .
-
-EXPOSE 8005
+EXPOSE 5000
 
 ENV MONGODB_USERNAME thanhtrung
 ENV MONGODB_PASSWORD thanhtrung
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]

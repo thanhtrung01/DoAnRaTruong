@@ -18,7 +18,7 @@ import {
 const Index = () => {
   let history = useHistory();
   useEffect(() => {
-    document.title = "Trello Clone";
+    document.title = "Todoweb";
   }, []);
   return (
     <>

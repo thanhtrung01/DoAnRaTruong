@@ -16,8 +16,7 @@ import {
 	logout,
 } from '../Redux/Slices/userSlice';
 import { openAlert } from '../Redux/Slices/alertSlice';
-import setBearer from '../Utils/setBearer';
-import { useDispatch, useSelector } from 'react-redux';
+import setBearer from '../Utils/setBearer';;
 
 const apiURL = process.env.REACT_APP_SERVER_API;
 const authUrl = apiURL + `auth/`;
@@ -160,7 +159,7 @@ export const updateInfoUser = async (dispatch, id, name, avatar) => {
 	formData.append('name', name);
 	formData.append('avatar', avatar);
 	try {
-		const res = await axios.patch(baseUrl + `${id}`,formData)
+		const res = await axios.patch(baseUrl + `${id}`, formData)
 			.then(res => {
 				console.log('Đã upload hình ảnh thành công', res.data);
 			})

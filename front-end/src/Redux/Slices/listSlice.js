@@ -44,20 +44,24 @@ const listSlice = createSlice({
 		updateListDragDrop: (state, action) => {
 			state.allLists = action.payload;
 		},
-		// setCardDragDrop: (props, state, action) => {
+		// setCardDragDrop: (state, action) => {
 		// 	const { 
 		// 		boardId, 
 		// 		sourceId, 
 		// 		destinationId, 
-		// 		destinationIndex, 
+		// 		// destinationIndex, 
 		// 		cardId,
 		// 		completed 
 		// 	} = action.payload;
 		// 	state.allLists = state.allLists.map((list) => {
-		// 		let cardItem = props.allLists
-		// 		if (list._id === sourceId) {
+		// 		// let cardItem = props.allLists
+		// 		if (list._id === sourceId ===destinationId) {
 		// 			list.cards = list.cards.map((card) => {
-		// 				if (card._id === cardId) card.title = title;
+		// 				if (card._id === cardId) {
+		// 					if ((list.title === "Done🎉" || list.title === "Done" || list.title === "Hoàn thành")) {
+		// 						card.completed = completed;
+		// 					}
+		// 				}
 		// 				return card;
 		// 			});
 		// 		}
@@ -111,11 +115,13 @@ const listSlice = createSlice({
 			});
 		},
 		updateDescriptionOfCard: (state, action) => {
-			const { listId, cardId, description } = action.payload;
+			const { listId, cardId, description, images } = action.payload;
 			state.allLists = state.allLists.map((list) => {
 				if (list._id === listId) {
 					list.cards = list.cards.map((card) => {
-						if (card._id === cardId) card.description = description;
+						if (card._id === cardId) 
+						card.description = description;
+						card.images = images;
 						return card;
 					});
 				}

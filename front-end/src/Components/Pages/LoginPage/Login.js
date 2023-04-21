@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "../../../Services/userService";
 import Background from "../../Background";
-
+import axios from 'axios';
 import {
   BgContainer,
   Container,
@@ -19,9 +19,19 @@ import {
   Hr,
   Link,
 } from "./Styled";
+import {
+  loginFailure,
+  loginSuccess,
+  logout,
+} from '../../../Redux/Slices/userSlice';
+import { openAlert } from '../../../Redux/Slices/alertSlice';
+import setBearer from '../../../Utils/setBearer';
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 
+const apiURL = process.env.REACT_APP_SERVER_API;
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+const authUrl = apiURL + `auth/`;
 const Login = () => {
   let history = useHistory();
   const dispatch = useDispatch();
@@ -30,14 +40,8 @@ const Login = () => {
     password: "",
   });
 
-  const [loginData, setLoginData] = useState(
-    localStorage.getItem("loginData")
-      ? JSON.parse(localStorage.getItem("loginData"))
-      : null
-  );
-
   useEffect(() => {
-    document.title = "Log in to Trello Clone";
+    document.title = "Log in to Todoweb";
   }, []);
 
   const handleSubmit = async (e) => {
@@ -47,33 +51,73 @@ const Login = () => {
   const loginWithUser = () => {
     login(userInformations, dispatch);
   };
-
-  // handle fail google login
-  const handleFailure = (result) => {
-    console.log(result);
-  };
-
   useEffect(() => {
-    gapi.load("client:auth2", () => {
-      gapi.auth2.init({ clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID });
-    });
-  });
+    function start() {
+      gapi.client.init({
+        clientId: clientId,
+        scope: 'profile email',
+      });
+    }
+
+    gapi.load('client:auth2', start);
+  }, []);
+  // handle fail google login
+  const handleFailure = (error) => {
+    console.error(error);
+    dispatch(loginFailure());
+    dispatch(openAlert({
+      message: error?.response?.data?.errMessage
+        ? error.response.data.errMessage
+        : error.message,
+      severity: 'error',
+    }));
+  };
 
   const loginWithGoogle = async (response) => {
-    // const res = await axios.post("api/google-login", {
-    //   token: googleData.tokenId,
-    // });
-    // const data = await res.json();
+    try {
+      const res = await axios.post(authUrl + 'google_login',
+        {
+          tokenId: response.tokenId,
+          clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        });
 
-    // setLoginData(data);
-    // localStorage.setItem("loginData", JSON.stringify(data));
-    console.log(response);
+      const { user, message, token, expires_in } = res.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('expires_in', expires_in);
+      const intervalId = setInterval(() => {
+        const expires_in = localStorage.getItem('expires_in');
+        if (token && expires_in) {
+          const now = new Date().getTime();
+          if (now >= expires_in) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('expires_in');
+            dispatch(logout());
+            clearInterval(intervalId);
+          }
+        }
+      }, 1000);
+      setBearer(token);
+      dispatch(loginSuccess({ user, token }));
+      dispatch(
+        openAlert({
+          message,
+          severity: 'success',
+          duration: 500,
+          nextRoute: '/boards',
+        })
+      );
+    } catch (error) {
+      dispatch(loginFailure());
+      dispatch(
+        openAlert({
+          message: error?.response?.data?.errMessage
+            ? error.response.data.errMessage
+            : error.message,
+          severity: 'error',
+        })
+      );
+    }
   };
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem("loginData");
-  //   setLoginData(null);
-  // };
 
   return (
     <>
@@ -115,10 +159,11 @@ const Login = () => {
               <Button onClick={loginWithUser}>Login</Button>
               <GoogleLogin
                 className="google-btn"
-                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                clientId={clientId}
                 buttonText="Log in with Google"
                 onSuccess={loginWithGoogle}
                 onFailure={handleFailure}
+                scope= {"profile email"}
                 cookiePolicy={"single_host_origin"}
               ></GoogleLogin>
               <Hr />

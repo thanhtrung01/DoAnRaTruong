@@ -23,6 +23,9 @@ export const userSlice = createSlice({
     loginStart: (state) => {
       state.pending = true;
     },
+    loginGoogleStart: (state) => {
+      state.pending = true;
+    },
     loginSuccess: (state, action) => {
       state.pending = false;
       state.isAuthenticated = true;
@@ -80,6 +83,7 @@ export const {
   registrationStart,
   registrationEnd,
   loginStart,
+  loginGoogleStart,
   loginFailure,
   loginSuccess,
   loadStart,

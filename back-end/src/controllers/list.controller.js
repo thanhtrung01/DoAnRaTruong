@@ -67,8 +67,8 @@ const deleteById = async (req, res) => {
 
 const updateCardOrderAndCompleted = async (req, res) => {
   // deconstruct the params
-  const { boardId, sourceId, destinationId, destinationIndex, cardId, completed } =
-    req.body;
+  const { boardId, sourceId, destinationId, destinationIndex, cardId } =
+  req.body;
   const user = req.user;
 
   // Validate the params
@@ -90,11 +90,10 @@ const updateCardOrderAndCompleted = async (req, res) => {
     destinationIndex,
     cardId,
     user,
-    completed,
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 

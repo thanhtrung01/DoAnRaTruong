@@ -91,7 +91,7 @@ const Card = (props) => {
 
   return (
     <>
-      {/* {statusFirework ? <div className="firework"></div> : ""} */}
+      {statusFirework ? <div className="firework"></div> : ""}
       <Draggable draggableId={props.info._id} index={props.index}>
         {(provided, snapshot) => {
           return (
@@ -176,8 +176,8 @@ const Card = (props) => {
                               : "darkgray"
                           }
                         >{`${card.date.startDate
-                            ? formatDate(card.date.startDate)
-                            : ""
+                          ? formatDate(card.date.startDate)
+                          : ""
                           }${card.date.startDate
                             ? card.date.dueDate
                               ? " - "
@@ -210,8 +210,8 @@ const Card = (props) => {
                     <MembersWrapper>
                       {card.members &&
                         card.members.map((member, i) => {
-                          const nameAvatar= member.name[0].toUpperCase();
-                          const avatarInitial = (member.avatar==null) ? nameAvatar: member.avatar[0];
+                          const nameAvatar = member.name[0].toUpperCase();
+                          const avatarInitial = (member.avatar == null) ? nameAvatar : member.avatar[0];
                           return (
                             <Avatar
                               key={i}

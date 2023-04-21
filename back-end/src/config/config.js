@@ -14,4 +14,6 @@ module.exports = {
   EXPIRES_IN: process.env.EXPIRES_IN,
   GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
   SESSION_SECRET: process.env.SESSION_SECRET,
+  SENDER_EMAIL_ADDRESS: process.env.SENDER_EMAIL_ADDRESS,
+  PASS_EMAIL: process.env.PASS_EMAIL
 };
