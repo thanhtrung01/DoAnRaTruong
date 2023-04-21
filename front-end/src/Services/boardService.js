@@ -9,7 +9,7 @@ import {
 } from '../Redux/Slices/listSlice';
 import { openAlert } from '../Redux/Slices/alertSlice';
 import { addMembers, setActivityLoading, updateActivity, updateBackground, updateDescription } from '../Redux/Slices/boardSlice';
-
+ 
 const apiURL = process.env.REACT_APP_SERVER_API;
 const listRoute = apiURL + `list`;
 const boardRoute = apiURL + `board`;
