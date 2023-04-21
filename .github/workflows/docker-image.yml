@@ -63,7 +63,7 @@ jobs:
         run: echo "${{ secrets.RENDER_TOKEN }}" | render login
         
       - name: Push Docker image to Render.com
-        run: docker push my-image-name:$(date +%s) render
+        run: docker push server_todoweb:$(date +%s) render
         
       - name: Deploy to Render.com
-        run: render deploy --image my-image-name:$(date +%s) --branch main # hoặc nhánh mà bạn muốn triển khai lên Render.com    
+        run: render deploy --image server_todoweb:$(date +%s) --branch main # hoặc nhánh mà bạn muốn triển khai lên Render.com    
