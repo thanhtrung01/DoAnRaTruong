@@ -5,47 +5,81 @@ import './profile.scss';
 import Navbar from '../../Navbar';
 import { updateInfoUser } from '../../../Services/userService';
 import Dropzone from 'react-dropzone';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
 	DefaultChangeImageIcon,
 	DefaultImageIcon,
 	EarthImageIcon,
 } from '../../../Icons/Icons';
 import { useDispatch, useSelector } from 'react-redux';
-
+let fileImage
 function Profile(props) {
 	const infoUser = useSelector((state) => state.user);
 	const color = useSelector((state) => state.user.userInfo.color);
-	console.log(infoUser);
+	
 	const dispatch = useDispatch();
 	const name = useSelector((state) => state.user.userInfo.name);
 	const avatar = useSelector((state) => state.user.userInfo.avatar);
-	
+
+
+	console.log(avatar)
 	const [nameUser, setNameUser] = useState(
 		name ||'add name user'
 	);
 	const [avatarApi, setAvatarApi] = useState(
 		avatar|| 'https://res.cloudinary.com/thanhtrung01/image/upload/v1681693079/to-do-app/jfhtywfis0xfrpv4jvaz.jpg'
 	);
-	console.log(avatarApi);
+	
 
 	const handleNameUser = (e) => {
 		setNameUser(e.target.value);
 	};
-	const handleAvatar = (e) => {
-		setAvatarApi(e.target.files[0]);
+	const handleAvatar = async (e) => {
+		fileImage=e.target.files[0]
+		await reloadUpdateImg(e.target.files[0], transferData)
+		
 	};
+
+	const transferData =  (data)=> {
+		 setAvatarApi(data.user.avatar)
+	}
 
 
 	const handleEditUser = async () => {
+		console.log('call api')
 		await updateInfoUser(
 			dispatch,
 			infoUser.userInfo._id,
 			nameUser,
-			avatarApi
+			fileImage,transferData
 		);
-		console.log(avatarApi);
+
+		toast('Edit user successfully!', {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: "light",
+			});
 	};
 
+
+	const reloadUpdateImg = async(avatar, transferData) => {
+		await updateInfoUser(
+			dispatch,
+			infoUser.userInfo._id,
+			nameUser,
+			avatar, transferData
+		);
+		
+		
+	}
+
+	
 	return (
 		<>
 			<Navbar />
@@ -64,9 +98,12 @@ function Profile(props) {
 							</div>
 						</div>
 						<input
+						className='input-upload-avatar'
 							type="file"
 							onChange={handleAvatar}
 						/>
+							<DefaultChangeImageIcon />
+
 						<div className="profile-logo-wrap">
 							<img
 								sx={{
@@ -80,7 +117,7 @@ function Profile(props) {
 								src={avatarApi[0]}
 								alt=""
 							/>
-							<DefaultChangeImageIcon />
+							{/* <DefaultChangeImageIcon /> */}
 						</div>
 						<div className="profile-hover-content">
 							<DefaultImageIcon />
@@ -176,6 +213,7 @@ function Profile(props) {
 					<button className="profile-edit" onClick={handleEditUser}>
 						Edit
 					</button>
+					
 				</div>
 			</div>
 		</>

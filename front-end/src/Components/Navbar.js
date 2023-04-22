@@ -6,6 +6,7 @@ import { xs } from '../BreakPoints';
 import ProfileBox from './ProfileBox';
 import { useHistory } from 'react-router-dom';
 import { BellIcon, QuestionIcon } from '../Icons/Icons';
+import { ToastContainer } from 'react-toastify';
 
 const Container = styled.div`
 	z-index: 100;
@@ -76,6 +77,7 @@ const Navbar = (props) => {
 
 	return (
 		<Container>
+			
 			<LeftSide>
 				<LogoContainer>
 					<TrelloLogo
@@ -114,6 +116,18 @@ const Navbar = (props) => {
 				/>
 				<BellIcon />
 				<QuestionIcon />
+				<ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
 				<ProfileBox />
 			</RightSide>
 		</Container>

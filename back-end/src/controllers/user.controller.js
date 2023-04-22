@@ -87,8 +87,8 @@ const googleLogin = async (req, res) => {
 			if (!isMatch) {
 				return res.status(400).json({ msg: "Password is incorrect" });
 			}
-			const token = auth.generateToken(user._id, user.email );
-			const expires_in = auth.expiresToken({token});
+			const token = auth.generateToken(user._id, user.email);
+			const expires_in = auth.expiresToken({ token });
 			/* hiden password || id */
 			user.password = undefined;
 			user.__v = undefined;
@@ -109,12 +109,12 @@ const googleLogin = async (req, res) => {
 				avatar: picture,
 			});
 			await newUser.save();
-			const token = auth.generateToken(newUser._id, newUser.email );
-			const expires_in = auth.expiresToken({token});
+			const token = auth.generateToken(newUser._id, newUser.email);
+			const expires_in = auth.expiresToken({ token });
 			/* hiden password || id */
 			newUser.password = undefined;
 			newUser.__v = undefined;
-			res.status(200).json({ 
+			res.status(200).json({
 				oke: true,
 				message: 'User login successful!',
 				user: newUser,
@@ -189,32 +189,29 @@ const getUserWithMail = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-	const { userId } = req.params;
-	// console.log('req.file', req.files);
-	const images_url = req.files[0].path;
-	// const images_url = req.file;
-	await UserSchema.findByIdAndUpdate(
-		userId,
-		{
-			name: req.body.name,
-			avatar: images_url,
-		},
-		{ new: true },
-		(err, user) => {
-			if (err) {
-				return res.status(500).json({
-					ok: false,
-					err,
-				});
-			}
-			user.password = undefined;
-			return res.status(201).json({
-				ok: true,
-				message: 'Update finish!',
-				user,
-			});
-		}
-	);
+	try {
+		const { userId } = req.params;
+		const images_url = req.files[0].path;
+		const user = await UserSchema.findByIdAndUpdate(
+			userId,
+			{
+				name: req.body.name,
+				avatar: images_url
+			},
+			{ new: true },
+		)
+		await user.save()
+		user.password = undefined;
+		return res.status(201).json({
+			ok: true,
+			message: 'Update finish!',
+			user: user,
+		});
+
+	} catch (err) {
+		console.log(err);
+		return res.status(500).json({ msg: err.message });
+	}
 };
 
 const createUser = async (req, res) => {

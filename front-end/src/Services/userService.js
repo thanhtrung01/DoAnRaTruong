@@ -151,7 +151,7 @@ export const getUserFromEmail = async (email, dispatch) => {
 	}
 };
 
-export const updateInfoUser = async (dispatch, id, name, avatar) => {
+export const updateInfoUser = async (dispatch, id, name, avatar, transferData) => {
 	dispatch(updateStart());
 	if (!localStorage.token) return dispatch(loadFailure());
 	setBearer(localStorage.token);
@@ -159,15 +159,18 @@ export const updateInfoUser = async (dispatch, id, name, avatar) => {
 	formData.append('name', name);
 	formData.append('avatar', avatar);
 	try {
-		const res = await axios.patch(baseUrl + `${id}`, formData)
+		const res = await axios.put(baseUrl + `${id}`, formData)
 			.then(res => {
 				console.log('Đã upload hình ảnh thành công', res.data);
+				transferData(res.data)
 			})
 			.catch(error => {
 				console.error('Lỗi khi upload hình ảnh', error);
 			})
-
-		dispatch(loadSuccess({ user: res.data, token: res.data }));
+			
+			dispatch(loadSuccess({ user: res.data, token: res.data }));
+			
+		
 	} catch (error) {
 		dispatch(loadFailure());
 	}
