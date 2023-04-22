@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const BoardSchema = mongoose.Schema(
   {
@@ -8,7 +8,7 @@ const BoardSchema = mongoose.Schema(
     },
     star: {
       type: Boolean,
-      required: false
+      required: false,
     },
     isImage: {
       type: Boolean,
@@ -22,7 +22,7 @@ const BoardSchema = mongoose.Schema(
       {
         user: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'user',
+          ref: "user",
         },
         name: {
           type: String,
@@ -30,7 +30,7 @@ const BoardSchema = mongoose.Schema(
         avatar: {
           type: Array,
           required: false,
-          default: []
+          default: [],
         },
         action: {
           type: String,
@@ -45,11 +45,11 @@ const BoardSchema = mongoose.Schema(
         },
         cardTitle: {
           type: String,
-          default: '',
+          default: "",
         },
         actionType: {
           type: String,
-          default: 'action',
+          default: "action",
         },
         color: {
           type: String,
@@ -60,7 +60,7 @@ const BoardSchema = mongoose.Schema(
       {
         user: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'user',
+          ref: "user",
         },
         name: {
           type: String,
@@ -68,7 +68,7 @@ const BoardSchema = mongoose.Schema(
         avatar: {
           type: Array,
           required: false,
-          default: []
+          default: [],
         },
         username: {
           type: String,
@@ -78,7 +78,7 @@ const BoardSchema = mongoose.Schema(
         },
         role: {
           type: String,
-          default: 'member',
+          default: "member",
         },
         color: {
           type: String,
@@ -88,15 +88,15 @@ const BoardSchema = mongoose.Schema(
     lists: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'list',
+        ref: "list",
       },
     ],
     description: {
       type: String,
-      default: '',
+      default: "",
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-module.exports = mongoose.model('board', BoardSchema);
+module.exports = mongoose.model("board", BoardSchema);

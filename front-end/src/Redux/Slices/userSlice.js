@@ -3,11 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userInfo: null,
+  users: null,
   isAuthenticated: null,
   pending: true,
   loading: false,
-  token: localStorage.getItem('token'),
-  expires_in: localStorage.getItem('expires_in'),
+  token: localStorage.getItem("token"),
+  expires_in: localStorage.getItem("expires_in"),
 };
 
 export const userSlice = createSlice({
@@ -36,7 +37,7 @@ export const userSlice = createSlice({
     loginFailure: (state) => {
       state.pending = false;
       state.isAuthenticated = false;
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
       // localStorage.removeItem('expiration');
     },
     loadStart: (state) => {
@@ -52,9 +53,13 @@ export const userSlice = createSlice({
     loadSuccess: (state, action) => {
       state.isAuthenticated = true;
       state.userInfo = action.payload.user;
-      state.token = localStorage.getItem('token');
-      state.expires_in = localStorage.getItem('expires_in');
+      state.token = localStorage.getItem("token");
+      state.expires_in = localStorage.getItem("expires_in");
       state.pending = false;
+    },
+    getUsers: (state, action) => {
+      console.log(action.payload);
+      state.users = action.payload;
     },
     loadFailure: (state) => {
       state.pending = false;
@@ -64,18 +69,18 @@ export const userSlice = createSlice({
       state.userInfo = null;
       state.token = null;
       state.expires_in = null;
-      localStorage.removeItem('token');
-      localStorage.removeItem('expires_in');
+      localStorage.removeItem("token");
+      localStorage.removeItem("expires_in");
     },
-    fetchingStart: (state)=>{
+    fetchingStart: (state) => {
       state.loading = true;
     },
     fetchingFinish: (state) => {
       state.loading = false;
     },
-    addNewBoard: (state,action) => {
+    addNewBoard: (state, action) => {
       state.userInfo.boards.unshift(action.payload);
-    }
+    },
   },
 });
 
@@ -92,8 +97,9 @@ export const {
   loadSuccess,
   loadFailure,
   logout,
+  getUsers,
   fetchingStart,
   fetchingFinish,
-  addNewBoard
+  addNewBoard,
 } = userSlice.actions;
 export default userSlice.reducer;

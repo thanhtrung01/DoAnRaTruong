@@ -8,7 +8,15 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   const user = useSelector((state) => state.user);
   useEffect(() => {
     if (!user.isAuthenticated && !user.pending) history.push("/");
-  });
+
+    // else if (user.isAuthenticated && !user.userInfo.isAdmin) {
+    //   return history.push("/board");
+    // } else {
+    //   return history.push("/dasboard");
+    // }
+
+    // if (!user.isAuthenticated && !user.pending) history.push("/");
+  }, [user]);
 
   return (
     <Route
