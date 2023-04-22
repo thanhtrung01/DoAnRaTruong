@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const UserSchema = mongoose.Schema(
   {
@@ -21,17 +21,17 @@ const UserSchema = mongoose.Schema(
     },
     authType: {
       type: String,
-      default: "system",//can be facebook, google as well
-      enum: ['system', 'google', 'facebook']
+      default: "system", //can be facebook, google as well
+      enum: ["system", "google", "facebook"],
     },
     avatar: {
       type: Array,
       required: false,
-      default: []
+      default: [],
     },
     phone: {
       type: String,
-      default: '',
+      default: "",
     },
     isAdmin: {
       type: Boolean,
@@ -43,12 +43,11 @@ const UserSchema = mongoose.Schema(
     boards: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'board',
+        ref: "board",
       },
     ],
-
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model("user", UserSchema);

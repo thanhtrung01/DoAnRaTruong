@@ -20,3 +20,46 @@
   display: flex;
   align-items: center;
 }
+
+.drag-file-area .upload-icon {
+  font-size: 50px;
+}
+.drag-file-area label {
+  font-size: 19px;
+}
+.drag-file-area label .browse-files-text {
+  color: #7b2cbf;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.browse-files span {
+  position: relative;
+  /* top: -25px; */
+}
+.default-file-input {
+  display: none;
+}
+
+.container {
+  padding: 0 30px;
+}
+.MuiGrid-item {
+  padding-left: 0 !important;
+}
+.simplebar-placeholder {
+  display: none;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.container-fix {
+  width: 80%;
+  margin-left: auto;
+  padding-bottom: 50px;
+  margin-top: 150px;
+}
+.pagination {
+  margin-top: 20px;
+}

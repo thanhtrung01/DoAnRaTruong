@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "../../../Services/userService";
 import Background from "../../Background";
-import axios from 'axios';
+import axios from "axios";
 import {
   BgContainer,
   Container,
@@ -23,9 +23,9 @@ import {
   loginFailure,
   loginSuccess,
   logout,
-} from '../../../Redux/Slices/userSlice';
-import { openAlert } from '../../../Redux/Slices/alertSlice';
-import setBearer from '../../../Utils/setBearer';
+} from "../../../Redux/Slices/userSlice";
+import { openAlert } from "../../../Redux/Slices/alertSlice";
+import setBearer from "../../../Utils/setBearer";
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 
@@ -55,42 +55,43 @@ const Login = () => {
     function start() {
       gapi.client.init({
         clientId: clientId,
-        scope: 'profile email',
+        scope: "profile email",
       });
     }
 
-    gapi.load('client:auth2', start);
+    gapi.load("client:auth2", start);
   }, []);
   // handle fail google login
   const handleFailure = (error) => {
     console.error(error);
     dispatch(loginFailure());
-    dispatch(openAlert({
-      message: error?.response?.data?.errMessage
-        ? error.response.data.errMessage
-        : error.message,
-      severity: 'error',
-    }));
+    dispatch(
+      openAlert({
+        message: error?.response?.data?.errMessage
+          ? error.response.data.errMessage
+          : error.message,
+        severity: "error",
+      })
+    );
   };
 
   const loginWithGoogle = async (response) => {
     try {
-      const res = await axios.post(authUrl + 'google_login',
-        {
-          tokenId: response.tokenId,
-          clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        });
+      const res = await axios.post(authUrl + "google_login", {
+        tokenId: response.tokenId,
+        clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+      });
 
       const { user, message, token, expires_in } = res.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('expires_in', expires_in);
+      localStorage.setItem("token", token);
+      localStorage.setItem("expires_in", expires_in);
       const intervalId = setInterval(() => {
-        const expires_in = localStorage.getItem('expires_in');
+        const expires_in = localStorage.getItem("expires_in");
         if (token && expires_in) {
           const now = new Date().getTime();
           if (now >= expires_in) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('expires_in');
+            localStorage.removeItem("token");
+            localStorage.removeItem("expires_in");
             dispatch(logout());
             clearInterval(intervalId);
           }
@@ -101,9 +102,9 @@ const Login = () => {
       dispatch(
         openAlert({
           message,
-          severity: 'success',
+          severity: "success",
           duration: 500,
-          nextRoute: '/boards',
+          nextRoute: "/boards",
         })
       );
     } catch (error) {
@@ -113,7 +114,7 @@ const Login = () => {
           message: error?.response?.data?.errMessage
             ? error.response.data.errMessage
             : error.message,
-          severity: 'error',
+          severity: "error",
         })
       );
     }
@@ -163,7 +164,7 @@ const Login = () => {
                 buttonText="Log in with Google"
                 onSuccess={loginWithGoogle}
                 onFailure={handleFailure}
-                scope= {"profile email"}
+                scope={"profile email"}
                 cookiePolicy={"single_host_origin"}
               ></GoogleLogin>
               <Hr />

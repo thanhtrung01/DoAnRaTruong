@@ -1,7 +1,7 @@
-const express = require('express');
-const userController = require('../controllers/user.controller');
-const upload = require('../middlewares/upload');
-const authAdmin = require('../middlewares/authAdmin');
+const express = require("express");
+const userController = require("../controllers/user.controller");
+const upload = require("../middlewares/upload");
+const authAdmin = require("../middlewares/authAdmin");
 const router = express.Router();
 
 router.get('/get-user', userController.getUser);
