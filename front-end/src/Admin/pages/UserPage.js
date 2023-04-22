@@ -80,7 +80,7 @@ export default function UserPage({ users }) {
 
   // const newUsers = [...users];
 
-  const [userData, setUserData] = useState([...users]);
+  const [userData, setUserData] = useState([...USERLIST]);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [selected, setSelected] = useState([]);
