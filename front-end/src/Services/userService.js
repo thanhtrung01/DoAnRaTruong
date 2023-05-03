@@ -31,7 +31,7 @@ export const register = async (
   if (password !== repassword) {
     dispatch(
       openAlert({
-        message: "Your passwords does not match!",
+        message: "Mật khẩu của bạn không khớp!",
         severity: "error",
       })
     );
@@ -84,28 +84,26 @@ export const login = async ({ email, password }, dispatch) => {
           clearInterval(intervalId);
         }
       }
-    }, 1000);
+    },5000);
     setBearer(token);
     dispatch(loginSuccess({ user, token }));
-    dispatch(
-      openAlert({
-        message,
-        severity: "success",
-        duration: 500,
-        nextRoute: "/boards",
-      })
-    );
-    {
-      res.data.user.isAdmin &&
-        dispatch(
-          openAlert({
-            message,
-            severity: "success",
-            duration: 500,
-            nextRoute: "/dashboard",
-          })
-        );
-    }
+    res.data.user.isAdmin?
+      dispatch(
+        openAlert({
+          message,
+          severity: "success",
+          duration: 500,
+          nextRoute: "/dashboard",
+        })
+      ) : dispatch(
+        openAlert({
+          message,
+          severity: "success",
+          duration: 500,
+          nextRoute: "/boards",
+        })
+      )
+
   } catch (error) {
     dispatch(loginFailure());
     dispatch(
@@ -136,7 +134,7 @@ export const getUserFromEmail = async (email, dispatch) => {
   if (!email) {
     dispatch(
       openAlert({
-        message: "Please write an email to invite",
+        message: "Vui lòng nhập email để mời",
         severity: "warning",
       })
     );
@@ -173,7 +171,7 @@ export const updateInfoUser = async (dispatch, id, name, avatar, transferData) =
   formData.append('name', name);
   formData.append('avatar', avatar);
   try {
-    const res = await axios.put(baseUrl + `${id}`, formData)
+    const res = await axios.patch(baseUrl + `${id}`, formData)
       .then(res => {
         console.log('Đã upload hình ảnh thành công', res.data);
         transferData(res.data)
@@ -188,6 +186,9 @@ export const updateInfoUser = async (dispatch, id, name, avatar, transferData) =
 };
 
 export const getAllUser = async (dispatch) => {
+  dispatch(loadAllStart());
+  if (!localStorage.token) return dispatch(loadFailure());
+  setBearer(localStorage.token);
   try {
     const res = await axios.get(baseUrl + "get-users");
     dispatch(getUsers(res.data));

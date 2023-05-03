@@ -11,6 +11,7 @@ const initialState = {
 	checklists: [],
 	owner: '',
 	description: '',
+	images: [],
 	date: {
 		startDate: null,
 		dueDate: null,

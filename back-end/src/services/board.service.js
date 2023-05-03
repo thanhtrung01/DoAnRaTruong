@@ -47,7 +47,7 @@ const create = async (req, callback) => {
           user: user.id,
           avatar: user.avatar,
           name: user.name,
-          action: `added user '${newMember.name}' to this board`,
+          action: `đã thêm người dùng '${newMember.name}' cho bảng n`,
         });
       }),
     );
@@ -57,7 +57,7 @@ const create = async (req, callback) => {
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: 'created this board',
+      action: 'Tạo ra bản này',
       color: user.color,
     });
 
@@ -132,7 +132,7 @@ const updateBoardTitle = async (boardId, title, user, callback) => {
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: 'update title of this board',
+      action: 'Cập nhật tiêu đề của bảng này',
       color: user.color,
     });
     await board.save();
@@ -154,7 +154,7 @@ const updateBoardDescription = async (boardId, description, user, callback) => {
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: 'update description of this board',
+      action: 'Cập nhật mô tả của bảng này',
       color: user.color,
     });
     await board.save();
@@ -181,7 +181,7 @@ const updateBackground = async (id, background, isImage, user, callback) => {
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: 'update background of this board',
+      action: 'Cập nhật nền của bảng này',
       color: user.color,
     });
 
@@ -222,7 +222,7 @@ const addMember = async (id, members, user, callback) => {
           user: user.id,
           avatar: user.avatar,
           name: user.name,
-          action: `added user '${newMember.name}' to this board`,
+          action: `Đã thêm người dùng'${newMember.name}' cho bảng này`,
           color: user.color,
         });
       }),

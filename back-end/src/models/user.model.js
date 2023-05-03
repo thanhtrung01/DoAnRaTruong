@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const validator = require('validator');
 const UserSchema = mongoose.Schema(
   {
     name: {
@@ -9,15 +9,32 @@ const UserSchema = mongoose.Schema(
     username: {
       type: String,
       required: true,
+      unique: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
+      trim: true,
+      lowercase: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Email không hợp lệ');
+        }
+      },
     },
     password: {
       type: String,
       required: true,
+      trim: true,
+      minlength: 6,
+      validate(value) {
+        if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
+          throw new Error('Mật khẩu phải chứa ít nhất một chữ cái và một số');
+        }
+      },
+      private: true, //
     },
     authType: {
       type: String,
@@ -32,6 +49,7 @@ const UserSchema = mongoose.Schema(
     phone: {
       type: String,
       default: "",
+      trim: true,
     },
     isAdmin: {
       type: Boolean,

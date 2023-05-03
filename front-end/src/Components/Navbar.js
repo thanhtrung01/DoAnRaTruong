@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DropdownMenu from './DropdownMenu';
 import SearchBar from './SearchBar';
 import { xs } from '../BreakPoints';
+import { getBoards } from '../Services/boardsService';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileBox from './ProfileBox';
 import { useHistory } from 'react-router-dom';
 import { BellIcon, QuestionIcon } from '../Icons/Icons';
 import { ToastContainer } from 'react-toastify';
+import CreateBoard from '../Components/Modals/CreateBoardModal/CreateBoard';
 
 const Container = styled.div`
 	z-index: 100;
@@ -24,8 +27,8 @@ const Container = styled.div`
 	padding: 0.5rem 1rem;
 	gap: 0.5rem;
 	${xs({
-		padding: '0.5rem, 0rem',
-	})}
+	padding: '0.5rem, 0rem',
+})}
 `;
 
 const LeftSide = styled.div`
@@ -37,9 +40,9 @@ const LeftSide = styled.div`
 	align-items: center;
 	justify-content: flex-start;
 	${xs({
-		gap: '0.1rem',
-		width: 'fit-content',
-	})}
+	gap: '0.1rem',
+	width: 'fit-content',
+})}
 `;
 
 const RightSide = styled.div`
@@ -68,16 +71,84 @@ const DropdownContainer = styled.div`
 	align-items: center;
 	justify-content: flex-start;
 	${xs({
-		display: 'none',
-	})}
+	display: 'none',
+})}
+`;
+const Board = styled.div`
+	color: white;
+	border-radius: 5px;
+	${(props) =>
+		props.isImage
+			? 'background-image: url(' + props.link + ');'
+			: 'background-color: ' + props.link + ';'}
+
+	background-position: center center;
+	background-size: cover;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+	opacity: 88%;
+	cursor: pointer;
+	will-change: opacity;
+	transition: opacity 450ms;
+	&:hover {
+		opacity: 100%;
+		transition: opacity 150ms;
+		font-weight: 600;
+	}
+`;
+
+const AddBoard = styled(Board)`
+	background-color: transparent;
+	background-image: linear-gradient(
+		to right,
+		#0b486b 0%,
+		#f56217 51%,
+		#0b486b 100%
+	);
+	padding: 0.25rem;
+	font-size: 0.95rem;
+	transition: 2s;
+	opacity: 65%;
+	background-size: 200% auto;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	font-weight: 600;
+	&:hover {
+		background-position: right center;
+		color: #fff;
+		transition: 400ms ease-in;
+	}
 `;
 
 const Navbar = (props) => {
 	const history = useHistory();
+	const dispatch = useDispatch();
+	const { pending, boardsData } = useSelector((state) => state.boards);
+	const [openModal, setOpenModal] = useState(false);
+	// const [searchString, setSearchString] = useState('');
+	const handleModalClose = () => {
+		setOpenModal(false);
+	};
+
+	const handleClick = (e) => {
+		history.push(`/board/${e.target.id}`);
+	};
+
+	useEffect(() => {
+		getBoards(false, dispatch);
+	}, [dispatch]);
+
+	useEffect(() => {
+		document.title = 'Boards | Todoweb';
+	}, []);
 
 	return (
 		<Container>
-			
+
 			<LeftSide>
 				<LogoContainer>
 					<TrelloLogo
@@ -88,25 +159,24 @@ const Navbar = (props) => {
 					/>
 				</LogoContainer>
 				<DropdownContainer>
-					<DropdownMenu title="Your Boards" />
+					<DropdownMenu title="Bảng làm việc của bạn" />
 				</DropdownContainer>
 				<DropdownContainer>
-					<DropdownMenu title="Work Spaces" />
+					<DropdownMenu title="Gần đây" />
 				</DropdownContainer>
 				<DropdownContainer>
-					<DropdownMenu title="Recent Board" />
+					<DropdownMenu title="Đã đánh dấu sao" />
 				</DropdownContainer>
 				<DropdownContainer>
-					<DropdownMenu title="Starred Board" />
+					<DropdownMenu title="Mẫu" />
 				</DropdownContainer>
 				<DropdownContainer>
-					<DropdownMenu title="Template" />
-				</DropdownContainer>
-				<DropdownContainer>
-					<DropdownMenu
-						isDropdownIcon={false}
-						title="Create New Board"
-					/>
+					{ (
+						<AddBoard onClick={() => setOpenModal(true)}>
+							Tạo mới
+						</AddBoard>
+					)}
+					{openModal && <CreateBoard callback={handleModalClose} />}
 				</DropdownContainer>
 			</LeftSide>
 			<RightSide>
@@ -117,17 +187,17 @@ const Navbar = (props) => {
 				<BellIcon />
 				<QuestionIcon />
 				<ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-/>
+					position="top-right"
+					autoClose={5000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme="light"
+				/>
 				<ProfileBox />
 			</RightSide>
 		</Container>

@@ -1,27 +1,13 @@
 const userModel = require('../models/user.model');
-const session = require('express-session');
-const { createRandomHexColor } = require('../helper/validate');
-
-const register = async (req, user, callback) => {
-  const newUser = userModel({ ...user, color: createRandomHexColor() });
-  await newUser
-    .save()
-    .then((result) => {
-      return callback(false, { message: 'User created successfuly!' });
-    })
-    .catch((err) => {
-      return callback({ errMessage: 'Email already in use!', details: err });
-    });
-};
 
 const login = async (email, callback) => {
   try {
     let user = await userModel.findOne({ email });
-    if (!user) return callback({ errMessage: 'Your email/password is wrong!' });
+    if (!user) return callback({ errMessage: 'Email không hợp lệ!🥹' });
     return callback(false, { ...user.toJSON() });
   } catch (err) {
     return callback({
-      errMessage: 'Something went wrong',
+      errMessage: 'Có gì đó đã sai 🙈',
       details: err.message,
     });
   }
@@ -30,11 +16,11 @@ const login = async (email, callback) => {
 const getUser = async (id, callback) => {
   try {
     let user = await userModel.findById(id);
-    if (!user) return callback({ errMessage: 'User not found!' });
+    if (!user) return callback({ errMessage: 'Tài khoản người dùng không tìm thấy!' });
     return callback(false, { ...user.toJSON() });
   } catch (err) {
     return callback({
-      errMessage: 'Something went wrong',
+      errMessage: 'Có gì đó đã sai',
       details: err.message,
     });
   }
@@ -45,19 +31,19 @@ const getUserWithMail = async (email, callback) => {
     let user = await userModel.findOne({ email });
     if (!user)
       return callback({
-        errMessage: 'There is no registered user with this e-mail.',
+        errMessage: 'Không có người dùng đã đăng ký với e-mail này.',
       });
     return callback(false, { ...user.toJSON() });
   } catch (error) {
     return callback({
-      errMessage: 'Something went wrong',
+      errMessage: 'Có gì đó đã sai',
       details: error.message,
     });
   }
 };
 
 module.exports = {
-  register,
+  // register,
   login,
   getUser,
   getUserWithMail,

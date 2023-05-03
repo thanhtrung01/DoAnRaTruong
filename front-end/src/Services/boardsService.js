@@ -44,7 +44,7 @@ export const createBoard = async (props, dispatch) => {
     dispatch(failCreatingBoard());
     dispatch(
       openAlert({
-        message: "Please enter a title for board!",
+        message: "Vui lòng nhập một tiêu đề cho bảng!",
         severity: "warning",
       })
     );
@@ -56,7 +56,7 @@ export const createBoard = async (props, dispatch) => {
     dispatch(successCreatingBoard(res.data));
     dispatch(
       openAlert({
-        message: `${res.data.title} board has been successfully created`,
+        message: `${res.data.title} Bảng làm việc đã được tạo thành công!`,
         severity: "success",
       })
     );

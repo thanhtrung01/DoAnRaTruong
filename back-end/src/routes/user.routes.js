@@ -5,8 +5,8 @@ const authAdmin = require("../middlewares/authAdmin");
 const router = express.Router();
 
 router.get('/get-user', userController.getUser);
-router.get('/get-users', userController.getAllUser);
+router.get('/get-users', authAdmin, userController.getAllUser);
 router.post('/get-user-with-email', userController.getUserWithMail);
-router.put('/:userId', upload.Avatar('avatar'), userController.updateUser);
+router.patch('/:userId', upload.Avatar('avatar'), userController.updateUser);
 router.post('/create-user',authAdmin, upload.Avatar('avatar'), userController.createUser);
 module.exports = router;

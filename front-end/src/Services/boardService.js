@@ -139,7 +139,7 @@ export const boardMemberAdd = async (boardId, members, dispatch) => {
 		await dispatch(addMembers(result.data));
 		dispatch(
 			openAlert({
-				message: 'Members are added to this board successfully',
+				message: 'Các thành viên được thêm vào bảng này thành công!',
 				severity: 'success',
 			})
 		);

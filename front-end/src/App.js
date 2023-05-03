@@ -35,11 +35,7 @@ const App = () => {
             <ProtectedRoute exact path="/board/:id" component={Board} />
             <ProtectedRoute exact path="/dashboard" component={DashboardPage} />
             <ProtectedRoute exact path="/dashboard/user" component={UserPage} />
-            <ProtectedRoute
-              exact
-              path="/dashboard/board"
-              component={BoardPage}
-            />
+            <ProtectedRoute exact path="/dashboard/board" component={BoardPage}/>
             <ProtectedRoute exact path="/login/admin" component={LoginPage} />
             <FreeRoute exact path="/login" component={Login} />
             <FreeRoute exact path="/register" component={Register} />

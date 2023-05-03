@@ -27,12 +27,17 @@ export const Title = styled.h3`
 
 export const DescriptionText = styled.p`
 	box-sizing: border-box;
-	width: 89%;
+	width: 96.7%;
 	padding: 0;
 	margin: 0;
 	word-wrap: break-word;
 	cursor: pointer;
 	font-size: 0.875rem;
+`;
+
+export const DescriptionInputWrapper = styled.div`
+  position: relative;
+  width: 96.7%;
 `;
 
 export const DescriptionInput = styled.textarea`
@@ -43,7 +48,7 @@ export const DescriptionInput = styled.textarea`
 	border: none;
 	border-radius: 2px;
 	box-shadow: none;
-	font-size: 0.875rem;
+	font-size: 0.87rem;
 	outline: 2px solid transparent;
 	padding: 0.5rem 0.75rem;
 	resize: none;
@@ -64,4 +69,19 @@ export const DescriptionInput = styled.textarea`
 		outline: 2px solid #0079bf;
 		min-height: 5.5rem;
 	}
+`;
+export const UploadImageInput = styled.input`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 96.7%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+`;
+
+export const UploadedImage = styled.img`
+  width: 96.7%;
+  height: auto;
+  margin-top: 1rem;
 `;

@@ -21,7 +21,7 @@ const create = async (model, user, callback) => {
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: `added ${newList.title} to this board`,
+      action: `thêm ${newList.title} cho bảng này`,
       color: user.color,
     });
 
@@ -33,7 +33,7 @@ const create = async (model, user, callback) => {
   } catch (error) {
     // Return error message
     return callback({
-      errMessage: 'Something went wrong',
+      errMessage: 'Có gì đó đã sai',
       details: error.message,
     });
   }
@@ -58,7 +58,7 @@ const getAll = async (boardId, callback) => {
     return callback(false, responseObject);
   } catch (error) {
     return callback({
-      errMessage: 'Something went wrong',
+      errMessage: 'Có gì đó đã sai',
       details: error.message,
     });
   }
@@ -72,13 +72,13 @@ const deleteById = async (listId, boardId, user, callback) => {
     // Validate the parent of the list
     const validate = board.lists.filter((list) => list.id === listId);
     if (!validate)
-      return callback({ errMessage: 'List or board informations are wrong' });
+      return callback({ errMessage: 'Danh sách hoặc thông tin sai' });
 
     // Validate whether the owner of the board is the user who sent the request.
     if (!user.boards.filter((board) => board === boardId))
       return callback({
         errMessage:
-          'You cannot delete a list that does not hosted by your boards',
+          'Bạn không thể xóa một danh sách không được lưu trữ bởi các bảng của bạn',
       });
 
     // Delete the list
@@ -92,7 +92,7 @@ const deleteById = async (listId, boardId, user, callback) => {
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: `deleted ${result.title} from this board`,
+      action: `đã xóa ${result.title} từ bảng này`,
       color: user.color,
     });
     board.save();
@@ -153,7 +153,7 @@ const updateCardOrderAndCompleted = async (
     // Add card activity
     if (sourceId !== destinationId)
       card.activities.unshift({
-        text: `moved this card from ${sourceList.title} to ${destinationList.title}`,
+        text: `đã chuyển thẻ này từ ${sourceList.title} đến ${destinationList.title}`,
         avatar: user.avatar,
         userName: user.name,
         color: user.color,
@@ -165,7 +165,7 @@ const updateCardOrderAndCompleted = async (
     //Update completed of card
     // card.completed = true;
     // console.log(card);
-    return callback(false, { message: 'Success' });
+    return callback(false, { message: 'Thành công' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -194,7 +194,7 @@ const updateListOrder = async (
     board.lists.splice(destinationIndex, 0, listId);
     await board.save();
 
-    return callback(false, { message: 'Success' });
+    return callback(false, { message: 'Thành công' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',

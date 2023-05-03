@@ -102,8 +102,8 @@ export const titleUpdate = async (cardId, listId, boardId, title, dispatch) => {
 };
 
 export const descriptionUpdate = async (cardId, listId, boardId, images, description, dispatch) => {
-	dispatch(updateDescription(images, description));
-	dispatch(updateDescriptionOfCard({ listId, cardId, images, description }));
+	// dispatch(updateDescription(images, description));
+	// dispatch(updateDescriptionOfCard({ listId, cardId, images, description }));
 	const formData = new FormData();
 	formData.append('images', images);
 	formData.append('description', description);

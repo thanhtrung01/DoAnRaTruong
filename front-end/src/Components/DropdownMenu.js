@@ -51,7 +51,7 @@ const StyledIcon = styled(DownIcon)({
 	fontSize: '1.3rem',
 });
 
-export default function DropdownMenu({ title, isDropdownIcon = true }) {
+export default function DropdownMenu({ title, isDropdownIcon = true, createBoard = false }) {
 	const boardsData = useSelector((state) => state.boards.boardsData);
 	const history = useHistory();
 	const dispatch = useDispatch();

@@ -41,11 +41,11 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-app.use('/api/v1/auth', require('./routes/auth.route'));
-app.use('/api/v1/user', require('./routes/user.route'));
-app.use('/api/v1/board', require('./routes/board.route'));
-app.use('/api/v1/list', require('./routes/list.route'));
-app.use('/api/v1/card', require('./routes/card.route'));
+app.use('/api/v1/auth', require('./routes/auth.routes'));
+app.use('/api/v1/user', require('./routes/user.routes'));
+app.use('/api/v1/board', require('./routes/board.routes'));
+app.use('/api/v1/list', require('./routes/list.routes'));
+app.use('/api/v1/card', require('./routes/card.routes'));
 app.get('/', (req, res) => {
   res.json({ msg: 'Welcome to my API shopping' });
 });

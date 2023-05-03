@@ -5,7 +5,7 @@ const create = async (req, res) => {
   if (!(title && backgroundImageLink))
     return res
       .status(400)
-      .send({ errMessage: "Title and/or image cannot be null" });
+      .send({ errMessage: "Tiêu đề và/hoặc hình ảnh không thể để trống" });
   await Board.create(req, (err, result) => {
     if (err) return res.status(500).send(err);
     result.__v = undefined;
@@ -23,11 +23,12 @@ const getAll = async (req, res) => {
 
 const getAllBoard = async (req, res) => {
   try {
-    const boards = await BoardSchema.find().sort("__v");
+    const boards = await BoardSchema.find({}).sort("__v");
     const countboards = await BoardSchema.countDocuments();
     return res.status(200).json({
-      //   board: boards,
+      ok: true,
       count: countboards,
+      board: boards,
     });
   } catch (err) {
     console.log(err);
@@ -41,7 +42,7 @@ const getById = async (req, res) => {
   if (!validate)
     return res.status(400).send({
       errMessage:
-        "You can not show the this board, you are not a member or owner!",
+        "Bạn không thể hiển thị bảng này, bạn không phải là thành viên hoặc chủ sở hữu!",
     });
 
   // Call the service
@@ -57,7 +58,7 @@ const getActivityById = async (req, res) => {
   if (!validate)
     return res.status(400).send({
       errMessage:
-        "You can not show the this board, you are not a member or owner!",
+        "Bạn không thể hiển thị bảng này, bạn không phải là thành viên hoặc chủ sở hữu!",
     });
 
   // Call the service
@@ -73,7 +74,7 @@ const updateBoardTitle = async (req, res) => {
   if (!validate)
     return res.status(400).send({
       errMessage:
-        "You can not change title of this board, you are not a member or owner!",
+        "Bạn không thể thay đổi tiêu đề của bảng này, bạn không phải là thành viên hoặc chủ sở hữu!",
     });
   const { boardId } = req.params;
   const { title } = req.body;
@@ -90,7 +91,7 @@ const updateBoardDescription = async (req, res) => {
   if (!validate)
     return res.status(400).send({
       errMessage:
-        "You can not change description of this board, you are not a member or owner!",
+        "Bạn không thể thay đổi mô tả của bảng này, bạn không phải là thành viên hoặc chủ sở hữu!",
     });
   const { boardId } = req.params;
   const images_url = req.files.map((image) => image.path);
@@ -116,7 +117,7 @@ const updateBackground = async (req, res) => {
   if (!validate)
     return res.status(400).send({
       errMessage:
-        "You can not change background of this board, you are not a member or owner!",
+        "Bạn không thể thay đổi nền của bảng này, bạn không phải là thành viên hoặc chủ sở hữu!",
     });
   const { boardId } = req.params;
   const { background, isImage } = req.body;
@@ -139,7 +140,7 @@ const addMember = async (req, res) => {
   if (!validate)
     return res.status(400).send({
       errMessage:
-        "You can not add member to this board, you are not a member or owner!",
+        "Bạn không thể thêm thành viên vào bảng này, bạn không phải là thành viên hoặc chủ sở hữu!",
     });
   const { boardId } = req.params;
   const { members } = req.body;
@@ -149,7 +150,7 @@ const addMember = async (req, res) => {
     return res.status(200).send(result);
   });
 };
-const deleteBoard = (req, res) => {};
+const deleteBoard = (req, res) => { };
 module.exports = {
   create,
   getAll,

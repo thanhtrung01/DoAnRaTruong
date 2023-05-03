@@ -5,7 +5,7 @@ import './profile.scss';
 import Navbar from '../../Navbar';
 import { updateInfoUser } from '../../../Services/userService';
 import Dropzone from 'react-dropzone';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
 	DefaultChangeImageIcon,
@@ -17,7 +17,7 @@ let fileImage
 function Profile(props) {
 	const infoUser = useSelector((state) => state.user);
 	const color = useSelector((state) => state.user.userInfo.color);
-	
+
 	const dispatch = useDispatch();
 	const name = useSelector((state) => state.user.userInfo.name);
 	const avatar = useSelector((state) => state.user.userInfo.avatar);
@@ -25,24 +25,24 @@ function Profile(props) {
 
 	console.log(avatar)
 	const [nameUser, setNameUser] = useState(
-		name ||'add name user'
+		name || 'add name user'
 	);
 	const [avatarApi, setAvatarApi] = useState(
-		avatar|| 'https://res.cloudinary.com/thanhtrung01/image/upload/v1681693079/to-do-app/jfhtywfis0xfrpv4jvaz.jpg'
+		avatar || 'https://res.cloudinary.com/thanhtrung01/image/upload/v1681693079/to-do-app/jfhtywfis0xfrpv4jvaz.jpg'
 	);
-	
+
 
 	const handleNameUser = (e) => {
 		setNameUser(e.target.value);
 	};
 	const handleAvatar = async (e) => {
-		fileImage=e.target.files[0]
+		fileImage = e.target.files[0]
 		await reloadUpdateImg(e.target.files[0], transferData)
-		
+
 	};
 
-	const transferData =  (data)=> {
-		 setAvatarApi(data.user.avatar)
+	const transferData = (data) => {
+		setAvatarApi(data.user.avatar)
 	}
 
 
@@ -52,7 +52,8 @@ function Profile(props) {
 			dispatch,
 			infoUser.userInfo._id,
 			nameUser,
-			fileImage,transferData
+			fileImage, 
+			transferData
 		);
 
 		toast('Edit user successfully!', {
@@ -64,22 +65,22 @@ function Profile(props) {
 			draggable: true,
 			progress: undefined,
 			theme: "light",
-			});
+		});
 	};
 
 
-	const reloadUpdateImg = async(avatar, transferData) => {
+	const reloadUpdateImg = async (avatar, transferData) => {
 		await updateInfoUser(
 			dispatch,
 			infoUser.userInfo._id,
 			nameUser,
 			avatar, transferData
 		);
-		
-		
+
+
 	}
 
-	
+
 	return (
 		<>
 			<Navbar />
@@ -98,11 +99,11 @@ function Profile(props) {
 							</div>
 						</div>
 						<input
-						className='input-upload-avatar'
+							className='input-upload-avatar'
 							type="file"
 							onChange={handleAvatar}
 						/>
-							<DefaultChangeImageIcon />
+						<DefaultChangeImageIcon />
 
 						<div className="profile-logo-wrap">
 							<img
@@ -213,7 +214,7 @@ function Profile(props) {
 					<button className="profile-edit" onClick={handleEditUser}>
 						Edit
 					</button>
-					
+
 				</div>
 			</div>
 		</>

@@ -111,7 +111,7 @@ const updateListOrder = async (req, res) => {
       listId
     )
   )
-    return res.status(400).send({ errMessage: 'All parameters not provided' });
+    return res.status(400).send({ errMessage: 'Tất cả các tham số không được cung cấp' });
 
   // Validate the owner of board
   const validate = user.boards.filter((board) => board === boardId);
@@ -141,7 +141,7 @@ const updateListTitle = async (req, res) => {
 
   // Validate the listId and boardId
   if (!(listId && boardId))
-    return res.status(400).send({ errMessage: 'List or board undefined' });
+    return res.status(400).send({ errMessage: 'Danh sách hoặc bảng không xác định' });
 
   await List.updateListTitle(listId, boardId, user, title, (err, result) => {
     if (err) return res.status(500).send(err);

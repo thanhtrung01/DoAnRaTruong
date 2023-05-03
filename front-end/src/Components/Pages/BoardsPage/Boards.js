@@ -40,7 +40,7 @@ const Boards = () => {
 				/>
 
 				<Wrapper>
-					<Title>Your Boards</Title>
+					<Title>Bảng của bạn</Title>
 					{!pending &&
 						boardsData.length > 0 &&
 						boardsData
@@ -68,7 +68,7 @@ const Boards = () => {
 							})}
 					{!pending && (
 						<AddBoard onClick={() => setOpenModal(true)}>
-							Create new board
+							Tạo bảng mới
 						</AddBoard>
 					)}
 					{openModal && <CreateBoard callback={handleModalClose} />}

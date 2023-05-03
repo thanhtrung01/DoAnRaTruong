@@ -1,0 +1,29 @@
+.product-description {
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-description h1 {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.product-description ul {
+    list-style-type: disc;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.product-description p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.product-description img {
+    max-width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

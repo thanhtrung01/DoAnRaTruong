@@ -101,7 +101,7 @@ const deleteById = async (cardId, listId, boardId, user, callback) => {
     });
     await board.save();
 
-    return callback(false, { message: 'Success' });
+    return callback(false, { message: 'Thành công' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -168,7 +168,7 @@ const update = async (cardId, listId, boardId, user, updatedObj, callback) => {
     await card.updateOne(updatedObj);
     await card.save();
 
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -281,7 +281,7 @@ const updateComment = async (
     });
     await board.save();
 
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -332,7 +332,7 @@ const deleteComment = async (
     });
     await board.save();
 
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -380,7 +380,7 @@ const addMember = async (cardId, listId, boardId, user, memberId, callback) => {
     });
     await board.save();
 
-    return callback(false, { message: 'success' });
+    return callback(false, { message: 'Thành công' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -431,13 +431,13 @@ const deleteMember = async (
       name: user.name,
       action:
         tempMember.name === user.name
-          ? `left ${card.title}`
-          : `removed '${tempMember.name}' from ${card.title}`,
+          ? `Bên trái ${card.title}`
+          : `loại bỏ ${tempMember.name} từ ${card.title}`,
       color: user.color,
     });
     await board.save();
 
-    return callback(false, { message: 'success' });
+    return callback(false, { message: 'Thành công' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -523,7 +523,7 @@ const updateLabel = async (
     });
     await card.save();
 
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -564,7 +564,7 @@ const deleteLabel = async (
     );
     await card.save();
 
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -609,7 +609,7 @@ const updateLabelSelection = async (
     });
     await card.save();
 
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -657,7 +657,7 @@ const createChecklist = async (
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: `added '${title}' to ${card.title}`,
+      action: `thêm '${title}' đến ${card.title}`,
       color: user.color,
     });
     board.save();
@@ -710,12 +710,12 @@ const deleteChecklist = async (
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: `removed '${cl.title}' from ${card.title}`,
+      action: `loại bỏ '${cl.title}' từ ${card.title}`,
       color: user.color,
     });
     board.save();
 
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -826,13 +826,13 @@ const setChecklistItemCompleted = async (
       avatar: user.avatar,
       name: user.name,
       action: completed
-        ? `completed '${clItem}' on ${card.title}`
-        : `marked as uncompleted to '${clItem}' on ${card.title}`,
+        ? `hoàn thành '${clItem}' trên ${card.title}`
+        : `được đánh dấu là chưa hoàn thành '${clItem}' trên ${card.title}`,
       color: user.color,
     });
     board.save();
 
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -882,7 +882,7 @@ const setChecklistItemText = async (
       return list;
     });
     await card.save();
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -928,7 +928,7 @@ const deleteChecklistItem = async (
       return list;
     });
     await card.save();
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -971,7 +971,7 @@ const updateStartDueDates = async (
     card.date.dueTime = dueTime;
     if (dueDate === null) card.date.completed = false;
     await card.save();
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -1016,14 +1016,14 @@ const updateDateCompleted = async (
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: `marked the due date on ${card.title} ${
-        completed ? 'complete' : 'uncomplete'
+      action: `đánh dấu ngày hết hạn vào ${card.title} ${
+        completed ? 'hoàn thành' : 'chưa hoàn thành'
       }`,
       color: user.color,
     });
     board.save();
 
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -1072,7 +1072,7 @@ const addAttachment = async (
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: `attached ${validLink} to ${card.title}`,
+      action: `đính kèm ${validLink} đến ${card.title}`,
       color: user.color,
     });
     board.save();
@@ -1130,12 +1130,12 @@ const deleteAttachment = async (
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: `deleted the ${attachmentObj[0].link} attachment from ${card.title}`,
+      action: `đã xóa ${attachmentObj[0].link} đính kèm từ ${card.title}`,
       color: user.color,
     });
     board.save();
 
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -1182,7 +1182,7 @@ const updateAttachment = async (
     });
 
     await card.save();
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',
@@ -1223,7 +1223,7 @@ const updateCover = async (
     card.cover.isSizeOne = isSizeOne;
 
     await card.save();
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: 'Thành công!' });
   } catch (error) {
     return callback({
       errMessage: 'Something went wrong',

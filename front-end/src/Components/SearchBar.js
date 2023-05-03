@@ -61,7 +61,7 @@ const SearchBar = (props) => {
   return (
     <Container>
       <Icon src={SearchIcon} />
-      <Input placeholder="Search" value={searchString} onChange={e=>setSearchString(e.target.value)}/>
+      <Input placeholder="Tìm kiếm" value={searchString} onChange={e=>setSearchString(e.target.value)}/>
     </Container>
   );
 };

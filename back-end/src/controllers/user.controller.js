@@ -1,32 +1,74 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../services/user.service');
-const session = require('express-session');
 const UserSchema = require('../models/user.model');
 const auth = require('../middlewares/auth');
-// const oauth2Client = require('../middlewares/authGoogle');
 const config = require('../config/config');
-// const { OAuth2Client } = require('google-auth-library');
+const { createRandomHexColor } = require('../helper/validate');
+const { validateEmail } = require('../validates/auth.validate');
 const { google } = require("googleapis");
 const { OAuth2 } = google.auth;
 
 const client = new OAuth2(config.GOOGLE_CLIENT_ID);
 const register = async (req, res) => {
-	const { name, username, email, password } = req.body;
-	if (!(name && username && email && password)) {
-		return res.status('400').send({
-			ok: false,
-			errMessage: 'Please fill all required areas!',
+	try {
+		const { name, username, password, email } = req.body;
+		if (!(name && username && email && password)) {
+			return res.status(400).json({
+				oke: false,
+				errMessage: "Thiếu tên người dùng, mật khẩu, email!",
+			});
+		}
+		const users = await UserSchema.findOne({ username });
+		if (users) {
+			return res.status(400).json({
+				oke: false,
+				errMessage: " username đã được sử dụng!",
+			});
+		}
+		if (!validateEmail(email)) {
+			return res.status(400).json({
+				oke: false,
+				errMessage: " Email không hợp lệ!",
+			});
+		}
+		const user = await UserSchema.findOne({ email });
+		if (user) {
+			return res.status(400).json({
+				oke: false,
+				errMessage: " Email đã được sử dụng!",
+			});
+		}
+		if (!password.match(/\d/) || !password.match(/[a-zA-Z]/)) {
+			return res.status(400).json({
+				oke: false,
+				errMessage: "Mật khẩu phải chứa ít nhất 1 chữ cái và 1 số!",
+			});
+		}
+		if (password.length < 6) {
+			return res.status(400).json({
+				oke: false,
+				errMessage: "Mật khẩu phải lớn hơn 6 kí tự!",
+			});
+		}
+		const salt = bcrypt.genSaltSync(10);
+		const passwordHash = bcrypt.hashSync(password, salt);
+		const newUser = new UserSchema({
+			name: name,
+			username: username,
+			email: email,
+			password: passwordHash,
+			color: createRandomHexColor(),
 		});
+		await newUser.save();
+		res.status(200).json({
+			oke: true,
+			message: "Bạn đã tạo tài khoản thành công! 🎉'"
+		});
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ errMessage: error.message });
 	}
-	const salt = bcrypt.genSaltSync(10);
-	const hashedPassword = bcrypt.hashSync(password, salt);
-	req.body.password = hashedPassword;
-
-	await User.register(req.body, (err, result) => {
-		if (err) return res.status(400).send(err);
-		return res.status(201).send(result);
-	});
 };
 
 const login = async (req, res) => {
@@ -34,7 +76,7 @@ const login = async (req, res) => {
 	if (!(email && password)) {
 		return res.status(400).send({
 			ok: false,
-			errMessage: 'Please fill all required areas!',
+			errMessage: 'Vui lòng điền vào tất cả các trường cần thiết!',
 		});
 	}
 	await User.login(email, (err, result) => {
@@ -43,7 +85,7 @@ const login = async (req, res) => {
 		if (!bcrypt.compareSync(password, hashedPassword)) {
 			return res.status(400).send({
 				ok: false,
-				errMessage: 'Your email/password is wrong!',
+				errMessage: 'Bạn đã nhập mật khẩu sai😞',
 			});
 		}
 		const token = auth.generateToken(result._id, result.email);
@@ -55,11 +97,10 @@ const login = async (req, res) => {
 
 		return res.status(200).send({
 			oke: true,
-			message: 'User login successful!',
+			message: 'Đăng nhập thành công! 🎉',
 			user: result,
 			token,
 			expires_in,
-			// expiration
 		});
 	});
 };
@@ -94,7 +135,7 @@ const googleLogin = async (req, res) => {
 			user.__v = undefined;
 			res.status(200).json({
 				oke: true,
-				message: 'User login successful!',
+				message: 'Đăng nhập thành công 🎉!',
 				user: user,
 				token: token,
 				expires_in
@@ -116,7 +157,7 @@ const googleLogin = async (req, res) => {
 			newUser.__v = undefined;
 			res.status(200).json({
 				oke: true,
-				message: 'User login successful!',
+				message: 'Đăng nhập thành công 🎉!',
 				user: newUser,
 				token: token,
 				expires_in
@@ -163,8 +204,8 @@ const getAllUser = async (req, res) => {
 		const countAllUsers = await UserSchema.countDocuments();
 
 		return res.status(200).json({
-			user: usersWithoutPassword,
 			count: countAllUsers,
+			user: usersWithoutPassword,
 		});
 	} catch (err) {
 		console.log(err);
@@ -204,7 +245,7 @@ const updateUser = async (req, res) => {
 		user.password = undefined;
 		return res.status(201).json({
 			ok: true,
-			message: 'Update finish!',
+			message: 'Cập nhật thành công!',
 			user: user,
 		});
 
@@ -228,6 +269,9 @@ const createUser = async (req, res) => {
 		avatar: images_url,
 		isAdmin: req.body.isAdmin,
 	});
+	if (req.user.isAdmin !== true) {
+		return res.status(403).json({ message: 'Bạn không phải admin' });
+	}
 	await newUser.save((err, user) => {
 		if (err) {
 			return res.status(500).json({
@@ -238,7 +282,7 @@ const createUser = async (req, res) => {
 		user.password = undefined;
 		return res.status(200).json({
 			ok: true,
-			msg: 'Xác thực quyền admin thành công',
+			message: 'Xác thực quyền admin thành công',
 			user,
 		});
 	});
@@ -247,7 +291,6 @@ const createUser = async (req, res) => {
 module.exports = {
 	register,
 	login,
-	google,
 	googleLogin,
 	getUser,
 	getAllUser,

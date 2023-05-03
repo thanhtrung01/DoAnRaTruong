@@ -43,8 +43,14 @@ export const userSlice = createSlice({
     loadStart: (state) => {
       state.pending = true;
     },
-    loadAllStart: (state) => {
-      state.pending = true;
+    loadAllStart: (state, action) => {
+      state.pending = false;
+      // state.userInfo = action.payload.user;
+      state.users = action.payload;
+    },
+    getUsers: (state, action) => {
+      console.log(action.payload);
+      state.users = action.payload;
     },
     updateStart: (state) => {
       state.loading = true;
@@ -57,16 +63,13 @@ export const userSlice = createSlice({
       state.expires_in = localStorage.getItem("expires_in");
       state.pending = false;
     },
-    getUsers: (state, action) => {
-      console.log(action.payload);
-      state.users = action.payload;
-    },
     loadFailure: (state) => {
       state.pending = false;
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.userInfo = null;
+      state.users = null;
       state.token = null;
       state.expires_in = null;
       localStorage.removeItem("token");
