@@ -44,6 +44,7 @@ const Span = styledComponent.span`
 width: max-content;
 font-size: 0.85rem;
 display:block;
+font-weight: 400;
 `;
 
 const StyledIcon = styled(DownIcon)({

@@ -84,17 +84,14 @@ const Board = styled.div`
 
 	background-position: center center;
 	background-size: cover;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-	box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-	opacity: 88%;
+	opacity: 60%;
 	cursor: pointer;
 	will-change: opacity;
 	transition: opacity 450ms;
 	&:hover {
 		opacity: 100%;
 		transition: opacity 150ms;
-		font-weight: 600;
+		font-weight: 400;
 	}
 `;
 
@@ -102,12 +99,11 @@ const AddBoard = styled(Board)`
 	background-color: transparent;
 	background-image: linear-gradient(
 		to right,
-		#0b486b 0%,
-		#f56217 51%,
-		#0b486b 100%
+		#565F6C 0%,
+		#565F6C 100%
 	);
 	padding: 0.25rem;
-	font-size: 0.95rem;
+	font-size: 0.89rem;
 	transition: 2s;
 	opacity: 65%;
 	background-size: 200% auto;
@@ -116,7 +112,7 @@ const AddBoard = styled(Board)`
 	align-items: center;
 	justify-content: center;
 	text-decoration: none;
-	font-weight: 600;
+	font-weight: 400;
 	&:hover {
 		background-position: right center;
 		color: #fff;
