@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Background from '../../Background';
 import { register } from '../../../Services/userService';
 import { useDispatch, useSelector } from 'react-redux';
+import trelloLogo from "../../../Images/todo.png";
 import {
 	BgContainer,
 	Container,
@@ -48,7 +49,7 @@ const Register = () => {
 			</BgContainer>
 			<Container>
 				<TrelloIconContainer onClick={() => history.push('/')}>
-					<Icon src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/167dc7b9900a5b241b15ba21f8037cf8/trello-logo-blue.svg" />
+					<Icon src={trelloLogo} />
 				</TrelloIconContainer>
 				<FormSection>
 					<FormCard>

@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { lg } from "../BreakPoints";
-import trelloLogo from "../Images/trello-logo.svg";
+import trelloLogo from "../Images/logo_todoapp.gif";
 const Container = styled.nav`
   position: fixed;
   top: 0;
@@ -23,6 +23,7 @@ const Container = styled.nav`
 
 const Icon = styled.img`
   margin-left: 1rem;
+  width: 11em;
   ${lg({
     marginLeft: "0",
   })}
