@@ -2,8 +2,8 @@
 
 const navConfig = [
   {
-    title: "dashboard",
-    path: "/dashboard",
+    title: "Quản trị viên",
+    path: "/dashboard/app",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@ const navConfig = [
     ),
   },
   {
-    title: "user",
+    title: "Người dùng",
     path: "/dashboard/user",
     icon: (
       <svg
@@ -36,7 +36,7 @@ const navConfig = [
     ),
   },
   {
-    title: "board",
+    title: "bảng",
     path: "/dashboard/board",
     icon: (
       <svg
@@ -57,8 +57,8 @@ const navConfig = [
     ),
   },
   {
-    title: "login",
-    path: "/login/admin",
+    title: "Giỏ hàng",
+    path: "/dashboard/cart",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -68,32 +68,7 @@ const navConfig = [
       >
         <path
           fill="currentColor"
-          d="M11.25 19a.75.75 0 0 1 .75-.75h6a.25.25 0 0 0 .25-.25V6a.25.25 0 0 0-.25-.25h-6a.75.75 0 0 1 0-1.5h6c.966 0 1.75.784 1.75 1.75v12A1.75 1.75 0 0 1 18 19.75h-6a.75.75 0 0 1-.75-.75Z"
-        />
-        <path
-          fill="currentColor"
-          d="M3.5 13.115a1 1 0 0 0 1 1h4.856c.023.356.052.71.086 1.066l.03.305a.718.718 0 0 0 1.025.578a16.844 16.844 0 0 0 4.884-3.539l.03-.031a.721.721 0 0 0 0-.998l-.03-.031a16.842 16.842 0 0 0-4.884-3.539a.718.718 0 0 0-1.025.578l-.03.305c-.034.355-.063.71-.086 1.066H4.5a1 1 0 0 0-1 1v2.24Z"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Not found",
-    path: "/404",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
-          d="M12 8v4m0 4.01l.01-.011M9 3H4v3m0 5v2m16-2v2M15 3h5v3M9 21H4v-3m11 3h5v-3"
+          d="M7 22q-.825 0-1.413-.588T5 20q0-.825.588-1.413T7 18q.825 0 1.413.588T9 20q0 .825-.588 1.413T7 22Zm10 0q-.825 0-1.413-.588T15 20q0-.825.588-1.413T17 18q.825 0 1.413.588T19 20q0 .825-.588 1.413T17 22ZM3.625 17L6.6 11.6L3 4H1V2h3.25l.95 2h16.5l-4.975 9H8.1L7 15h12v2H3.625Z"
         />
       </svg>
     ),

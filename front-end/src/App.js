@@ -3,7 +3,7 @@ import Index from "./Components/Pages/IndexPage/Index";
 import Login from "./Components/Pages/LoginPage/Login";
 import Register from "./Components/Pages/RegisterPage/Register";
 import Alert from "./Components/AlertSnackBar";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import ThemeProvider from "./Admin/theme";
 import ScrollToTop from "./Admin/components/scroll-to-top";
@@ -17,12 +17,12 @@ import Profile from "./Components/Pages/ProfilePage/Profile";
 import BoardPage from "./Admin/pages/BoardPage";
 import UserPage from "./Admin/pages/UserPage";
 import DashboardPage from "./Admin/pages/DashboardPage";
-import LoginPage from "./Admin/pages/LoginPage";
+import CartPage from "./Admin/pages/CartPage";
 
 const App = () => {
   useEffect(() => {
     loadUser(Store.dispatch);
-  }, []);
+  });
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -33,10 +33,18 @@ const App = () => {
             <ProtectedRoute exact path="/boards" component={Boards} />
             <ProtectedRoute exact path="/profile" component={Profile} />
             <ProtectedRoute exact path="/board/:id" component={Board} />
-            <ProtectedRoute exact path="/dashboard" component={DashboardPage} />
+            <ProtectedRoute
+              exact
+              path="/dashboard/app"
+              component={DashboardPage}
+            />
             <ProtectedRoute exact path="/dashboard/user" component={UserPage} />
-            <ProtectedRoute exact path="/dashboard/board" component={BoardPage}/>
-            <ProtectedRoute exact path="/login/admin" component={LoginPage} />
+            <ProtectedRoute
+              exact
+              path="/dashboard/board"
+              component={BoardPage}
+            />
+            <ProtectedRoute exact path="/dashboard/cart" component={CartPage} />
             <FreeRoute exact path="/login" component={Login} />
             <FreeRoute exact path="/register" component={Register} />
             <FreeRoute exact path="/" component={Index} />

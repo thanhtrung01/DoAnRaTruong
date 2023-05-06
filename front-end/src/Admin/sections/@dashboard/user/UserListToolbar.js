@@ -69,7 +69,7 @@ export default function UserListToolbar({
         <StyledSearch
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search user..."
+          placeholder="Tìm kiếm..."
           startAdornment={
             <InputAdornment position="start">
               <Iconify

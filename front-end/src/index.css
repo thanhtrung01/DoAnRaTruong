@@ -63,3 +63,16 @@
 .pagination {
   margin-top: 20px;
 }
+
+.members-avatar-group {
+  display: inline-flex;
+}
+
+.avatar-member-nav,
+.MuiAvatarGroup-avatar {
+  width: 30px;
+  height: 30px;
+}
+.btn-show {
+  margin-left: 10px;
+}

@@ -2,8 +2,18 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Grid, TextField, Button, Card, CardContent } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Avatar,
+} from "@mui/material";
 import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { boardTitleUpdate } from "../../../../Services/boardsService";
 
 const style = {
   position: "absolute",
@@ -16,14 +26,23 @@ const style = {
   boxShadow: 24,
 };
 
-const AddUser = ({ open, handleClose }) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+const EditBoard = ({ open, handleClose, boardDetail }) => {
+  const [title, setTitle] = useState("");
+  //   const [desc, setDesc] = useState("");
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  console.log(boardDetail);
+
+  useEffect(() => {
+    setTitle(boardDetail?.title);
+    // setDesc(boardDetail?.description);
+  }, [open]);
+
+  const handleEditBoard = async (e) => {
     e.preventDefault();
-    console.log(username, email);
+    console.log(title);
+    await boardTitleUpdate(title, boardDetail?._id, dispatch);
+    handleClose();
   };
 
   return (
@@ -45,40 +64,32 @@ const AddUser = ({ open, handleClose }) => {
                     Update User
                   </Typography>
 
-                  <form style={{ marginTop: "30px" }} onSubmit={handleSubmit}>
+                  <form
+                    style={{ marginTop: "30px" }}
+                    onSubmit={handleEditBoard}
+                  >
                     <Grid container spacing={1}>
                       <Grid xs={12} sm={12} item>
                         <TextField
-                          placeholder="Enter full name"
+                          placeholder="Enter title"
+                          value={title ? title : boardDetail?.title}
+                          onChange={(e) => setTitle(e.target.value)}
                           variant="outlined"
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}
                           fullWidth
                           required
                         />
                       </Grid>
-                      <Grid item xs={12} mt={2}>
+                      {/* <Grid item xs={12} mt={2}>
                         <TextField
-                          type="email"
-                          placeholder="Enter email"
+                          type="text"
+                          placeholder="Enter description"
+                          value={desc ? desc : boardDetail?.description}
+                          onChange={(e) => setDesc(e.target.value)}
                           variant="outlined"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
                           fullWidth
                           required
                         />
-                      </Grid>
-                      <Grid item xs={12} mt={2}>
-                        <TextField
-                          type="number"
-                          placeholder="Enter phone number"
-                          variant="outlined"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          fullWidth
-                          required
-                        />
-                      </Grid>
+                      </Grid> */}
 
                       <Grid
                         item
@@ -122,4 +133,4 @@ const AddUser = ({ open, handleClose }) => {
   );
 };
 
-export default AddUser;
+export default EditBoard;

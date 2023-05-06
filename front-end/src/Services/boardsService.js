@@ -51,7 +51,9 @@ export const createBoard = async (props, dispatch) => {
     return;
   }
   try {
+    console.log("start");
     const res = await axios.post(baseUrl + "/create", props);
+    console.log("middle");
     dispatch(addNewBoard(res.data));
     dispatch(successCreatingBoard(res.data));
     dispatch(
@@ -60,6 +62,7 @@ export const createBoard = async (props, dispatch) => {
         severity: "success",
       })
     );
+    console.log("success");
   } catch (error) {
     dispatch(failCreatingBoard());
     dispatch(
@@ -113,7 +116,6 @@ export const boardTitleUpdate = async (title, boardId, dispatch) => {
 };
 
 export const getAllBoard = async () => {
-  const res = await axios.get(baseUrl);
-  // console.log(res);
+  const res = await axios.get(baseUrl + "/admin/get-all");
   return res;
 };

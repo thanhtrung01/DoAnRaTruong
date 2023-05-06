@@ -1,9 +1,10 @@
-const { findOne } = require('../models/board.model');
-const boardModel = require('../models/board.model');
-const userModel = require('../models/user.model');
+const { findOne } = require("../models/board.model");
+const boardModel = require("../models/board.model");
+const userModel = require("../models/user.model");
 
 const create = async (req, callback) => {
   try {
+    console.log("success");
     const { title, backgroundImageLink, members } = req.body;
     // Create and save new board
     let newBoard = boardModel({ title, backgroundImageLink });
@@ -23,7 +24,7 @@ const create = async (req, callback) => {
       username: user.username,
       email: user.email,
       color: user.color,
-      role: 'owner',
+      role: "owner",
     });
 
     // Save newBoard's id to boards of members and,
@@ -40,7 +41,7 @@ const create = async (req, callback) => {
           username: newMember.username,
           email: newMember.email,
           color: newMember.color,
-          role: 'member',
+          role: "member",
         });
         //Add to board activity
         newBoard.activity.push({
@@ -49,7 +50,7 @@ const create = async (req, callback) => {
           name: user.name,
           action: `đã thêm người dùng '${newMember.name}' cho bảng n`,
         });
-      }),
+      })
     );
 
     // Add created activity to activities of this board
@@ -57,18 +58,17 @@ const create = async (req, callback) => {
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: 'Tạo ra bản này',
+      action: "Tạo ra bản này",
       color: user.color,
     });
 
     // Save new board
     newBoard.members = allMembers;
     await newBoard.save();
-
-    return newBoard;
+    return callback(false, newBoard);
   } catch (error) {
     return callback({
-      errMessage: 'Something went wrong',
+      errMessage: "Something went wrong",
       details: error.message,
     });
   }
@@ -93,7 +93,7 @@ const getAll = async (userId, callback) => {
 
     return callback(false, boards);
   } catch (error) {
-    return callback({ msg: 'Something went wrong', details: error.message });
+    return callback({ msg: "Something went wrong", details: error.message });
   }
 };
 
@@ -104,7 +104,7 @@ const getById = async (id, callback) => {
     return callback(false, board);
   } catch (error) {
     return callback({
-      message: 'Something went wrong',
+      message: "Something went wrong",
       details: error.message,
     });
   }
@@ -117,7 +117,7 @@ const getActivityById = async (id, callback) => {
     return callback(false, board.activity);
   } catch (error) {
     return callback({
-      message: 'Something went wrong',
+      message: "Something went wrong",
       details: error.message,
     });
   }
@@ -132,14 +132,14 @@ const updateBoardTitle = async (boardId, title, user, callback) => {
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: 'Cập nhật tiêu đề của bảng này',
+      action: "Cập nhật tiêu đề của bảng này",
       color: user.color,
     });
     await board.save();
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: "Success!" });
   } catch (error) {
     return callback({
-      message: 'Something went wrong',
+      message: "Something went wrong",
       details: error.message,
     });
   }
@@ -154,14 +154,14 @@ const updateBoardDescription = async (boardId, description, user, callback) => {
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: 'Cập nhật mô tả của bảng này',
+      action: "Cập nhật mô tả của bảng này",
       color: user.color,
     });
     await board.save();
-    return callback(false, { message: 'Success!' });
+    return callback(false, { message: "Success!" });
   } catch (error) {
     return callback({
-      message: 'Something went wrong',
+      message: "Something went wrong",
       details: error.message,
     });
   }
@@ -181,7 +181,7 @@ const updateBackground = async (id, background, isImage, user, callback) => {
       user: user._id,
       avatar: user.avatar,
       name: user.name,
-      action: 'Cập nhật nền của bảng này',
+      action: "Cập nhật nền của bảng này",
       color: user.color,
     });
 
@@ -191,7 +191,7 @@ const updateBackground = async (id, background, isImage, user, callback) => {
     return callback(false, board);
   } catch (error) {
     return callback({
-      message: 'Something went wrong',
+      message: "Something went wrong",
       details: error.message,
     });
   }
@@ -214,7 +214,7 @@ const addMember = async (id, members, user, callback) => {
           users: newMember.name,
           email: newMember.email,
           color: newMember.color,
-          role: 'member',
+          role: "member",
         });
         await newMember.save();
         //Add to board activity
@@ -225,7 +225,7 @@ const addMember = async (id, members, user, callback) => {
           action: `Đã thêm người dùng'${newMember.name}' cho bảng này`,
           color: user.color,
         });
-      }),
+      })
     );
     // Save changes
     await board.save();
@@ -233,7 +233,7 @@ const addMember = async (id, members, user, callback) => {
     return callback(false, board.members);
   } catch (error) {
     return callback({
-      message: 'Something went wrong',
+      message: "Something went wrong",
       details: error.message,
     });
   }

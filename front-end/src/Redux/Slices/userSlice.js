@@ -48,6 +48,10 @@ export const userSlice = createSlice({
       // state.userInfo = action.payload.user;
       state.users = action.payload;
     },
+    createStart: (state) => {
+      state.loading = true;
+      // state.userInfo = action.payload.user;
+    },
     getUsers: (state, action) => {
       console.log(action.payload);
       state.users = action.payload;
@@ -95,6 +99,7 @@ export const {
   loginFailure,
   loginSuccess,
   loadStart,
+  createStart,
   loadAllStart,
   updateStart,
   loadSuccess,

@@ -27,6 +27,7 @@ export default function CreateBoard(props) {
     await createBoard(newBoard, dispatch);
     props.callback();
     setBackground(backgroundImages[0] + smallPostfix);
+    handleClose();
   };
 
   const handleSelect = (link) => {

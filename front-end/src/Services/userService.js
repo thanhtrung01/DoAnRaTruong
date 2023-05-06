@@ -15,6 +15,7 @@ import {
   fetchingFinish,
   logout,
   getUsers,
+  createStart,
 } from "../Redux/Slices/userSlice";
 import { openAlert } from "../Redux/Slices/alertSlice";
 import setBearer from "../Utils/setBearer";
@@ -69,7 +70,6 @@ export const login = async ({ email, password }, dispatch) => {
   dispatch(loginStart());
   try {
     const res = await axios.post(authUrl + "login", { email, password });
-    console.log(res.data);
     const { user, message, token, expires_in } = res.data;
     localStorage.setItem("token", token);
     localStorage.setItem("expires_in", expires_in);
@@ -84,26 +84,26 @@ export const login = async ({ email, password }, dispatch) => {
           clearInterval(intervalId);
         }
       }
-    },5000);
+    }, 5000);
     setBearer(token);
     dispatch(loginSuccess({ user, token }));
-    res.data.user.isAdmin?
-      dispatch(
-        openAlert({
-          message,
-          severity: "success",
-          duration: 500,
-          nextRoute: "/dashboard",
-        })
-      ) : dispatch(
-        openAlert({
-          message,
-          severity: "success",
-          duration: 500,
-          nextRoute: "/boards",
-        })
-      )
-
+    res.data.user.isAdmin
+      ? dispatch(
+          openAlert({
+            message,
+            severity: "success",
+            duration: 500,
+            nextRoute: "/dashboard/app",
+          })
+        )
+      : dispatch(
+          openAlert({
+            message,
+            severity: "success",
+            duration: 500,
+            nextRoute: "/boards",
+          })
+        );
   } catch (error) {
     dispatch(loginFailure());
     dispatch(
@@ -162,37 +162,76 @@ export const getUserFromEmail = async (email, dispatch) => {
   }
 };
 
+export const createUser = async (
+  dispatch,
+  name,
+  username,
+  email,
+  password,
+  address,
+  phone,
+  avatar
+) => {
+  dispatch(createStart());
+  if (!localStorage.token) return dispatch(loadFailure());
+  setBearer(localStorage.token);
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("username", username);
+  formData.append("email", email);
+  formData.append("password", password);
+  formData.append("address", address);
+  formData.append("phone", phone);
+  formData.append("avatar", avatar);
+  formData.append("isAdmin", false);
+  console.log(formData);
+  try {
+    const res = await axios
+      .post(baseUrl + `create-user`, formData)
+      .then((res) => {
+        console.log("Đã upload hình ảnh thành công", res.data);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi upload hình ảnh", error);
+      });
 
-export const updateInfoUser = async (dispatch, id, name, avatar, transferData) => {
+    dispatch(loadSuccess({ user: res.data, token: res.data }));
+  } catch (error) {
+    console.log(error);
+    dispatch(loadFailure());
+  }
+};
+
+export const updateInfoUser = async (
+  dispatch,
+  id,
+  name,
+  avatar,
+  transferData
+) => {
   dispatch(updateStart());
   if (!localStorage.token) return dispatch(loadFailure());
   setBearer(localStorage.token);
   const formData = new FormData();
-  formData.append('name', name);
-  formData.append('avatar', avatar);
+  formData.append("name", name);
+  formData.append("avatar", avatar);
   try {
-    const res = await axios.patch(baseUrl + `${id}`, formData)
-      .then(res => {
-        console.log('Đã upload hình ảnh thành công', res.data);
-        transferData(res.data)
+    const res = await axios
+      .patch(baseUrl + `${id}`, formData)
+      .then((res) => {
+        console.log("Đã upload hình ảnh thành công", res.data);
+        transferData(res.data);
       })
-      .catch(error => {
-        console.error('Lỗi khi upload hình ảnh', error);
-      })
+      .catch((error) => {
+        console.error("Lỗi khi upload hình ảnh", error);
+      });
     dispatch(loadSuccess({ user: res.data, token: res.data }));
   } catch (error) {
     dispatch(loadFailure());
   }
 };
 
-export const getAllUser = async (dispatch) => {
-  dispatch(loadAllStart());
-  if (!localStorage.token) return dispatch(loadFailure());
-  setBearer(localStorage.token);
-  try {
-    const res = await axios.get(baseUrl + "get-users");
-    dispatch(getUsers(res.data));
-  } catch (error) {
-    console.log(error);
-  }
+export const getAllUser = async () => {
+  const res = await axios.get(baseUrl + "get-users");
+  return res;
 };

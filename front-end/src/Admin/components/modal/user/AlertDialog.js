@@ -1,8 +1,8 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogTitle from '@mui/material/DialogTitle';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export default function AlertDialog({ open, handleClose, handleVerifyDelete }) {
   return (
@@ -14,13 +14,15 @@ export default function AlertDialog({ open, handleClose, handleVerifyDelete }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{'Are you sure want to delete user?'}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          {"Bạn có chắc là xóa không?"}
+        </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            Hủy bỏ
           </Button>
           <Button color="error" autoFocus onClick={handleVerifyDelete}>
-            Delete
+            Xóa
           </Button>
         </DialogActions>
       </Dialog>

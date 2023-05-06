@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
-import { filter, set } from "lodash";
-import { useState } from "react";
+import { filter } from "lodash";
+import { useEffect, useState } from "react";
 // @mui
 import {
   Card,
@@ -17,6 +17,7 @@ import {
   Typography,
   TableContainer,
   TablePagination,
+  AvatarGroup,
 } from "@mui/material";
 // components
 import Iconify from "../components/iconify";
@@ -25,15 +26,17 @@ import Scrollbar from "../components/scrollbar";
 import { UserListHead, UserListToolbar } from "../sections/@dashboard/user";
 // mock
 import USERLIST from "../_mock/user";
-import EditUser from "../components/modal/EditUser";
-import AlertDialog from "../components/modal/AlertDialog";
+import AlertDialog from "../components/modal/user/AlertDialog";
 import DashboardLayout from "../layouts/dashboard/DashboardLayout";
+import { getAllBoard } from "../../Services/boardsService";
+import CreateBoard from "../../Components/Modals/CreateBoardModal/CreateBoard";
+import EditBoard from "../components/modal/board/EditBoard";
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: "title", label: "title", alignRight: false },
-  { id: "author", label: "author", alignRight: false },
+  { id: "title", label: "Tiêu đề", alignRight: false },
+  { id: "members", label: "Thành viên", alignRight: false },
   { id: "" },
 ];
 
@@ -55,6 +58,7 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
+var filteredBoards;
 function applySortFilter(array, comparator, query) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -71,8 +75,8 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function BoardPage() {
-  const [userData, setUserData] = useState([...USERLIST]);
+export default function UserPage({}) {
+  const [boardData, setBoardData] = useState(null);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [selected, setSelected] = useState([]);
@@ -80,14 +84,21 @@ export default function BoardPage() {
   const [orderBy, setOrderBy] = useState("name");
   const [filterName, setFilterName] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [userDetail, setUsetDetail] = useState(null);
+  const [boardDetail, setBoardDetail] = useState(null);
   const [userDelete, setUserDelete] = useState(null);
-
-  const [open, setOpen] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [verifyDelete, setVerifyDelete] = useState(false);
 
-  const handleClose = () => setOpen(false);
+  useEffect(() => {
+    getAllBoard().then((data) => setBoardData([...data.data.board]));
+  }, [openEditModal, openAddModal, verifyDelete]);
+
+  console.log(boardData);
+
+  const handleCloseEditModal = () => setOpenEditModal(false);
+  const handleCloseAddModal = () => setOpenAddModal(false);
   const handleCloseDialog = () => {
     setVerifyDelete(false);
     setOpenDialog(false);
@@ -102,8 +113,8 @@ export default function BoardPage() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
-      const newChecked = USERLIST.map((n) => n.id);
+      const newSelecteds = boardData.map((n) => n.name);
+      const newChecked = boardData.map((n) => n._id);
       setSelected(newSelecteds);
       setisChecked(newChecked);
       return;
@@ -153,20 +164,20 @@ export default function BoardPage() {
 
   const handleDelete = () => {
     const filterUser = isChecked.map((item) => {
-      return { id: item };
+      return { _id: item };
     });
 
-    const filteredData = userData.filter((item) => {
-      return !filterUser.some((data) => data.id === item.id);
+    const filteredData = boardData.filter((item) => {
+      return !filterUser.some((data) => data._id === item._id);
     });
 
-    if (filteredData) return setUserData(filteredData);
+    if (filteredData) return setBoardData(filteredData);
   };
 
   const handleUpdateUser = (item) => {
     if (item) {
-      setUsetDetail(item);
-      setOpen(true);
+      setBoardDetail(item);
+      setOpenEditModal(true);
     }
 
     return item;
@@ -178,28 +189,30 @@ export default function BoardPage() {
   };
 
   if (verifyDelete) {
-    const newUserData = userData.filter((item) => item.id !== userDelete.id);
-    setUserData(newUserData);
+    const newBoardData = boardData.filter(
+      (item) => item._id !== userDelete._id
+    );
+    setBoardData(newBoardData);
     handleCloseDialog();
   }
 
-  // console.log(userData);
-
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userData.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - boardData?.length) : 0;
 
-  const filteredUsers = applySortFilter(
-    userData,
-    getComparator(order, orderBy),
-    filterName
-  );
+  if (boardData) {
+    filteredBoards = applySortFilter(
+      boardData,
+      getComparator(order, orderBy),
+      filterName
+    );
+  }
 
-  const isNotFound = !filteredUsers.length && !!filterName;
+  const isNotFound = !filteredBoards?.length && !!filterName;
 
   return (
     <div className="container-fix">
       <Helmet>
-        <title> User | Admin Todo </title>
+        <title> Bảng | Quản trị viên </title>
       </Helmet>
       <DashboardLayout />
       <div className="container">
@@ -210,21 +223,22 @@ export default function BoardPage() {
           mb={5}
         >
           <Typography variant="h4" gutterBottom>
-            Board
+            Bảng
           </Typography>
           <Button
+            onClick={() => setOpenAddModal(true)}
             variant="contained"
             startIcon={<Iconify icon="eva:plus-fill" />}
           >
-            New Board
+            Tạo mới
           </Button>
         </Stack>
-        <EditUser
-          open={open}
-          handleClose={handleClose}
-          userDetail={userDetail}
+        {openAddModal && <CreateBoard callback={handleCloseAddModal} />}
+        <EditBoard
+          open={openEditModal}
+          handleClose={handleCloseEditModal}
+          boardDetail={boardDetail}
         />
-        ;
         <AlertDialog
           open={openDialog}
           handleClose={handleCloseDialog}
@@ -245,22 +259,25 @@ export default function BoardPage() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={userData.length}
-                  numSelected={selected.length}
+                  rowCount={boardData?.length}
+                  numSelected={selected?.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((item, index) => {
-                      const { id, name, company, avatarUrl } = item;
-                      const selectedUser = selected.indexOf(name) !== -1;
+                  {filteredBoards
+                    ?.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                    .map((item) => {
+                      const { _id, title, description, members } = item;
+                      const selectedUser = selected.indexOf(title) !== -1;
 
                       return (
                         <TableRow
                           hover
-                          key={id}
+                          key={_id}
                           tabIndex={-1}
                           role="checkbox"
                           selected={selectedUser}
@@ -268,8 +285,8 @@ export default function BoardPage() {
                           <TableCell padding="checkbox">
                             <Checkbox
                               checked={selectedUser}
-                              value={id}
-                              onChange={(event) => handleClick(event, name)}
+                              value={_id}
+                              onChange={(event) => handleClick(event, title)}
                             />
                           </TableCell>
 
@@ -279,19 +296,36 @@ export default function BoardPage() {
                               alignItems="center"
                               spacing={2}
                             >
-                              <Avatar alt={name} src={avatarUrl} />
+                              <Avatar
+                                alt={title}
+                                src={item.backgroundImageLink}
+                              />
                               <Typography variant="subtitle2" noWrap>
-                                {name}
+                                {title}
                               </Typography>
                             </Stack>
                           </TableCell>
 
-                          <TableCell align="left">{company}</TableCell>
+                          <TableCell align="left">
+                            <AvatarGroup className="members-avatar-group">
+                              {members.map((item, index) => {
+                                return (
+                                  <Avatar
+                                    direction="row"
+                                    alignItems="center"
+                                    key={index}
+                                    alt="Remy Sharp"
+                                    src={item.avatar}
+                                  />
+                                );
+                              })}
+                            </AvatarGroup>
+                          </TableCell>
 
                           <TableCell align="right">
                             <MenuItem onClick={() => handleUpdateUser(item)}>
                               <Iconify icon={"eva:edit-fill"} sx={{ mr: 2 }} />
-                              Edit
+                              Sửa
                             </MenuItem>
                             <MenuItem
                               sx={{ color: "error.main" }}
@@ -301,7 +335,7 @@ export default function BoardPage() {
                                 icon={"eva:trash-2-outline"}
                                 sx={{ mr: 2 }}
                               />
-                              Delete
+                              Xóa
                             </MenuItem>
                           </TableCell>
                         </TableRow>
@@ -345,7 +379,8 @@ export default function BoardPage() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={userData.length}
+            className="pagination"
+            count={boardData?.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

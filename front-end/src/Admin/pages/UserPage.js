@@ -25,18 +25,18 @@ import Scrollbar from "../components/scrollbar";
 import { UserListHead, UserListToolbar } from "../sections/@dashboard/user";
 // mock
 import USERLIST from "../_mock/user";
-import EditUser from "../components/modal/EditUser";
-import AlertDialog from "../components/modal/AlertDialog";
+import EditUser from "../components/modal/user/EditUser";
+import AlertDialog from "../components/modal/user/AlertDialog";
 import DashboardLayout from "../layouts/dashboard/DashboardLayout";
-import AddUser from "../components/modal/AddUser";
-import { useSelector } from "react-redux";
+import AddUser from "../components/modal/user/AddUser";
+import { getAllUser } from "../../Services/userService";
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: "name", label: "Name", alignRight: false },
-  { id: "email", label: "email", alignRight: false },
-  { id: "phone", label: "phone", alignRight: false },
+  { id: "name", label: "Tên", alignRight: false },
+  { id: "email", label: "Email", alignRight: false },
+  { id: "phone", label: "Số điện thoại", alignRight: false },
   { id: "" },
 ];
 
@@ -58,6 +58,8 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
+var filteredUsers;
+var sortDateBoard;
 function applySortFilter(array, comparator, query) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -74,19 +76,15 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function UserPage({ users }) {
-  // const user = useSelector((state) => state?.user);
-  // const users = user?.users?.user;
-
-  // const newUsers = [...users];
-
-  const [userData, setUserData] = useState([...USERLIST]);
+export default function UserPage({}) {
+  const [userData, setUserData] = useState(null);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
   const [selected, setSelected] = useState([]);
   const [isChecked, setisChecked] = useState([]);
   const [orderBy, setOrderBy] = useState("name");
   const [filterName, setFilterName] = useState("");
+
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [userDetail, setUsetDetail] = useState(null);
   const [userDelete, setUserDelete] = useState(null);
@@ -95,11 +93,9 @@ export default function UserPage({ users }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [verifyDelete, setVerifyDelete] = useState(false);
 
-  // useEffect(() => {
-  //   if (users) setUserData(users);
-  // }, [users]);
-
-  console.log(userData);
+  useEffect(() => {
+    getAllUser().then((data) => setUserData([...data.data.user]));
+  }, [openEditModal, openAddModal, verifyDelete]);
 
   const handleCloseEditModal = () => setOpenEditModal(false);
   const handleCloseAddModal = () => setOpenAddModal(false);
@@ -117,8 +113,8 @@ export default function UserPage({ users }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
-      const newChecked = USERLIST.map((n) => n.id);
+      const newSelecteds = userData.map((n) => n.name);
+      const newChecked = userData.map((n) => n._id);
       setSelected(newSelecteds);
       setisChecked(newChecked);
       return;
@@ -168,11 +164,11 @@ export default function UserPage({ users }) {
 
   const handleDelete = () => {
     const filterUser = isChecked.map((item) => {
-      return { id: item };
+      return { _id: item };
     });
 
     const filteredData = userData.filter((item) => {
-      return !filterUser.some((data) => data.id === item.id);
+      return !filterUser.some((data) => data._id === item._id);
     });
 
     if (filteredData) return setUserData(filteredData);
@@ -193,28 +189,31 @@ export default function UserPage({ users }) {
   };
 
   if (verifyDelete) {
-    const newUserData = userData.filter((item) => item.id !== userDelete.id);
+    const newUserData = userData.filter((item) => item._id !== userDelete._id);
     setUserData(newUserData);
     handleCloseDialog();
   }
 
-  // console.log(userData);
-
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userData.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userData?.length) : 0;
 
-  const filteredUsers = applySortFilter(
-    userData,
-    getComparator(order, orderBy),
-    filterName
-  );
+  if (userData) {
+    filteredUsers = applySortFilter(
+      userData,
+      getComparator(order, orderBy),
+      filterName
+    );
 
-  const isNotFound = !filteredUsers.length && !!filterName;
+    // sortDateBoard = sortDate(filteredUsers);
+    // console.log(sortDateBoard);
+  }
+
+  const isNotFound = !filteredUsers?.length && !!filterName;
 
   return (
     <div className="container-fix">
       <Helmet>
-        <title> User | Admin Todo </title>
+        <title> Người dùng | Quản trị viên </title>
       </Helmet>
       <DashboardLayout />
       <div className="container">
@@ -225,14 +224,14 @@ export default function UserPage({ users }) {
           mb={5}
         >
           <Typography variant="h4" gutterBottom>
-            User
+            Người dùng
           </Typography>
           <Button
             onClick={() => setOpenAddModal(true)}
             variant="contained"
             startIcon={<Iconify icon="eva:plus-fill" />}
           >
-            New User
+            Tạo mới
           </Button>
         </Stack>
         <AddUser open={openAddModal} handleClose={handleCloseAddModal} />
@@ -261,70 +260,81 @@ export default function UserPage({ users }) {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={userData.length}
-                  numSelected={selected.length}
+                  rowCount={userData?.length}
+                  numSelected={selected?.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((item) => {
-                      const { _id, name, phone, email, avatarUrl } = item;
-                      const selectedUser = selected.indexOf(name) !== -1;
+                  {filteredUsers &&
+                    filteredUsers
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((item) => {
+                        const { _id, name, phone, email } = item;
+                        const selectedUser = selected.indexOf(name) !== -1;
 
-                      return (
-                        <TableRow
-                          hover
-                          key={_id}
-                          tabIndex={-1}
-                          role="checkbox"
-                          selected={selectedUser}
-                        >
-                          <TableCell padding="checkbox">
-                            <Checkbox
-                              checked={selectedUser}
-                              value={_id}
-                              onChange={(event) => handleClick(event, name)}
-                            />
-                          </TableCell>
-
-                          <TableCell component="th" scope="row" padding="none">
-                            <Stack
-                              direction="row"
-                              alignItems="center"
-                              spacing={2}
-                            >
-                              <Avatar alt={name} src={avatarUrl} />
-                              <Typography variant="subtitle2" noWrap>
-                                {name}
-                              </Typography>
-                            </Stack>
-                          </TableCell>
-
-                          <TableCell align="left">{email}</TableCell>
-
-                          <TableCell align="left">{phone}</TableCell>
-
-                          <TableCell align="right">
-                            <MenuItem onClick={() => handleUpdateUser(item)}>
-                              <Iconify icon={"eva:edit-fill"} sx={{ mr: 2 }} />
-                              Edit
-                            </MenuItem>
-                            <MenuItem
-                              sx={{ color: "error.main" }}
-                              onClick={() => handleRemoveUser(item)}
-                            >
-                              <Iconify
-                                icon={"eva:trash-2-outline"}
-                                sx={{ mr: 2 }}
+                        return (
+                          <TableRow
+                            hover
+                            key={_id}
+                            tabIndex={-1}
+                            role="checkbox"
+                            selected={selectedUser}
+                          >
+                            <TableCell padding="checkbox">
+                              <Checkbox
+                                checked={selectedUser}
+                                value={_id}
+                                onChange={(event) => handleClick(event, name)}
                               />
-                              Delete
-                            </MenuItem>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
+                            </TableCell>
+
+                            <TableCell
+                              component="th"
+                              scope="row"
+                              padding="none"
+                            >
+                              <Stack
+                                direction="row"
+                                alignItems="center"
+                                spacing={2}
+                              >
+                                <Avatar alt={name} src={item.avatar} />
+                                <Typography variant="subtitle2" noWrap>
+                                  {name}
+                                </Typography>
+                              </Stack>
+                            </TableCell>
+
+                            <TableCell align="left">{email}</TableCell>
+
+                            <TableCell align="left">{phone}</TableCell>
+
+                            <TableCell align="right">
+                              <MenuItem onClick={() => handleUpdateUser(item)}>
+                                <Iconify
+                                  icon={"eva:edit-fill"}
+                                  sx={{ mr: 2 }}
+                                />
+                                Sửa
+                              </MenuItem>
+                              <MenuItem
+                                sx={{ color: "error.main" }}
+                                onClick={() => handleRemoveUser(item)}
+                              >
+                                <Iconify
+                                  icon={"eva:trash-2-outline"}
+                                  sx={{ mr: 2 }}
+                                />
+                                Xóa
+                              </MenuItem>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
                       <TableCell colSpan={6} />
@@ -364,7 +374,7 @@ export default function UserPage({ users }) {
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
             className="pagination"
-            count={userData.length}
+            count={userData?.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
