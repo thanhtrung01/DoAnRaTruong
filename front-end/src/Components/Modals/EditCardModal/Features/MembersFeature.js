@@ -38,7 +38,7 @@ const MembersFeature = (props) => {
           closeCallback={() => {
             setMemberPopover(null);
           }}
-          title="Members"
+          title="Thành Viên"
           contents={<MembersPopover />}
         />
       )}

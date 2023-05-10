@@ -79,7 +79,7 @@ const TopBar = () => {
           }}
         >
           <MoreHorizIcon />
-          <style.TextSpan>Thông báo</style.TextSpan>
+          <style.TextSpan>Menu</style.TextSpan>
         </common.Button>
       </style.RightWrapper>
       <RightDrawer

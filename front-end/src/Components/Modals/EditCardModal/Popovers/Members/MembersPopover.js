@@ -115,7 +115,7 @@ const MembersPopover = () => {
 				onChange={handleSearchChange}
 				value={searchValue}
 			/>
-			<Title>Board members</Title>
+			<Title>Thành viên trong bảng</Title>
 			{filteredMembers.map((member) => {
 				return <MemberComponent key={member.user} {...member} />;
 			})}

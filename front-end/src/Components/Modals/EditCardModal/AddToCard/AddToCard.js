@@ -39,7 +39,7 @@ const AddToCard = () => {
           closeCallback={() => {
             setMemberPopover(null);
           }}
-          title="Members"
+          title="Thành Viên"
           contents={<MembersPopover />}
         />
       )}
