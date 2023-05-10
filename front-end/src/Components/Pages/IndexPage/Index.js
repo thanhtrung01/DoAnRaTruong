@@ -27,15 +27,12 @@ const Index = () => {
         <Content>
           <LeftSide>
             <LeftWrapper>
-              <Title>Todoweb helps teams move work forward.</Title>
+              <Title>Todoweb giúp làm việc nhóm hiểu quả.</Title>
               <Text>
-                Collaborate, manage projects, and reach new productivity peaks.
-                From high rises to the home office, the way your team works is
-                unique—accomplish it all with Todoweb.
+                Hợp tác, quản lý dự án, hướng đến năng suất làm việc cao. Dễ sử
+                dụng, thích hợp với cả cá nhân và doanh nghiệp
               </Text>
-              <Button onClick={() => history.push("/register")}>
-                Sign up - it's free
-              </Button>
+              <Button onClick={() => history.push("/register")}>Đăng ký</Button>
             </LeftWrapper>
           </LeftSide>
           <RightSide>

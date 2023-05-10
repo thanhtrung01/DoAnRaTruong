@@ -155,11 +155,11 @@ const Checklist = (props) => {
           <RowRightButtonsWrapper>
             <Button
               clickCallback={() => setHideItems((prev) => !prev)}
-              title={hideItems ? "Show checkeds" : "Hide checkeds"}
+              title={hideItems ? "Hiện danh sách" : "Ẩn danh sách"}
             />
             <Button
               clickCallback={() => handleChecklistDelete(props._id)}
-              title="Delete"
+              title="Xóa"
             />
           </RowRightButtonsWrapper>
         </RightColumn>
@@ -188,10 +188,10 @@ const Checklist = (props) => {
               <TextArea
                 value={newItem}
                 onChange={(e) => setNewItem(e.target.value)}
-                placeholder="Add an item"
+                placeholder="Thêm mục"
               />
               <BottomButtonGroup
-                title="Add"
+                title="Thêm"
                 clickCallback={() => handleAddChecklistItem(props._id)}
                 closeCallback={() => setShowAddItem(false)}
               />
@@ -199,7 +199,7 @@ const Checklist = (props) => {
           ) : (
             <Button
               clickCallback={() => setShowAddItem(true)}
-              title="Add an item"
+              title="Thêm mục"
             />
           )}
         </RightColumn>

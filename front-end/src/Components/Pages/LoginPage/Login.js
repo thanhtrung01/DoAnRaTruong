@@ -133,7 +133,7 @@ const Login = () => {
         <FormSection>
           <FormCard>
             <Form onSubmit={(e) => handleSubmit(e)}>
-              <Title>Log in to Todoweb</Title>
+              <Title>Đăng nhập vào Todoweb</Title>
               <Input
                 type="email"
                 placeholder="Enter email"
@@ -158,11 +158,11 @@ const Login = () => {
                   })
                 }
               />
-              <Button onClick={loginWithUser}>Login</Button>
+              <Button onClick={loginWithUser}>Đăng nhập</Button>
               <GoogleLogin
                 className="google-btn"
                 clientId={clientId}
-                buttonText="Log in with Google"
+                buttonText="Đăng nhập với Google"
                 onSuccess={loginWithGoogle}
                 onFailure={handleFailure}
                 scope={"profile email"}
@@ -173,7 +173,7 @@ const Login = () => {
                 fontSize="0.85rem"
                 onClick={() => history.push("/register")}
               >
-                Sign up for an account
+                Tạo tài khoản
               </Link>
             </Form>
           </FormCard>

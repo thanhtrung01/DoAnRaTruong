@@ -20,8 +20,6 @@ const TopBar = () => {
     if (!board.loading) setCurrentTitle(board.title);
   }, [board.loading, board.title]);
 
-  console.log(board);
-
   const handleTitleChange = () => {
     boardTitleUpdate(currentTitle, board.id, dispatch);
   };
@@ -32,7 +30,7 @@ const TopBar = () => {
           onClick={(event) => setInvitePopover(event.currentTarget)}
         >
           <PersonAddAltIcon />
-          <style.TextSpan>Add Member</style.TextSpan>
+          <style.TextSpan>Thêm thành viên</style.TextSpan>
         </style.InviteButton>
         {invitePopover && (
           <BasePopover
@@ -81,7 +79,7 @@ const TopBar = () => {
           }}
         >
           <MoreHorizIcon />
-          <style.TextSpan>Show menu</style.TextSpan>
+          <style.TextSpan>Thông báo</style.TextSpan>
         </common.Button>
       </style.RightWrapper>
       <RightDrawer

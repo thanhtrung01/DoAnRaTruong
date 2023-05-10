@@ -142,7 +142,7 @@ const List = (props) => {
                   aria-expanded={open ? "true" : undefined}
                   onClick={handleClick}
                 >
-                  <MoreHorizIcon fontSize="0.1rem" onClick={() => { }} />
+                  <MoreHorizIcon fontSize="0.1rem" onClick={() => {}} />
                 </ClickableIcon>
                 <Menu
                   id="basic-menu"
@@ -174,8 +174,8 @@ const List = (props) => {
                           .filter((card) =>
                             props.searchString
                               ? card.title
-                                .toLowerCase()
-                                .includes(props.searchString.toLowerCase())
+                                  .toLowerCase()
+                                  .includes(props.searchString.toLowerCase())
                               : true
                           )
                           .map((card, index) => {
@@ -217,7 +217,7 @@ const List = (props) => {
               {!clickFooter && (
                 <FooterButton onClick={() => setClickFooter(true)}>
                   <AddIcon fontSize="small" />
-                  <Span>Add a card</Span>
+                  <Span>Thêm công việc</Span>
                 </FooterButton>
               )}
             </Container>
