@@ -6,12 +6,14 @@ const session = require('express-session');
 const cookieParser = require("cookie-parser");
 const unless = require('express-unless');
 const bodyParser = require('body-parser');
-const path = require('path');
 const config = require('./config/config');
 const cookieSession = require("cookie-session");
 const auth = require('./middlewares/auth');
 const accessCors = require('./middlewares/constant');
-// const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express');
+// const {options} = require('./api/swagger');
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerDocument = require('./api/swagger.json');
 // Middleware setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -22,8 +24,8 @@ const corsOptions = {
   origin: config.CLIENT_URL||'http://127.0.0.1:3000',
   credentials: true,
 };
-// const swaggerDocument = require('./api/swagger.json')
-// app.use("/test-api", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// const swaggerDocument = options
+app.use("/test-api", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
