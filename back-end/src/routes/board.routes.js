@@ -15,5 +15,6 @@ route.get("/:id", boardController.getById);
 route.get("/:id/activity", boardController.getActivityById);
 route.get("/admin/get-all", authAdmin, boardController.getAllBoard);
 route.get("/", boardController.getAll);
-
+route.delete("/delete/:boardId", authAdmin, boardController.adminDeleteBoard);
+route.delete("/owner-delete-or-exit-board/:boardId",  boardController.ownerDeleteOrExitBoard);
 module.exports = route;

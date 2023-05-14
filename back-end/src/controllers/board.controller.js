@@ -150,7 +150,60 @@ const addMember = async (req, res) => {
     return res.status(200).send(result);
   });
 };
-const deleteBoard = (req, res) => {};
+const adminDeleteBoard = async (req, res) => {
+  try {
+    const { boardId } = req.params;
+    await BoardSchema.findByIdAndDelete(
+      boardId,
+      req.params.board
+    );
+    return res.status(201).json({
+      ok: true,
+      message: "Admin xoá bảng thành công! 🎉"
+    });//
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ msg: err.message });
+  }
+};
+const ownerDeleteOrExitBoard = async (req, res) => {
+  try {
+    const { boardId } = req.params;
+    const userId = req.user.id;
+    const board = await BoardSchema.findById(boardId);
+    const isOwner = board.members.find(member => member.role === "owner");
+    if (isOwner && isOwner.user.toString() === userId) {
+      await BoardSchema.findByIdAndDelete(boardId);
+      return res.status(200).json({
+        ok: true,
+        message: "Xoá bảng thành công! 🎉",
+      });
+    }
+    const isMember = board.members.find(member => member.role === "member");
+    if (isMember && isMember.user.toString() === userId) {
+      await BoardSchema.updateOne(
+        { _id: boardId },
+        { 
+          $pull: { 
+            members: { user: userId } 
+          } 
+        }
+      );
+      return res.status(200).json({
+        ok: true,
+        message: "Thoát bảng thành công! 🎉",
+      });
+    }
+    return res.status(403).json({
+      ok: false,
+      message: "Bạn không có quyền xoá bảng này",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ msg: err.message });
+  }
+};
+
 module.exports = {
   create,
   getAll,
@@ -161,5 +214,6 @@ module.exports = {
   updateBoardDescription,
   updateBackground,
   addMember,
-  deleteBoard,
+  adminDeleteBoard,
+  ownerDeleteOrExitBoard,
 };

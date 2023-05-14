@@ -38,7 +38,7 @@ const TopBar = () => {
             closeCallback={() => {
               setInvitePopover(null);
             }}
-            title="Invite Members"
+            title="Mời các thành viên"
             contents={
               <InviteMembers
                 closeCallback={() => {
@@ -50,7 +50,7 @@ const TopBar = () => {
         )}
 
         <style.BoardNameInput
-          placeholder="Board Name"
+          placeholder="Tên bảng"
           value={currentTitle}
           onChange={(e) => setCurrentTitle(e.target.value)}
           onBlur={handleTitleChange}

@@ -52,7 +52,7 @@ const InviteMembers = () => {
 		if (checkMember) {
 			dispatch(
 				openAlert({
-					message: `${checkMember.name} is already member of this board!`,
+					message: `${checkMember.name} đã là thành viên của bảng này!`,
 					severity: 'error',
 				})
 			);
@@ -79,13 +79,13 @@ const InviteMembers = () => {
 			<SearchContainer>
 				<SearchBar
 					type='email'
-					placeholder="Member's Email"
+					placeholder="Email của thành viên"
 					value={memberMail}
 					onChange={(e) => {
 						setMemberMail(e.target.value);
 					}}
 				/>
-				<Button title='Add' style={{ flex: '1' }} clickCallback={handleAddClick} />
+				<Button title='Thêm' style={{ flex: '1' }} clickCallback={handleAddClick} />
 			</SearchContainer>
 			<ChipContainer>
 				{members.map((member) => {

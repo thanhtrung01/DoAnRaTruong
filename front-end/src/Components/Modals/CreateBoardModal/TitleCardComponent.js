@@ -41,7 +41,7 @@ const TitleCardComponent = (props) => {
       <style.Panel link={props.link}>
         <style.PanelWrapper>
           <style.TitleInput
-            placeholder="Add board title"
+            placeholder="Thêm tiêu đề bảng"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -51,7 +51,7 @@ const TitleCardComponent = (props) => {
                 <GroupAddOutlinedIcon fontSize="small" />
               </style.MemberIcon>
               <style.MemberInput
-                placeholder="Invite to board with email"
+                placeholder="Mời vào bảng bằng email"
                 value={memberInput}
                 type="email"
                 onChange={(e) => setMemberInput(e.target.value)}

@@ -276,18 +276,34 @@ const createUser = async (req, res) => {
     user.password = undefined;
     return res.status(200).json({
       ok: true,
-      message: "Xác thực quyền admin thành công",
+      message: "Admin tạo người dùng mới thành công!🎉",
       user,
     });
   });
 };
-
+const deleteUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    await UserSchema.findByIdAndDelete(
+      userId,
+      req.params.user
+    ); 
+    return res.status(201).json({
+      ok: true,
+      message: "Admin xoá người dùng thành công! 🎉"
+    });//
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ msg: err.message });
+  }
+};
 module.exports = {
   register,
   login,
   googleLogin,
   getUser,
   getAllUser,
+  deleteUser,
   getUserWithMail,
   updateUser,
   createUser,
