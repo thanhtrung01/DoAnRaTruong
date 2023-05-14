@@ -222,6 +222,7 @@ const Card = (props) => {
                                 fontSize: "0.875rem",
                                 fontWeight: "800",
                               }}
+                              title= {member.name}
                               src={avatarInitial}
                             >
                               {nameAvatar}

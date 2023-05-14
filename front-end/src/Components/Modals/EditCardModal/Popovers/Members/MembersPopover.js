@@ -111,7 +111,7 @@ const MembersPopover = () => {
 		<Container>
 			<SearchArea
 				type="text"
-				placeholder='Search member...'
+				placeholder='Tìm kiếm thành viên ...'
 				onChange={handleSearchChange}
 				value={searchValue}
 			/>

@@ -157,7 +157,7 @@ const List = (props) => {
                     <ListItemIcon>
                       <DeleteIcon fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText>Delete</ListItemText>
+                    <ListItemText>Xoá</ListItemText>
                   </MenuItem>
                 </Menu>
               </Header>
@@ -196,14 +196,14 @@ const List = (props) => {
                             <TitleNewCardInput
                               value={newCardTitle}
                               autoFocus={true}
-                              placeholder="Enter a title for this card..."
+                              placeholder="Nhập tiêu đề cho thẻ này..."
                               height={
                                 Math.floor(newCardTitle.length / 16) + "rem"
                               }
                               onChange={(e) => setNewCardTitle(e.target.value)}
                             />
                             <BottomButtonGroup
-                              title="Add card"
+                              title="Thêm thẻ"
                               clickCallback={handleFooterClick}
                               closeCallback={handleFooterCloseClick}
                             />

@@ -15,6 +15,7 @@ const MembersFeature = (props) => {
           return (
             <Avatar
               key={index}
+              title={i.name}
               src={i.avatar && i.avatar.length > 0 ? i.avatar[0] : ""}
               sx={{
                 width: 32,

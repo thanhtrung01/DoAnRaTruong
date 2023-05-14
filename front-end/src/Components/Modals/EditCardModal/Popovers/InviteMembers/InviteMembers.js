@@ -19,10 +19,10 @@ const useStyles = makeStyles({
 });
 
 const ChipComponent = (props) => {
-	const { avatar, name, username, email, callback } = props;
+	const { avatar, name, email, callback } = props;
 	const classes = useStyles();
 	return (
-		<Tooltip TransitionComponent={Zoom} title={`${name} ${username}`} size='small' placement='top' arrow>
+		<Tooltip TransitionComponent={Zoom} title={`${name}`} size='small' placement='top' arrow>
 			<Chip
 				className={classes.root}
 				onDelete={() => callback(email)}

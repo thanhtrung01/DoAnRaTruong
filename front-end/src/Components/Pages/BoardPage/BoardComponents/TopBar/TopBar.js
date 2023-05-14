@@ -10,7 +10,8 @@ import BasePopover from "../../../../Modals/EditCardModal/ReUsableComponents/Bas
 import InviteMembers from "../../../../Modals/EditCardModal/Popovers/InviteMembers/InviteMembers";
 import { Avatar, AvatarGroup } from "@mui/material";
 
-const TopBar = () => {
+const TopBar = (props) => {
+  const {name} = props;
   const board = useSelector((state) => state.board);
   const [currentTitle, setCurrentTitle] = useState(board.title);
   const [showDrawer, setShowDrawer] = useState(false);
@@ -66,6 +67,7 @@ const TopBar = () => {
                 direction="row"
                 alignItems="center"
                 key={index}
+                title={`${item.name}`}
                 alt="Remy Sharp"
                 src={item.avatar}
               />
