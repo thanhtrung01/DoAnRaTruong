@@ -19,10 +19,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+const whitelist = [
+  'https://do-an-ra-truong.vercel.app', 
+  'http://localhost:3000'
+];
 // const { Cors } = require('./middlewares/cors');
+// const corsOptions = {
+//   origin: config.CLIENT_URL,
+//   credentials: true,
+// };
 const corsOptions = {
-  origin: config.CLIENT_URL,
-  credentials: true,
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 };
 // const swaggerDocument = options
 app.use("/test-api", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
