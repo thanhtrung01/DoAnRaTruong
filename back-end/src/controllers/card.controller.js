@@ -1,4 +1,4 @@
-const Card = require('../services/card.service');
+const Card = require("../services/card.service");
 
 const create = async (req, res) => {
   // Deconstruct the params
@@ -7,12 +7,10 @@ const create = async (req, res) => {
 
   // Validate the inputs
   if (!(title && listId && boardId))
-    return res
-      .status(400)
-      .send({
-        errMessage:
-          'The create operation could not be completed because there is missing information',
-      });
+    return res.status(400).send({
+      errMessage:
+        "The create operation could not be completed because there is missing information",
+    });
 
   //Call the card service
   await Card.create(title, listId, boardId, user, (err, result) => {
@@ -51,14 +49,20 @@ const update = async (req, res) => {
   const { boardId, listId, cardId } = req.params;
   const images_url = await req.files[0].path;
   // Call the card service
-  await Card.update(cardId, listId, boardId, user,
+  await Card.update(
+    cardId,
+    listId,
+    boardId,
+    user,
     {
-      images: images_url, 
-      ...req.body
-    }, (err, result) => {
+      images: images_url,
+      ...req.body,
+    },
+    (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    });
+    }
+  );
 };
 
 const addComment = async (req, res) => {
@@ -76,7 +80,7 @@ const addComment = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -96,7 +100,7 @@ const updateComment = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -115,7 +119,7 @@ const deleteComment = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -134,7 +138,7 @@ const addMember = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -153,7 +157,7 @@ const deleteMember = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -173,7 +177,7 @@ const createLabel = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -194,7 +198,7 @@ const updateLabel = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -213,7 +217,7 @@ const deleteLabel = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -234,7 +238,7 @@ const updateLabelSelection = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -254,7 +258,7 @@ const createChecklist = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -273,7 +277,7 @@ const deleteChecklist = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -294,7 +298,7 @@ const addChecklistItem = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -316,7 +320,7 @@ const setChecklistItemCompleted = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -338,7 +342,7 @@ const setChecklistItemText = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -358,7 +362,7 @@ const deleteChecklistItem = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -380,7 +384,7 @@ const updateStartDueDates = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -400,7 +404,7 @@ const updateDateCompleted = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -421,7 +425,7 @@ const addAttachment = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -440,7 +444,7 @@ const deleteAttachment = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -462,7 +466,7 @@ const updateAttachment = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 
@@ -483,7 +487,7 @@ const updateCover = async (req, res) => {
     (err, result) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(result);
-    },
+    }
   );
 };
 

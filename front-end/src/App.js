@@ -17,7 +17,6 @@ import Profile from "./Components/Pages/ProfilePage/Profile";
 import BoardPage from "./Admin/pages/BoardPage";
 import UserPage from "./Admin/pages/UserPage";
 import DashboardPage from "./Admin/pages/DashboardPage";
-import CartPage from "./Admin/pages/CartPage";
 
 const App = () => {
   useEffect(() => {
@@ -44,7 +43,6 @@ const App = () => {
               path="/dashboard/board"
               component={BoardPage}
             />
-            <ProtectedRoute exact path="/dashboard/cart" component={CartPage} />
             <FreeRoute exact path="/login" component={Login} />
             <FreeRoute exact path="/register" component={Register} />
             <FreeRoute exact path="/" component={Index} />
