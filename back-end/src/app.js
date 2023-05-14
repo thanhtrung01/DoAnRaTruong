@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 // const { Cors } = require('./middlewares/cors');
 const corsOptions = {
-  origin: config.CLIENT_URL||'http://127.0.0.1:3000',
+  origin: config.CLIENT_URL||'http://127.0.0.1:3000'||'https://do-an-ra-truong.vercel.app/',
   credentials: true,
 };
 // const swaggerDocument = options
