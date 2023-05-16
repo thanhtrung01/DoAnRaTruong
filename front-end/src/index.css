@@ -81,6 +81,7 @@
   width: max-content !important;
 }
 .board-item {
+  /* padding-right: 25px; */
   display: flex;
 }
 
@@ -90,4 +91,7 @@
   padding: 0;
   width: 25px;
   height: 25px;
+  position: relative;
+  top: 3px;
+  right: 26px;
 }

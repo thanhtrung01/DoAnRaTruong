@@ -180,9 +180,7 @@ const ownerDeleteOrExitBoard = async (req, res) => {
         ok: true,
         message: "Xoá bảng thành công! 🎉",
       });
-    }
-    const isMember = board.members.find(member => member.role === "member");
-    if (isMember && isMember.user.toString() === userId) {
+    }else {
       await BoardSchema.updateOne(
         { _id: boardId },
         { 
@@ -196,10 +194,10 @@ const ownerDeleteOrExitBoard = async (req, res) => {
         message: "Thoát bảng thành công! 🎉",
       });
     }
-    return res.status(403).json({
-      ok: false,
-      message: "Bạn không có quyền xoá bảng này",
-    });
+    // return res.status(403).json({
+    //   ok: false,
+    //   message: "Bạn không có quyền xoá bảng này",
+    // });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: err.message });

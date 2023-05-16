@@ -6,7 +6,9 @@ import {
   successFetchingBoards,
   successCreatingBoard,
   failCreatingBoard,
-  startCreatingBoard
+  startCreatingBoard,
+  // successDeletingBoard,
+  setDeletedBoardId,
 } from "../Redux/Slices/boardsSlice";
 import {
   successDeletingBoard
@@ -123,28 +125,20 @@ export const getAllBoard = async () => {
   return res;
 };
 
-export const AdminDeleteBoard = async (boardId, dispatch) => {
-	dispatch(setLoading(true));
-	try {
-		await axios.delete(baseUrl + '/delete/' + boardId);
-		await dispatch(successDeletingBoard(boardId));
-		dispatch(setLoading(false));
-	} catch (error) {
-		dispatch(setLoading(false));
-		dispatch(
-			openAlert({
-				message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,
-				severity: 'error',
-			})
-		);
-	}
-};
 export const OwnerDeleteBoard = async (boardId, dispatch) => {
-	dispatch(setLoading(true));
+  // dispatch(startCreatingBoard());
+  dispatch(setLoading(true));
 	try {
 		await axios.delete(baseUrl + '/owner-delete-or-exit-board/' + boardId);
-		await dispatch(successDeletingBoard(boardId));
-		dispatch(setLoading(false));
+		dispatch(successDeletingBoard(boardId));
+    // dispatch(setDeletedBoardId(boardId));
+    dispatch(setLoading(false));
+    dispatch(
+      openAlert({
+        message: "Bạn đã thoát bảng thành công!",
+        severity: "success",
+      })
+    );
 	} catch (error) {
 		dispatch(setLoading(false));
 		dispatch(
@@ -158,5 +152,5 @@ export const OwnerDeleteBoard = async (boardId, dispatch) => {
 
 
 export const deleteBoard = async (boardId) => {
-  axios.delete(baseUrl + `/delete/${boardId}`);
+  axios.delete(baseUrl + '/delete/'+ boardId);
 };

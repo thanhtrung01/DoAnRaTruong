@@ -17,6 +17,7 @@ const initialState = {
   smallPostfix:
     "?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjM2NjUzNDgz&ixlib=rb-1.2.1&q=80&w=400",
   creating: false,
+  // deletedBoardId: false,
 };
 
 const boardsSlice = createSlice({
@@ -36,6 +37,10 @@ const boardsSlice = createSlice({
     startCreatingBoard: (state) => {
       state.creating = true;
     },
+    successDeletingBoard: (state, action) => {
+			state.boardsData = action.payload;
+      state.pending = false;
+		},
     successCreatingBoard: (state, action) => {
       state.boardsData.push(action.payload);
       state.creating = false;
@@ -46,6 +51,9 @@ const boardsSlice = createSlice({
     reset: (state) => {
       state = initialState;
     },
+    // setDeletedBoardId: (state, action) => {
+    //   state.deletedBoardId = action.payload;
+    // },
   },
 });
 
@@ -56,6 +64,8 @@ export const {
   startCreatingBoard,
   successCreatingBoard,
   failCreatingBoard,
+  successDeletingBoard,
+  setDeletedBoardId,
   reset,
 } = boardsSlice.actions;
 export default boardsSlice.reducer;

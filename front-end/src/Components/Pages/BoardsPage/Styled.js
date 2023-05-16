@@ -40,8 +40,8 @@ export const Wrapper = styled.div`
 
 export const Board = styled.div`
 	color: white;
-	padding: 0.6rem;
-	margin: 0 0.8rem 1rem 0.8rem;
+	// padding: 0.6rem;
+	// margin: 0 0.8rem 1rem 0.8rem;
 	width: 200px;
 	height: 120px;
 	border-radius: 5px;
@@ -52,9 +52,9 @@ export const Board = styled.div`
 
 	background-position: center center;
 	background-size: cover;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-	-moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-	box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+	// -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+	// -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+	// box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
 	opacity: 88%;
 	cursor: pointer;
 	will-change: opacity;
@@ -104,4 +104,9 @@ export const More = styled(Board)`
 	font-weight: 600;
 
 `;
+
+export const SpanTitle = styled(Board)`
+	padding: 4px 37px 8px 11px;
+`;
+
 
