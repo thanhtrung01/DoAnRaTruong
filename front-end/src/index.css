@@ -76,3 +76,16 @@
 .btn-show {
   margin-left: 10px;
 }
+
+.navbar-add-btn {
+  width: max-content !important;
+}
+.board-item {
+  display: flex;
+}
+
+.board-item-btn {
+  align-items: inherit !important;
+  margin-left: auto;
+  padding: 0;
+}
