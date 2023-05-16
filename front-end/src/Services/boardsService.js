@@ -123,7 +123,6 @@ export const getAllBoard = async () => {
   return res;
 };
 
-
 export const AdminDeleteBoard = async (boardId, dispatch) => {
 	dispatch(setLoading(true));
 	try {
@@ -140,6 +139,23 @@ export const AdminDeleteBoard = async (boardId, dispatch) => {
 		);
 	}
 };
+export const OwnerDeleteBoard = async (boardId, dispatch) => {
+	dispatch(setLoading(true));
+	try {
+		await axios.delete(baseUrl + '/owner-delete-or-exit-board/' + boardId);
+		await dispatch(successDeletingBoard(boardId));
+		dispatch(setLoading(false));
+	} catch (error) {
+		dispatch(setLoading(false));
+		dispatch(
+			openAlert({
+				message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,
+				severity: 'error',
+			})
+		);
+	}
+};
+
 
 export const deleteBoard = async (boardId) => {
   axios.delete(baseUrl + `/delete/${boardId}`);
