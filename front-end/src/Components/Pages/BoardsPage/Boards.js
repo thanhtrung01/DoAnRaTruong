@@ -59,7 +59,7 @@ const Boards = () => {
                     id={item._id}
                     onClick={(e) => handleClick(e)}
                   >
-                    <div>{item.title}</div>
+                    {item.title}
                     <IconButton className="board-item-btn">
                       <MoreVertIcon />
                     </IconButton>
