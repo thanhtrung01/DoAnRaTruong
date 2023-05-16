@@ -80,8 +80,8 @@ const TopBar = (props) => {
 
       <style.RightWrapper>
        
-        <List ref={targetRef} 
-        />
+        <div ref={targetRef} 
+        ></div>
         <common.Button
         onClick={() => {
           handleCapture(true);
