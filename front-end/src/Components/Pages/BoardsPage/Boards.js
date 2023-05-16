@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBoards } from "../../../Services/boardsService";
 import Navbar from "../../Navbar";
-import { Container, Wrapper, Title, Board, AddBoard } from "./Styled";
+import { Container, Wrapper, Title, Board, AddBoard, More } from "./Styled";
 import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";
 import { useHistory } from "react-router";
+import { IconButton } from "@mui/material";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const Boards = () => {
   const dispatch = useDispatch();
@@ -57,6 +59,9 @@ const Boards = () => {
                     onClick={(e) => handleClick(e)}
                   >
                     {item.title}
+                    <IconButton>
+                      <MoreVertIcon />
+                    </IconButton>
                   </Board>
                 );
               })}

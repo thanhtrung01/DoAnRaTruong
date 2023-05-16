@@ -35,8 +35,10 @@ const corsOptions = {
     } else {
       callback(new Error('Not allowed by CORS'));
     }
-  }
+  },
+  credentials: true,
 };
+
 // const swaggerDocument = options
 app.use("/test-api", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors(corsOptions));

@@ -6,8 +6,11 @@ import {
   successFetchingBoards,
   successCreatingBoard,
   failCreatingBoard,
-  startCreatingBoard,
+  startCreatingBoard
 } from "../Redux/Slices/boardsSlice";
+import {
+  successDeletingBoard
+} from "../Redux/Slices/boardSlice";
 import { addNewBoard } from "../Redux/Slices/userSlice";
 import {
   setLoading,
@@ -119,3 +122,21 @@ export const getAllBoard = async () => {
   const res = await axios.get(baseUrl + "/admin/get-all");
   return res;
 };
+
+export const AdminDeleteBoard = async (boardId, dispatch) => {
+	dispatch(setLoading(true));
+	try {
+		await axios.delete(baseUrl + '/delete/' + boardId);
+		await dispatch(successDeletingBoard(boardId));
+		dispatch(setLoading(false));
+	} catch (error) {
+		dispatch(setLoading(false));
+		dispatch(
+			openAlert({
+				message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,
+				severity: 'error',
+			})
+		);
+	}
+};
+

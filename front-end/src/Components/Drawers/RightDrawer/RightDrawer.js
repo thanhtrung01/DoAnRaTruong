@@ -13,10 +13,10 @@ const RightDrawer = (props) => {
   const handleBackClick = () => {
     if (
       sectionName === "About this board" ||
-      sectionName === "Change background"
+      sectionName === "Thay đổi phông nền"
     )
       setSectionName("Menu");
-    else setSectionName("Change background");
+    else setSectionName("Thay đổi phông nền");
   };
 
   return (

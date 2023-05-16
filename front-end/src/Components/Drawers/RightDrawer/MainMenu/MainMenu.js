@@ -17,9 +17,9 @@ const MainMenu = (props) => {
         />
         <MenuButton
           icon={<BackgroundIcon fontSize="small" color="inherit" />}
-          title="Ảnh nền"
-          description="Chọn ảnh nền cho bảng"
-          clickCallback={() => props.menuCallback("Change background")}
+          title="Thay đổi hình nền"
+          description="Chọn hình nền cho bảng"
+          clickCallback={() => props.menuCallback("Thay đổi phông nền")}
         />
       </ButtonContainer>
       <Hr />

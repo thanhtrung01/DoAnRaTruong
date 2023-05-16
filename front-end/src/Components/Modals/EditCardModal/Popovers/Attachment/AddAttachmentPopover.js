@@ -35,15 +35,15 @@ const AddAttachmentPopover = (props) => {
 	};
 	return (
 		<Container>
-			<Title>Attach a link</Title>
-			<SearchArea placeholder='Paste any link here...' value={link} onChange={(e) => setLink(e.target.value)} />
+			<Title>Đính kèm liên kết</Title>
+			<SearchArea placeholder='Dán liên kết vào đây...' value={link} onChange={(e) => setLink(e.target.value)} />
 			{link && (
 				<>
-					<Title style={{ marginTop: '0.7rem' }}>Link name (optional)</Title>
+					<Title style={{ marginTop: '0.7rem' }}>Tên liên kết (Không bắt buộc)</Title>
 					<SearchArea value={linkName} onChange={(e) => setLinkName(e.target.value)} />
 				</>
 			)}
-			<Button style={{ marginTop: '1rem' }} title='Attach' clickCallback={handleAttachClick} />
+			<Button style={{ marginTop: '1rem' }} title='Đính kèm' clickCallback={handleAttachClick} />
 		</Container>
 	);
 };

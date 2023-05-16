@@ -1,5 +1,7 @@
 const Card = require("../services/card.service");
-
+const CardSchema = require("../models/card.model");
+const ListSchema = require("../models/list.model");
+const BoardSchema = require("../models/board.model");
 const create = async (req, res) => {
   // Deconstruct the params
   const { title, listId, boardId } = req.body;
@@ -47,7 +49,6 @@ const update = async (req, res) => {
   // Get params
   const user = req.user;
   const { boardId, listId, cardId } = req.params;
-  const images_url = await req.files[0].path;
   // Call the card service
   await Card.update(
     cardId,
@@ -55,7 +56,7 @@ const update = async (req, res) => {
     boardId,
     user,
     {
-      images: images_url,
+      
       ...req.body,
     },
     (err, result) => {
@@ -491,11 +492,41 @@ const updateCover = async (req, res) => {
   );
 };
 
+
+const updateImage = async (req, res) => {
+  // Get params
+  try {
+    const user = req.user;
+    const { boardId, listId, cardId } = req.params;
+    const images_url = await req.files[0].path;
+    const board = await BoardSchema.findById(boardId);
+    const list = await ListSchema.findById(listId);
+    const card = await CardSchema.findById(cardId);
+    // Call the card service
+    await CardSchema.update(
+      card,
+      list,
+      board,
+      user,
+      {
+        images: images_url,
+      }
+    );
+    return res.status(200).json({
+      ok: true,
+      message: "Cập nhật hình ảnh thành công! 🎉",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: error.message });
+  }
+};
 module.exports = {
   create,
   deleteById,
   getCard,
   update,
+  updateImage,
   addComment,
   updateComment,
   deleteComment,

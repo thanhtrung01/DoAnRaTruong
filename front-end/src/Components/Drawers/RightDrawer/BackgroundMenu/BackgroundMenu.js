@@ -17,13 +17,13 @@ const getImages = async () => {
 const DefaultMenu = (props) => {
 	return (
 		<Container>
-			<SubContainer onClick={() => props.menuCallback('Photos by Unsplash')}>
+			<SubContainer onClick={() => props.menuCallback('Hình ảnh mẫu')}>
 				<Image link='https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg' />
-				<Title>Photos</Title>
+				<Title>Ảnh</Title>
 			</SubContainer>
-			<SubContainer onClick={() => props.menuCallback('Colors')}>
+			<SubContainer onClick={() => props.menuCallback('Màu')}>
 				<Image link='https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg' />
-				<Title>Colors</Title>
+				<Title>Màu</Title>
 			</SubContainer>
 		</Container>
 	);
@@ -87,9 +87,9 @@ const BackgroundMenu = (props) => {
 	const boardId = useSelector((state) => state.board.id);
 	return (
 		<>
-			{props.sectionName === 'Change background' ? (
+			{props.sectionName === 'Thay đổi phông nền' ? (
 				<DefaultMenu {...props} dispatch={dispatch} boardId={boardId} />
-			) : props.sectionName === 'Photos by Unsplash' ? (
+			) : props.sectionName === 'Hình ảnh mẫu' ? (
 				<PhotosMenu {...props} dispatch={dispatch} boardId={boardId} />
 			) : (
 				<ColorsMenu {...props} dispatch={dispatch} boardId={boardId} />

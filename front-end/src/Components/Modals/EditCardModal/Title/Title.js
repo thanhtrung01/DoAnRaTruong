@@ -29,7 +29,7 @@ const Title = () => {
 					onBlur={handleTitleAccept}
 				></TitleInput>
 				<Description>
-					in list <Link>{card.listTitle}</Link>
+					trong danh sách <Link>{card.listTitle}</Link>
 				</Description>
 			</RightContainer>
 		</Container>

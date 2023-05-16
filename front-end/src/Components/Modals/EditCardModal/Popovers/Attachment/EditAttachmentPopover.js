@@ -25,16 +25,16 @@ const EditAttachmentPopover = (props) => {
 	};
 	return (
 		<Container>
-			<Title>Link</Title>
-			<SearchArea placeholder='Paste any link here...' value={link} onChange={(e) => setLink(e.target.value)} />
+			<Title>Đính kèm liên kết</Title>
+			<SearchArea placeholder='Dán bất kỳ liên kết nào ở đây...' value={link} onChange={(e) => setLink(e.target.value)} />
 			{link && (
 				<>
-					<Title style={{ marginTop: '0.7rem' }}>Link name (optional)</Title>
+					<Title style={{ marginTop: '0.7rem' }}>Tên liên kết (Không bắt buộc)</Title>
 					<SearchArea value={linkName} onChange={(e) => setLinkName(e.target.value)} />
 				</>
 			)}
 			<BlueButton style={{ marginTop: '1rem' }} onClick={handleAttachClick}>
-				Update
+				Lưu
 			</BlueButton>
 		</Container>
 	);

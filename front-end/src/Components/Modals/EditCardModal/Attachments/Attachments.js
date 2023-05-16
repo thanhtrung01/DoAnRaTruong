@@ -44,7 +44,7 @@ const Attachments = (props) => {
       <Container>
         <AttachmentIcon fontSize="small" />
         <RightWrapper>
-          <Title>Attachments</Title>
+          <Title>Các tệp tinh đính kèm</Title>
           {card.attachments.map((attachment) => {
             const validateLink = () => {};
             validateLink();
@@ -67,8 +67,8 @@ const Attachments = (props) => {
                   </AttachmentTitleWrapper>
                   <AttachmentFooterWrapper>
                     <AttachmentDate>
-                      {"Added " +
-                        moment(attachment.date).format("MMM, DD [at] HH.mm")}
+                      {"Đã thêm vừa xong " +
+                        moment(attachment.date).format("[ngày] DD [tháng] MM [vào lúc] HH:mm")}
                       <AttachmentOperations
                         onClick={(e) => {
                           e.stopPropagation();
@@ -96,7 +96,7 @@ const Attachments = (props) => {
           <Button
             style={{ width: "9rem", marginTop: "0.7rem" }}
             clickCallback={(event) => setAttachmentPopover(event.currentTarget)}
-            title="Add an Attachment"
+            title="Thêm tệp đính kèm"
           />
         </RightWrapper>
         {editPopover && (
@@ -105,7 +105,7 @@ const Attachments = (props) => {
             closeCallback={() => {
               setEditPopover(null);
             }}
-            title="Edit"
+            title="Sửa"
             contents={
               <EditAttachmentPopover
                 {...popoverComponent}
@@ -122,7 +122,7 @@ const Attachments = (props) => {
             closeCallback={() => {
               setAttachmentPopover(null);
             }}
-            title="Attach from..."
+            title="Gắn từ..."
             contents={
               <AddAttachmentPopover
                 closeCallback={() => {

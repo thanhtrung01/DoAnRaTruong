@@ -75,7 +75,7 @@ const Activity = () => {
             <Title>Hoạt động</Title>
             <Button
               clickCallback={() => setDetails((prev) => !prev)}
-              title={details ? "Ẩn nội dung" : "Hiện nội dung"}
+              title={details ? "Ẩn chi tiết" : "Hiện chi tiết"}
             />
           </TitleWrapper>
           <CommentWrapper ref={ref}>

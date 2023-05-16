@@ -12,6 +12,7 @@ import { DateRange } from "react-date-range";
 import CheckBox from "../../ReUsableComponents/Checkbox";
 import Button from "../../ReUsableComponents/Button";
 import moment from "moment";
+import 'moment/locale/vi';
 import { useDispatch, useSelector } from "react-redux";
 import { openAlert } from "../../../../../Redux/Slices/alertSlice";
 import { startDueDatesUpdate } from "../../../../../Services/cardService";
@@ -19,20 +20,21 @@ import { startDueDatesUpdate } from "../../../../../Services/cardService";
 const DatePopover = (props) => {
   const dispatch = useDispatch();
   const card = useSelector((state) => state.card);
+  moment.locale('vi');
   const [state, setState] = useState([
     {
       startDate:
         card.date.startDate !== null
           ? moment(card.date.startDate).toDate()
           : card.date.dueDate !== null
-          ? moment(card.date.dueDate).toDate()
-          : new Date(),
+            ? moment(card.date.dueDate).toDate()
+            : new Date(),
       endDate:
         card.date.dueDate !== null
           ? moment(card.date.dueDate).toDate()
           : card.date.startDate !== null
-          ? moment(card.date.startDate).toDate()
-          : new Date(),
+            ? moment(card.date.startDate).toDate()
+            : new Date(),
       key: "selection",
     },
   ]);
@@ -69,7 +71,7 @@ const DatePopover = (props) => {
     if (date1 > date2) {
       dispatch(
         openAlert({
-          message: "Due date cannot be smaller then start date!",
+          message: "Ngày đến hạn không thể nhỏ hơn thì ngày bắt đầu!",
           severity: "error",
         })
       );
@@ -121,14 +123,14 @@ const DatePopover = (props) => {
             enableStartDate && enableDueDate
               ? setState([item.selection])
               : state[0].startDate !== item.selection.startDate
-              ? setState([
+                ? setState([
                   {
                     startDate: item.selection.startDate,
                     endDate: item.selection.startDate,
                     key: "selection",
                   },
                 ])
-              : setState([
+                : setState([
                   {
                     startDate: item.selection.endDate,
                     endDate: item.selection.endDate,

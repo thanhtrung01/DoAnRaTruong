@@ -5,6 +5,7 @@ import {
 	setCard,
 	updateTitle,
 	updateDescription,
+	updateImage,
 	addComment,
 	updateComment,
 	deleteComment,
@@ -47,6 +48,7 @@ import {
 	updateCoverOfCard,
 	updateDateCompletedOfCard,
 	updateDescriptionOfCard,
+	updateImageOfCard,
 	updateLabelOfCard,
 	updateLabelSelectionOfCard,
 	updateMemberOfCard,
@@ -101,13 +103,32 @@ export const titleUpdate = async (cardId, listId, boardId, title, dispatch) => {
 	}
 };
 
-export const descriptionUpdate = async (cardId, listId, boardId, images, description, dispatch) => {
-	// dispatch(updateDescription(images, description));
-	// dispatch(updateDescriptionOfCard({ listId, cardId, images, description }));
-	const formData = new FormData();
-	formData.append('images', images);
-	formData.append('description', description);
+export const descriptionUpdate = async (cardId, listId, boardId, description, dispatch) => {
 	try {
+		dispatch(updateDescription(description));
+		dispatch(updateDescriptionOfCard({ listId, cardId, description }));
+		submitCall = submitCall.then(() =>
+			axios.put(baseUrl + '/' + boardId + '/' + listId + '/' + cardId, { description: description })
+		);
+		await submitCall;
+	} catch (error) {
+		dispatch(
+			openAlert({
+				message: error?.response?.data?.errMessage ? error.response.data.errMessage : error.message,
+				severity: 'error',
+			})
+		);
+	}
+};
+
+export const imageUpdate = async (cardId, listId, boardId, images, dispatch) => {
+	try {
+		dispatch(updateImage(images));
+		dispatch(updateImageOfCard({ listId, cardId, images }));
+		const formData = new FormData();
+		formData.append('images', images);
+		dispatch(updateImage(images));
+		dispatch(updateImageOfCard({ listId, cardId, images }));
 		submitCall = submitCall.then(() =>
 			axios.put(baseUrl + '/' + boardId + '/' + listId + '/' + cardId, formData)
 		);

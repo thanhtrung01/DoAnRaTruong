@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { sm, xs } from "../BreakPoints";
 import SearchIcon from "../Images/search-icon.svg";
-
 const Container = styled.div`
   width: 15rem;
   min-width: 6rem;

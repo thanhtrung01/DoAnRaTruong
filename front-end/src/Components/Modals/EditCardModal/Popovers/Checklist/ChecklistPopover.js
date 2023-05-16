@@ -13,11 +13,11 @@ const ChecklistPopover = (props) => {
 	};
 	return (
 		<Container>
-			<Title>Title</Title>
-			<SearchArea placeholder='Title...' value={title} onChange={(e) => setTitle(e.target.value)} />
+			<Title>Tiêu đề</Title>
+			<SearchArea placeholder='Việc cần làm...' value={title} onChange={(e) => setTitle(e.target.value)} />
 			<ButtonContainer>
 				<BlueButton style={{ width: '4rem' }} onClick={handleAddClick}>
-					Add
+					Thêm
 				</BlueButton>
 			</ButtonContainer>
 		</Container>

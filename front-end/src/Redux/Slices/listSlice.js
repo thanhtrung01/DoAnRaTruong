@@ -115,12 +115,24 @@ const listSlice = createSlice({
 			});
 		},
 		updateDescriptionOfCard: (state, action) => {
-			const { listId, cardId, description, images } = action.payload;
+			const { listId, cardId, description } = action.payload;
 			state.allLists = state.allLists.map((list) => {
 				if (list._id === listId) {
 					list.cards = list.cards.map((card) => {
 						if (card._id === cardId) 
 						card.description = description;
+						return card;
+					});
+				}
+				return list;
+			});
+		},
+		updateImageOfCard: (state, action) => {
+			const { listId, cardId, images } = action.payload;
+			state.allLists = state.allLists.map((list) => {
+				if (list._id === listId) {
+					list.cards = list.cards.map((card) => {
+						if (card._id === cardId) 
 						card.images = images;
 						return card;
 					});
@@ -401,6 +413,7 @@ export const {
 	updateMemberOfCard,
 	deleteMemberOfCard,
 	updateDescriptionOfCard,
+	updateImageOfCard,
 	updateLabelSelectionOfCard,
 	updateLabelOfCard,
 	createLabelForCard,

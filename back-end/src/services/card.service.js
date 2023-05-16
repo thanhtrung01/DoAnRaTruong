@@ -962,7 +962,7 @@ const updateStartDueDates = async (
       false,
     );
     if (!validate) {
-      errMessage: 'You dont have permission to update date of this card';
+      errMessage: 'Bạn không có quyền cập nhật ngày của thẻ này';
     }
 
     //Update dates

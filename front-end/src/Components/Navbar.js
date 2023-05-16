@@ -102,10 +102,12 @@ const AddBoard = styled(Board)`
 		#565F6C 0%,
 		#565F6C 100%
 	);
-	padding: 0.25rem;
+	padding: 0.25rem 0.5rem;
 	font-size: 0.89rem;
 	transition: 2s;
 	opacity: 65%;
+	width: 4.2rem;
+	height: 2rem;
 	background-size: 200% auto;
 	color: white;
 	display: flex;
@@ -113,6 +115,7 @@ const AddBoard = styled(Board)`
 	justify-content: center;
 	text-decoration: none;
 	font-weight: 400;
+	text-align: center;
 	&:hover {
 		background-position: right center;
 		color: #fff;
@@ -146,14 +149,16 @@ const Navbar = (props) => {
 		<Container>
 
 			<LeftSide>
-				<LogoContainer>
-					<TrelloLogo
-						onClick={() => {
-							history.push('/boards');
-						}}
-						src="https://res.cloudinary.com/thanhtrung01/image/upload/v1680876059/logo/logo_todoapp_ut96zh.gif"
-					/>
-				</LogoContainer>
+				<DropdownContainer>
+					<LogoContainer>
+						<TrelloLogo
+							onClick={() => {
+								history.push('/boards');
+							}}
+							src="https://res.cloudinary.com/thanhtrung01/image/upload/v1680876059/logo/logo_todoapp_ut96zh.gif"
+						/>
+					</LogoContainer>
+				</DropdownContainer>
 				<DropdownContainer>
 					<DropdownMenu title="Bảng làm việc của bạn" />
 				</DropdownContainer>
@@ -167,8 +172,17 @@ const Navbar = (props) => {
 					<DropdownMenu title="Mẫu" />
 				</DropdownContainer>
 				<DropdownContainer>
-					{ (
-						<AddBoard onClick={() => setOpenModal(true)}>
+					{(
+						<AddBoard
+							anchorOrigin={{
+								vertical: 'bottom',
+								horizontal: 'right',
+							}}
+							transformOrigin={{
+								vertical: 'top',
+								horizontal: 'right',
+							}}
+							onClick={() => setOpenModal(true)}>
 							Tạo mới
 						</AddBoard>
 					)}

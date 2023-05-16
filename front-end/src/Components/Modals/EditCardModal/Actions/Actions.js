@@ -9,7 +9,7 @@ const Actions = () => {
   const dispatch = useDispatch();
   return (
     <Container>
-      <Title>Hành động</Title>
+      <Title>Thao tác</Title>
       {/* 	<Button title='Move' icon={<ArrowForwardIcon fontSize='1rem' />}></Button>
 			<Button title='Copy' icon={<CopyIcon fontSize='small' />}></Button>
 			<Button title='Watch' icon={<WatchIcon fontSize='small' />}></Button> */}

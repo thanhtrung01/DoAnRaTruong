@@ -14,6 +14,7 @@ export const Button = styled.button`
 	height: 2rem;
 	gap: 0.3rem;
 	padding: 0rem 0.7rem;
+	margin-right: 0.3rem;
 	border-radius: 3px;
 	cursor: pointer;
 	transition: 250ms ease;

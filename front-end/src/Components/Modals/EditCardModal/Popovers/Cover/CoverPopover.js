@@ -42,7 +42,7 @@ const CoverPopover = () => {
 
 	return (
 		<Container>
-			<Title>Size</Title>
+			<Title>Kích thước</Title>
 			<SizeContainer>
 				<SizeWrapper onClick={() => handleColorClick(card.cover.color, true)} show={card.cover.color}>
 					<SizeTypeOne
@@ -57,7 +57,7 @@ const CoverPopover = () => {
 					/>
 				</SizeWrapper>
 			</SizeContainer>
-			<Title>Colors</Title>
+			<Title>Màu sắc</Title>
 			<SmallColorsContainer>
 				{card.colors.map((color) => {
 					return (
@@ -73,7 +73,7 @@ const CoverPopover = () => {
 					);
 				})}
 			</SmallColorsContainer>
-			<Button title='Remove' style={{ marginTop: '1rem' }} clickCallback={handleRemoveClick} />
+			<Button title='Xoá ảnh bìa' style={{ marginTop: '1rem' }} clickCallback={handleRemoveClick} />
 		</Container>
 	);
 };

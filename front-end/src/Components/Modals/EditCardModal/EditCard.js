@@ -59,7 +59,7 @@ export default function EditCard(props) {
           >
             <CoverButtonWrapper style={{ width: "max-content" }}>
               <IconButton
-                title="Ảnh nền"
+                title="Ảnh bìa"
                 clickCallback={(event) => setCoverPopover(event.currentTarget)}
                 icon={<CoverIcon fontSize="small" />}
               />
@@ -69,7 +69,7 @@ export default function EditCard(props) {
                   closeCallback={() => {
                     setCoverPopover(null);
                   }}
-                  title="Ảnh nền"
+                  title="Ảnh bìa"
                   contents={
                     <CoverPopover
                       closeCallback={() => {

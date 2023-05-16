@@ -59,8 +59,8 @@ const IndexNav = () => {
     <Container>
       <Icon src={trelloLogo} />
       <RightSide>
-        <Link onClick={() => history.push("/login")}>Log in</Link>
-        <Button onClick={() => history.push("/register")}>Sign up</Button>
+        <Link onClick={() => history.push("/login")}>Đăng nhập</Link>
+        <Button onClick={() => history.push("/register")}>Đăng ký</Button>
       </RightSide>
     </Container>
   );

@@ -77,7 +77,7 @@ const AddToCard = () => {
 
       <Button
         clickCallback={(event) => setChecklistPopover(event.currentTarget)}
-        title="Đã hoàn thành"
+        title="Việc cần làm"
         icon={<CheckIcon fontSize="small" />}
       ></Button>
       {checklistPopover && (
@@ -86,7 +86,7 @@ const AddToCard = () => {
           closeCallback={() => {
             setChecklistPopover(null);
           }}
-          title="Checklist"
+          title="Thêm danh sách công việc"
           contents={
             <ChecklistPopover
               closeCallback={() => {
@@ -99,7 +99,7 @@ const AddToCard = () => {
 
       <Button
         clickCallback={(event) => setDatePopover(event.currentTarget)}
-        title="Ngày tháng"
+        title="Ngày"
         icon={<DateIcon fontSize="small" />}
       ></Button>
       {datePopover && (
@@ -108,7 +108,7 @@ const AddToCard = () => {
           closeCallback={() => {
             setDatePopover(null);
           }}
-          title="Date"
+          title="Ngày"
           contents={
             <DatePopover
               closeCallback={() => {
@@ -121,7 +121,7 @@ const AddToCard = () => {
 
       <Button
         clickCallback={(event) => setAttachmentPopover(event.currentTarget)}
-        title="Tệp đính kèm"
+        title="Đính kèm"
         icon={<AttachmentIcon fontSize="small" />}
       ></Button>
       {attachmentPopover && (
@@ -130,7 +130,7 @@ const AddToCard = () => {
           closeCallback={() => {
             setAttachmentPopover(null);
           }}
-          title="Attach from..."
+          title="Đính kèm từ..."
           contents={
             <AddAttachmentPopover
               closeCallback={() => {
@@ -142,7 +142,7 @@ const AddToCard = () => {
       )}
 
       <Button
-        title="Ảnh nền"
+        title="Ảnh bìa"
         clickCallback={(event) => setCoverPopover(event.currentTarget)}
         icon={<CoverIcon fontSize="small" />}
       ></Button>
@@ -152,7 +152,7 @@ const AddToCard = () => {
           closeCallback={() => {
             setCoverPopover(null);
           }}
-          title="Cover"
+          title="Ảnh bìa"
           contents={
             <CoverPopover
               closeCallback={() => {

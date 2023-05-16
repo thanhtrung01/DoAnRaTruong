@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as style from "./styled";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import ScreenshotMonitorIcon from '@mui/icons-material/ScreenshotMonitor';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import * as common from "../../CommonStyled";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,10 +10,12 @@ import { boardTitleUpdate } from "../../../../../Services/boardsService";
 import RightDrawer from "../../../../Drawers/RightDrawer/RightDrawer";
 import BasePopover from "../../../../Modals/EditCardModal/ReUsableComponents/BasePopover";
 import InviteMembers from "../../../../Modals/EditCardModal/Popovers/InviteMembers/InviteMembers";
-import { Avatar, AvatarGroup } from "@mui/material";
-
+import { Avatar, AvatarGroup, Button } from "@mui/material";
+import List from "../List/List";
+import html2canvas from 'html2canvas';
 const TopBar = (props) => {
-  const {name} = props;
+  const { name } = props;
+  const [imageData, setImageData] = useState('');
   const board = useSelector((state) => state.board);
   const [currentTitle, setCurrentTitle] = useState(board.title);
   const [showDrawer, setShowDrawer] = useState(false);
@@ -23,6 +27,22 @@ const TopBar = (props) => {
 
   const handleTitleChange = () => {
     boardTitleUpdate(currentTitle, board.id, dispatch);
+  };
+  const targetRef = useRef(null);
+  const handleCapture = () => {
+    html2canvas(targetRef.current).then((canvas) => {
+      const imgData = canvas.toDataURL();
+      setImageData(imgData);
+    });
+  };
+
+  const handleDownload = () => {
+    const downloadLink = document.createElement('a');
+    downloadLink.href = imageData;
+    downloadLink.download = 'screenshot.png';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
   };
   return (
     <style.TopBar>
@@ -59,6 +79,29 @@ const TopBar = (props) => {
       </style.LeftWrapper>
 
       <style.RightWrapper>
+       
+        {/* <List ref={targetRef} 
+        /> */}
+        <common.Button
+        onClick={() => {
+          handleCapture(true);
+        }}
+          className="btn-show"
+          title="Chụp màn hình bảng công việc"
+        >
+          <ScreenshotMonitorIcon />
+        </common.Button>
+        {imageData
+          && <common.Button
+          onClick={() => {
+            handleDownload(true);
+          }}
+            title="Tải xuống ảnh đã chụp"
+          >
+            <FileDownloadIcon />
+          </common.Button>
+        }
+
         <AvatarGroup className="members-avatar-group ">
           {board.members.map((item, index) => {
             return (

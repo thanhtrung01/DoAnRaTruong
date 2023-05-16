@@ -90,3 +90,18 @@ export const AddBoard = styled(Board)`
 		transition: 400ms ease-in;
 	}
 `;
+export const More = styled(Board)`
+	font-size: 1.2rem;
+	transition: 2s;
+	opacity: 65%;
+	background-size: 200% auto;
+	color: white;
+	display: flex;
+	fixed: top;
+	align-items: right;
+	justify-content: right;
+	text-decoration: none;
+	font-weight: 600;
+
+`;
+

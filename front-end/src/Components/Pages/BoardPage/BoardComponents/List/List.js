@@ -26,6 +26,7 @@ import {
   DeleteList,
   listTitleUpdate,
 } from "../../../../../Services/boardService";
+import html2canvas from 'html2canvas';
 import { createCard } from "../../../../../Services/listService";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -157,7 +158,7 @@ const List = (props) => {
                     <ListItemIcon>
                       <DeleteIcon fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText>Xoá</ListItemText>
+                    <ListItemText>Xoá thẻ</ListItemText>
                   </MenuItem>
                 </Menu>
               </Header>

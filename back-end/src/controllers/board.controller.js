@@ -150,6 +150,7 @@ const addMember = async (req, res) => {
     return res.status(200).send(result);
   });
 };
+
 const adminDeleteBoard = async (req, res) => {
   try {
     const { boardId } = req.params;
@@ -166,6 +167,7 @@ const adminDeleteBoard = async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 };
+
 const ownerDeleteOrExitBoard = async (req, res) => {
   try {
     const { boardId } = req.params;

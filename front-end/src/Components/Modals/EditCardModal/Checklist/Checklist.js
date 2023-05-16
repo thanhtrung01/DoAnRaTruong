@@ -155,7 +155,7 @@ const Checklist = (props) => {
           <RowRightButtonsWrapper>
             <Button
               clickCallback={() => setHideItems((prev) => !prev)}
-              title={hideItems ? "Hiện danh sách" : "Ẩn danh sách"}
+              title={hideItems ? "Hiện các mục đã chọn" : "Ẩn các mục đã chọn"}
             />
             <Button
               clickCallback={() => handleChecklistDelete(props._id)}

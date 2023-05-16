@@ -120,7 +120,7 @@ const LabelsPopover = (props) => {
 
   const mainPage = (
     <Container>
-      <SearchArea placeholder="Search labels..." />
+      <SearchArea placeholder="Tìm nhãn..." />
       <Title>Nhãn</Title>
       {thisCard.labels.map((label) => {
         return (
@@ -139,7 +139,7 @@ const LabelsPopover = (props) => {
           props.arrowCallback(true);
           props.titleCallback("Create");
         }}
-        title="Create a new label"
+        title="Tạo nhãn mới"
       />
     </Container>
   );
@@ -151,13 +151,13 @@ const LabelsPopover = (props) => {
 
     return (
       <Container>
-        <Title>Name</Title>
+        <Title>Tiêu đề</Title>
         <SearchArea
-          placeholder="Name..."
+          placeholder="Nhập tiêu đề..."
           value={createText}
           onChange={(e) => setCreateText(e.target.value)}
         />
-        <Title>Select a color</Title>
+        <Title>Chọn một màu</Title>
         <SmallColorsContainer>
           {colors.map((color) => {
             return (
@@ -184,12 +184,12 @@ const LabelsPopover = (props) => {
                 dispatch(
                   openAlert({
                     severity: "error",
-                    message: "Please fill all required areas!",
+                    message: "Vui lòng điền tất cả thông tin cần thiết!",
                   })
                 );
             }}
           >
-            Create
+            Thêm
           </BlueButton>
         </ButtonContainer>
       </Container>
@@ -204,13 +204,13 @@ const LabelsPopover = (props) => {
     );
     return (
       <Container>
-        <Title>Name</Title>
+        <Title>Tiêu đề</Title>
         <SearchArea
-          placeholder="Name..."
+          placeholder="Nhập tiêu đề..."
           value={changeText}
           onChange={(e) => setChangeText(e.target.value)}
         />
-        <Title>Select a color</Title>
+        <Title>Chọn một màu</Title>
         <SmallColorsContainer>
           {colors.map((color) => {
             return (
@@ -242,16 +242,16 @@ const LabelsPopover = (props) => {
                 dispatch(
                   openAlert({
                     severity: "error",
-                    message: "Please fill all required areas!",
+                    message: "Vui lòng điền tất cả các khu vực cần thiết!",
                   })
                 );
             }}
           >
-            Save
+            Lưu
           </BlueButton>
           <RedButton onClick={() => handleDeleteClick(selectedCard._id)}>
             {" "}
-            Delete
+            Xoá
           </RedButton>
         </ButtonContainer>
       </Container>

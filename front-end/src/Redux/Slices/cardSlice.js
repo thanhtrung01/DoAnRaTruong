@@ -67,6 +67,8 @@ const cardsSlice = createSlice({
 		},
 		updateDescription: (state, action) => {
 			state.description = action.payload;
+		},
+		updateImage: (state, action) => {
 			state.images = action.payload;
 		},
 		addComment: (state, action) => {
@@ -249,6 +251,7 @@ export const {
 	setCard,
 	updateTitle,
 	updateDescription,
+	updateImage,
 	addComment,
 	updateComment,
 	deleteComment,

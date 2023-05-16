@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import BasePopover from "../ReUsableComponents/BasePopover";
 import LabelsPopover from "../Popovers/Labels/LabelsPopover";
 import moment from "moment";
+import 'moment/locale/vi';
 import { dateCompletedUpdate } from "../../../../Services/cardService";
 import DatePopover from "../Popovers/Date/DatePopover";
 
@@ -25,6 +26,7 @@ const Features = (props) => {
   const dispatch = useDispatch();
   const card = useSelector((state) => state.card);
   const ref = useRef();
+  moment.locale('vi');
   const [dateCheck, setDateCheck] = useState(card.date.completed);
   const [labelPopover, setLabelPopover] = React.useState(null);
   const [labelsBackArrow, setLabelsBackArrow] = React.useState(false);
@@ -138,9 +140,9 @@ const Features = (props) => {
               }`}</DateText>
               {moment(card.date.dueDate).toDate().getTime() <
               new Date().getTime() ? (
-                <OverDueLabel show={true}>overdue</OverDueLabel>
+                <OverDueLabel show={true}>quá hạn</OverDueLabel>
               ) : (
-                <CompleteLabel show={dateCheck}>complete</CompleteLabel>
+                <CompleteLabel show={dateCheck}>hoàn thành</CompleteLabel>
               )}
               <ArrowDownIcon
                 style={{ marginBottom: "0.2rem" }}
@@ -156,7 +158,7 @@ const Features = (props) => {
           closeCallback={() => {
             setDatePopover(null);
           }}
-          title="Date"
+          title="Ngày"
           contents={
             <DatePopover
               closeCallback={() => {
