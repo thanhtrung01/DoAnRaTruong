@@ -14,6 +14,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { boardTitleUpdate } from "../../../../Services/boardsService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const style = {
   position: "absolute",
@@ -43,10 +45,15 @@ const EditBoard = ({ open, handleClose, boardDetail }) => {
     console.log(title);
     await boardTitleUpdate(title, boardDetail?._id, dispatch);
     handleClose();
+
+    toast.success("Sửa thành công!", {
+      autoClose: 2000,
+    });
   };
 
   return (
     <div>
+      <ToastContainer />
       <Modal
         open={open}
         onClose={handleClose}

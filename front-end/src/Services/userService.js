@@ -184,7 +184,6 @@ export const createUser = async (
   formData.append("phone", phone);
   formData.append("avatar", avatar);
   formData.append("isAdmin", false);
-  console.log(formData);
   try {
     const res = await axios
       .post(baseUrl + `create-user`, formData)
@@ -234,4 +233,8 @@ export const updateInfoUser = async (
 export const getAllUser = async () => {
   const res = await axios.get(baseUrl + "get-users");
   return res;
+};
+
+export const deleteUser = async (userId) => {
+  axios.delete(baseUrl + `delete-user/${userId}`);
 };

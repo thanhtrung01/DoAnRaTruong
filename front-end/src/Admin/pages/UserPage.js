@@ -1,6 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { filter, set } from "lodash";
 import { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // @mui
 import {
   Card,
@@ -29,7 +32,7 @@ import EditUser from "../components/modal/user/EditUser";
 import AlertDialog from "../components/modal/user/AlertDialog";
 import DashboardLayout from "../layouts/dashboard/DashboardLayout";
 import AddUser from "../components/modal/user/AddUser";
-import { getAllUser } from "../../Services/userService";
+import { deleteUser, getAllUser } from "../../Services/userService";
 
 // ----------------------------------------------------------------------
 
@@ -59,7 +62,6 @@ function getComparator(order, orderBy) {
 }
 
 var filteredUsers;
-var sortDateBoard;
 function applySortFilter(array, comparator, query) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -95,7 +97,7 @@ export default function UserPage({}) {
 
   useEffect(() => {
     getAllUser().then((data) => setUserData([...data.data.user]));
-  }, [openEditModal, openAddModal, verifyDelete]);
+  }, [openEditModal, openAddModal, openDialog, verifyDelete]);
 
   const handleCloseEditModal = () => setOpenEditModal(false);
   const handleCloseAddModal = () => setOpenAddModal(false);
@@ -103,7 +105,9 @@ export default function UserPage({}) {
     setVerifyDelete(false);
     setOpenDialog(false);
   };
-  const handleVerifyDelete = () => setVerifyDelete(true);
+  const handleVerifyDelete = () => {
+    setVerifyDelete(true);
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -189,9 +193,14 @@ export default function UserPage({}) {
   };
 
   if (verifyDelete) {
-    const newUserData = userData.filter((item) => item._id !== userDelete._id);
-    setUserData(newUserData);
+    // const newUserData = userData.filter((item) => item._id !== userDelete._id);
+    // setUserData(newUserData);
+
+    deleteUser(userDelete._id);
     handleCloseDialog();
+    toast.success("Xóa thành công!", {
+      autoClose: 2000,
+    });
   }
 
   const emptyRows =
@@ -212,6 +221,7 @@ export default function UserPage({}) {
 
   return (
     <div className="container-fix">
+      <ToastContainer />
       <Helmet>
         <title> Người dùng | Quản trị viên </title>
       </Helmet>
@@ -252,7 +262,6 @@ export default function UserPage({}) {
             onFilterName={handleFilterByName}
             handleDelete={handleDelete}
           />
-
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
@@ -275,6 +284,9 @@ export default function UserPage({}) {
                       .map((item) => {
                         const { _id, name, phone, email } = item;
                         const selectedUser = selected.indexOf(name) !== -1;
+                        if (item.isAdmin === true) {
+                          return null;
+                        }
 
                         return (
                           <TableRow

@@ -123,6 +123,7 @@ export const getAllBoard = async () => {
   return res;
 };
 
+
 export const AdminDeleteBoard = async (boardId, dispatch) => {
 	dispatch(setLoading(true));
 	try {
@@ -140,3 +141,6 @@ export const AdminDeleteBoard = async (boardId, dispatch) => {
 	}
 };
 
+export const deleteBoard = async (boardId) => {
+  axios.delete(baseUrl + `/delete/${boardId}`);
+};
