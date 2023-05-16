@@ -6,6 +6,8 @@ import { Grid, TextField, Button, Card, CardContent } from "@mui/material";
 import { useState } from "react";
 import { createUser } from "../../../../Services/userService";
 import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const style = {
   position: "absolute",
@@ -34,7 +36,6 @@ const AddUser = ({ open, handleClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(avatar);
     await createUser(
       dispatch,
       name,
@@ -45,11 +46,16 @@ const AddUser = ({ open, handleClose }) => {
       phone,
       avatar
     );
+
     handleClose();
+    toast.success("Tạo thành công!", {
+      autoClose: 2000,
+    });
   };
 
   return (
     <div>
+      <ToastContainer />
       <Modal
         open={open}
         onClose={handleClose}

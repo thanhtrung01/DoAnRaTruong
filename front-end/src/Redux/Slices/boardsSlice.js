@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  boardsData: {},
+  boardsData: [],
   pending: true,
   backgroundImages: [
     "https://images.unsplash.com/photo-1636471815144-616b00e21f24",
@@ -43,9 +43,9 @@ const boardsSlice = createSlice({
     failCreatingBoard: (state) => {
       state.creating = true;
     },
-    reset:(state)=>{
-      state=initialState;
-    }
+    reset: (state) => {
+      state = initialState;
+    },
   },
 });
 
@@ -56,6 +56,6 @@ export const {
   startCreatingBoard,
   successCreatingBoard,
   failCreatingBoard,
-  reset
+  reset,
 } = boardsSlice.actions;
 export default boardsSlice.reducer;

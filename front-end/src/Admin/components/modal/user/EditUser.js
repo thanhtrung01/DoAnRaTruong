@@ -14,6 +14,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateInfoUser } from "../../../../Services/userService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const style = {
   position: "absolute",
@@ -49,10 +51,15 @@ const EditUser = ({ open, handleClose, userDetail }) => {
     console.log(avatar);
     await updateInfoUser(dispatch, userDetail?._id, username, avatar);
     handleClose();
+
+    toast.success("Sửa thành công!", {
+      autoClose: 2000,
+    });
   };
 
   return (
     <div>
+      <ToastContainer />
       <Modal
         open={open}
         onClose={handleClose}

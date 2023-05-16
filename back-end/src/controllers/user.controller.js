@@ -192,8 +192,7 @@ const getAllUser = async (req, res) => {
 
     //hiden password or role change
     const usersWithoutPassword = users.map((user) => {
-      const { password, isAdmin, authType, ...userWithoutPassword } =
-        user.toObject();
+      const { password, authType, ...userWithoutPassword } = user.toObject();
       return userWithoutPassword;
     });
     const countAllUsers = await UserSchema.countDocuments();
@@ -284,14 +283,11 @@ const createUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     const { userId } = req.params;
-    await UserSchema.findByIdAndDelete(
-      userId,
-      req.params.user
-    ); 
+    await UserSchema.findByIdAndDelete(userId, req.params.user);
     return res.status(201).json({
       ok: true,
-      message: "Admin xoá người dùng thành công! 🎉"
-    });//
+      message: "Admin xoá người dùng thành công! 🎉",
+    }); //
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: err.message });

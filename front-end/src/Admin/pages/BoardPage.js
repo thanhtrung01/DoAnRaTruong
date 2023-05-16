@@ -1,6 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { filter } from "lodash";
 import { useEffect, useState } from "react";
+
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // @mui
 import {
   Card,
@@ -28,7 +31,7 @@ import { UserListHead, UserListToolbar } from "../sections/@dashboard/user";
 import USERLIST from "../_mock/user";
 import AlertDialog from "../components/modal/user/AlertDialog";
 import DashboardLayout from "../layouts/dashboard/DashboardLayout";
-import { getAllBoard } from "../../Services/boardsService";
+import { deleteBoard, getAllBoard } from "../../Services/boardsService";
 import CreateBoard from "../../Components/Modals/CreateBoardModal/CreateBoard";
 import EditBoard from "../components/modal/board/EditBoard";
 
@@ -93,9 +96,7 @@ export default function UserPage({}) {
 
   useEffect(() => {
     getAllBoard().then((data) => setBoardData([...data.data.board]));
-  }, [openEditModal, openAddModal, verifyDelete]);
-
-  console.log(boardData);
+  }, [openEditModal, openAddModal, openDialog, verifyDelete]);
 
   const handleCloseEditModal = () => setOpenEditModal(false);
   const handleCloseAddModal = () => setOpenAddModal(false);
@@ -189,11 +190,12 @@ export default function UserPage({}) {
   };
 
   if (verifyDelete) {
-    const newBoardData = boardData.filter(
-      (item) => item._id !== userDelete._id
-    );
-    setBoardData(newBoardData);
+    deleteBoard(userDelete._id);
     handleCloseDialog();
+
+    toast.success("Xóa thành công!", {
+      autoClose: 2000,
+    });
   }
 
   const emptyRows =
@@ -211,6 +213,7 @@ export default function UserPage({}) {
 
   return (
     <div className="container-fix">
+      <ToastContainer />
       <Helmet>
         <title> Bảng | Quản trị viên </title>
       </Helmet>

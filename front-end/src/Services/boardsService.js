@@ -119,3 +119,7 @@ export const getAllBoard = async () => {
   const res = await axios.get(baseUrl + "/admin/get-all");
   return res;
 };
+
+export const deleteBoard = async (boardId) => {
+  axios.delete(baseUrl + `/delete/${boardId}`);
+};
