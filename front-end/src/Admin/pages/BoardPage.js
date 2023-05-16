@@ -191,6 +191,7 @@ export default function UserPage({}) {
 
   if (verifyDelete) {
     deleteBoard(userDelete._id);
+    getAllBoard().then((data) => setBoardData([...data.data.board]));
     handleCloseDialog();
 
     toast.success("Xóa thành công!", {
