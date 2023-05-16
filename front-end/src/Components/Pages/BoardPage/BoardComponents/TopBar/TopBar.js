@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import * as style from "./styled";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import ScreenshotMonitorIcon from '@mui/icons-material/ScreenshotMonitor';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import ScreenshotMonitorIcon from "@mui/icons-material/ScreenshotMonitor";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import * as common from "../../CommonStyled";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,10 +12,10 @@ import BasePopover from "../../../../Modals/EditCardModal/ReUsableComponents/Bas
 import InviteMembers from "../../../../Modals/EditCardModal/Popovers/InviteMembers/InviteMembers";
 import { Avatar, AvatarGroup, Button } from "@mui/material";
 import List from "../List/List";
-import html2canvas from 'html2canvas';
+import html2canvas from "html2canvas";
 const TopBar = (props) => {
   const { name } = props;
-  const [imageData, setImageData] = useState('');
+  const [imageData, setImageData] = useState("");
   const board = useSelector((state) => state.board);
   const [currentTitle, setCurrentTitle] = useState(board.title);
   const [showDrawer, setShowDrawer] = useState(false);
@@ -37,9 +37,9 @@ const TopBar = (props) => {
   };
 
   const handleDownload = () => {
-    const downloadLink = document.createElement('a');
+    const downloadLink = document.createElement("a");
     downloadLink.href = imageData;
-    downloadLink.download = 'screenshot.png';
+    downloadLink.download = "screenshot.png";
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
@@ -79,28 +79,26 @@ const TopBar = (props) => {
       </style.LeftWrapper>
 
       <style.RightWrapper>
-       
-        <div ref={targetRef} 
-        ></div>
+        <div ref={targetRef}></div>
         <common.Button
-        onClick={() => {
-          handleCapture(true);
-        }}
+          onClick={() => {
+            handleCapture(true);
+          }}
           className="btn-show"
           title="Chụp màn hình bảng công việc"
         >
           <ScreenshotMonitorIcon />
         </common.Button>
-        {imageData
-          && <common.Button
-          onClick={() => {
-            handleDownload(true);
-          }}
+        {imageData && (
+          <common.Button
+            onClick={() => {
+              handleDownload(true);
+            }}
             title="Tải xuống ảnh đã chụp"
           >
             <FileDownloadIcon />
           </common.Button>
-        }
+        )}
 
         <AvatarGroup className="members-avatar-group ">
           {board.members.map((item, index) => {

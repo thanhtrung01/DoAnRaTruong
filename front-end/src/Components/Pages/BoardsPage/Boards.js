@@ -7,7 +7,7 @@ import { Container, Wrapper, Title, Board, AddBoard, More } from "./Styled";
 import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";
 import { useHistory } from "react-router";
 import { IconButton } from "@mui/material";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const Boards = () => {
   const dispatch = useDispatch();
@@ -52,6 +52,7 @@ const Boards = () => {
               .map((item) => {
                 return (
                   <Board
+                    className="board-item"
                     key={item._id}
                     link={item.backgroundImageLink}
                     isImage={item.isImage}
@@ -59,7 +60,7 @@ const Boards = () => {
                     onClick={(e) => handleClick(e)}
                   >
                     {item.title}
-                    <IconButton>
+                    <IconButton className="board-item-btn">
                       <MoreVertIcon />
                     </IconButton>
                   </Board>
