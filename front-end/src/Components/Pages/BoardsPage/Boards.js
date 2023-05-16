@@ -1,7 +1,7 @@
 import LoadingScreen from "../../LoadingScreen";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBoards } from "../../../Services/boardsService";
+import { getBoards, OwnerDeleteBoard } from "../../../Services/boardsService";
 import Navbar from "../../Navbar";
 import { Container, Wrapper, Title, Board, AddBoard, More } from "./Styled";
 import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";
@@ -9,7 +9,7 @@ import { useHistory } from "react-router";
 import { IconButton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-const Boards = () => {
+const Boards = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { pending, boardsData } = useSelector((state) => state.boards);
@@ -21,6 +21,9 @@ const Boards = () => {
 
   const handleClick = (e) => {
     history.push(`/board/${e.target.id}`);
+  };
+  const handleDeleteClick = () => {
+    OwnerDeleteBoard(props.info._id, props.info.owner, dispatch);
   };
 
   useEffect(() => {

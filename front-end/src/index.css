@@ -88,4 +88,6 @@
   align-items: inherit !important;
   margin-left: auto;
   padding: 0;
+  width: 25px;
+  height: 25px;
 }
