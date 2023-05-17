@@ -52,7 +52,7 @@
         "https"
     ],
     "consumes": [
-        "*/*"
+        "application/json"
     ],
     "produces": [
         "application/json"
@@ -75,7 +75,7 @@
                     }
                 }],
                 "produces": [
-                    "*/*"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -119,7 +119,7 @@
                     }
                 }],
                 "produces": [
-                    "*/*"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
