@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "https://server-todoweb.onrender.com",
+    "host": "//server-todoweb.onrender.com",
     "basePath": "/api/v1",
     "security": {
         "JWT": {
@@ -49,7 +49,7 @@
         }
     ],
     "schemes": [
-        "http"
+        "https"
     ],
     "consumes": [
         "*/*"
