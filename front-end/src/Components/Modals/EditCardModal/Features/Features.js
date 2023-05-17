@@ -115,7 +115,9 @@ const Features = (props) => {
       )}
       {(card.date.startDate || card.date.dueDate) && (
         <FeatureContainer>
-          <Title>
+          <Title
+          className="demo-color"
+            >
             {card.date.startDate
               ? card.date.dueDate
                 ? "Ngày bắt đầu"

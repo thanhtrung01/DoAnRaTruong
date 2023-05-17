@@ -95,3 +95,7 @@
   top: 3px;
   right: 26px;
 }
+
+.demo-color {
+  background-color: blue !important;
+}

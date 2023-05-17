@@ -20,7 +20,8 @@ export const FeatureContainer = styled.div`
 `;
 
 export const Title = styled.div`
-	color: #5e6c84;
+	background-color: blue;
+	color: blue;
 	font-size: 0.85rem;
 	font-weight: 600;
 	overflow: hidden;
