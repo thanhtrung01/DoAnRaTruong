@@ -6,6 +6,8 @@ import Navbar from "../../Navbar";
 import { Container, Wrapper, Title, Board, AddBoard, More, SpanTitle } from "./Styled";
 import CreateBoard from "../../Modals/CreateBoardModal/CreateBoard";
 import { useHistory } from "react-router";
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton, Menu, MenuItem, Snackbar, Alert } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -115,9 +117,13 @@ const Boards = (props) => {
                       transformOrigin={{ vertical: "top", horizontal: "right" }}
                     >
                       {owner && isMember ? (
-                        <MenuItem onClick={() => handleDeleteBoard(boardId)}>Xoá bảng</MenuItem>
+                        <MenuItem onClick={() => handleDeleteBoard(boardId)}>
+                          <DeleteIcon/> Xoá bảng
+                        </MenuItem>
                       ) : (
-                        <MenuItem onClick={() => handleDeleteBoard(boardId)}>Thoát khỏi bảng</MenuItem>
+                        <MenuItem onClick={() => handleDeleteBoard(boardId)}>
+                          <RemoveCircleOutlineIcon /> Thoát bảng
+                        </MenuItem>
                       )}
                       {successMessage && (
                         <Snackbar open={true} autoHideDuration={3000} onClose={() => setSuccessMessage("")}>

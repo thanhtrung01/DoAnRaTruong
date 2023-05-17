@@ -197,7 +197,9 @@ export default function UserPage({}) {
     // setUserData(newUserData);
 
     deleteUser(userDelete._id);
+    getAllUser().then((data) => setUserData([...data.data.user]));
     handleCloseDialog();
+
     toast.success("Xóa thành công!", {
       autoClose: 2000,
     });

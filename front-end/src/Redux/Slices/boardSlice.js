@@ -22,7 +22,14 @@ const boardSlice = createSlice({
 		},
 		successFetchingBoard: (state, action) => {
 			state.id = action.payload._id;
+			state.title = action.payload.title;
+			// state.members = action.payload.members.avatar;
+			state.backgroundImageLink = action.payload.backgroundImageLink;
+			state.isImage = action.payload.isImage;
+			state.lists = action.payload.lists;
 			state.members = action.payload.members;
+			state.activity = action.payload.activity;
+			state.description = action.payload.description;
 		},
 		updateTitle: (state, action) => {
 			state.title = action.payload;
@@ -45,7 +52,8 @@ const boardSlice = createSlice({
 			state.members = action.payload;
 		},
 		successDeletingBoard: (state, action) => {
-			state.id = action.payload;
+			state.id = action.payload._id;
+			state.members = action.payload.members;
 		},
 		updateTitle: (state, action) => {
 			state.title = action.payload;

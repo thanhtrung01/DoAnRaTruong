@@ -173,34 +173,39 @@ const ownerDeleteOrExitBoard = async (req, res) => {
     const { boardId } = req.params;
     const userId = req.user.id;
     const board = await BoardSchema.findById(boardId);
-    const isOwner = board.members.find(member => member.role === "owner");
-    if (isOwner && isOwner.user.toString() === userId) {
+
+    if (!board) {
+      return res.status(404).json({
+        ok: false,
+        message: "Không tìm thấy bảng",
+      });
+    }
+
+    const isOwner = board.members.some((member) => member.role === "owner" && member.user.toString() === userId);
+
+    if (isOwner) {
+      // Xóa toàn bộ bảng
       await BoardSchema.findByIdAndDelete(boardId);
+
       return res.status(200).json({
         ok: true,
         message: "Xoá bảng thành công! 🎉",
       });
-    }else {
-      await BoardSchema.updateOne(
-        { _id: boardId },
-        { 
-          $pull: { 
-            members: { user: userId } 
-          } 
-        }
-      );
-      return res.status(200).json({
-        ok: true,
-        message: "Thoát bảng thành công! 🎉",
-      });
     }
-    // return res.status(403).json({
-    //   ok: false,
-    //   message: "Bạn không có quyền xoá bảng này",
-    // });
+
+    // Xóa thành viên ra khỏi bảng
+    await BoardSchema.updateOne(
+      { _id: boardId },
+      { $pull: { members: { user: userId } } }
+    );
+
+    return res.status(200).json({
+      ok: true,
+      message: "Thoát bảng thành công! 🎉",
+    });
   } catch (err) {
-    console.log(err);
-    return res.status(500).json({ msg: err.message });
+    console.error(err);
+    return res.status(500).json({ ok: false, message: "Lỗi server" });
   }
 };
 
