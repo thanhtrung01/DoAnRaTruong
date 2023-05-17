@@ -22,7 +22,7 @@ app.use(cookieParser());
 const whitelist = [
   "https://do-an-ra-truong.vercel.app",
   "http://localhost:3000",
-  "https://server-todoweb.onrender.com/"
+  "https://server-todoweb.onrender.com"
 ];
 // const { Cors } = require('./middlewares/cors');
 // const corsOptions = {
